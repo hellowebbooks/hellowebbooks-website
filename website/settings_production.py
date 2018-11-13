@@ -30,6 +30,3 @@ STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-import django_heroku
-django_heroku.settings(locals())

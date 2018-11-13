@@ -9,5 +9,4 @@ isort==4.3.4
 flake8==3.5.0
 pycodestyle==2.3.0
 Django==2.1.2
-django-heroku
 gunicorn
