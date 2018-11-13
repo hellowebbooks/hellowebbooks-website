@@ -1,0 +1,73 @@
+{% extends "blog/base.html" %}
+{% load static humanize el_pagination_tags %}
+
+{% block title %}Blog - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Blog Home");
+{% endblock %}
+
+{% block postcontent %}
+
+<div class="container">
+    <div class="row">
+        <!-- main col -->
+        <div class="col-md-9">
+            <div class="blog-home-header">
+              {% if search_term %}
+              {% if search_type == "category" %}
+              <h1>{{ search_type|title }}: <span class="highlight">{% if search_term == "casestudy" %}Case Study{% else %}{{ search_term|title }}{% endif %}</span></h1>
+              {% else %}
+              <h1>Search Results for {{ search_type|title }}: <span class="highlight">{{ search_term|title }}</span></h1>
+              {% endif %}
+              <p>{{ posts|length|apnumber|title }} result{{ posts|pluralize }} found. Return to the main blog page <a href="/news/">here</a>.</p>
+              {% else %}
+              <h1><span class="highlight">Articles + Tutorials</span></h1>
+              <p>I often write tutorials on fun, beginner web stuff as well as about how I produce my books and videos.</p>
+              {% endif %}
+              <ul class="list-inline social-media">
+                  <li><a href="//twitter.com/hellowebbooks"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="//facebook.com/hellowebapp"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="//instagram.com/hellowebbooks"><i class="fa fa-instagram"></i></a></li>
+                  <li><a href="//github.com/hellowebbooks"><i class="fa fa-github"></i></a></li>
+                  <li><a href="mailto:tracy@hellowebbooks.com"><i class="fa fa-envelope"></i></a></li>
+                  <li><a href="/rss.xml"><i class="fa fa-rss"></i></a></li>
+              </ul>
+            </div>
+
+            <ul class="list-unstyled" id="archive-list">
+                {% paginate 10 posts %}
+                {% for post in posts %}
+                {% if forloop.counter0 < 20 %}
+                {% include 'includes/post-link.html' with post=post %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+
+            {% get_pages %}
+            {% if pages|length > 1 %}
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="{{ pages.previous.url }}">Previous</a></li>
+                {% for page in pages %}
+                {% if page.is_current %}
+                <li class="page-item active"><a class="page-link" href="?page={{ forloop.counter }}" disabled=disabled>{{ forloop.counter }}</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <li class="page-item"><a class="page-link" href="{{ pages.next.url }}">Next</a></li>
+              </ul>
+            </nav>
+            {% endif %}
+        </div>
+
+        <div class="col-md-3">
+          {% include 'blog/components/sidebar.html' %}
+        </div>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock %}

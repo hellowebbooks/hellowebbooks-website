@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Write for Hello Web Books - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Write");
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Write for Hello Web Books</h1>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" style="margin-bottom: 6rem;">
+            <h3>Got a book in you?</h3>
+            <p>I started writing Hello Web Books because I wanted smaller, friendlier books for tech folks. No giant behemoth tomes — something small, fun, and easy to pick up.</p>
+            <p>I've learned so much after self-publishing three books. Book design, book production, eBook conversion, how to get on Amazon, how to set up a fulfillment warehouse, sales, marketing, you name it. And I've been thinking it's a shame that I can't help others with this knowledge.</p>
+            <p>Thinking of writing a book? Let's see about working together!</p>
+            <h3>Right now the audience for Hello Web Books is mainly programmers and tech-y folk. I'm investigating publishing other books under the Hello Web Books brand which fit these guidelines:</h3>
+            <ul>
+                <li><b>Small:</b> Ideally under 200 pages. In terms of word count, this means ~17,000 words (for a code-heavy book) to 30,000 words (more word-heavy.)</li>
+                <li><b>Friendly:</b> My books are intentially a little bit dorky. I find that having a bit of fun with the writing means the books are more fun to read.</li>
+                {% comment %}<li><b>Topics that would generally interest programmers:</b> Other publishers have the design/front-end market fairly covered. This doesn't mean you have to write about programming (see, for example, my book on web design that's written for programmers.) Just topics that would interest that audience.</li>{% endcomment %}
+                <li><b>Beginner/intermediate preferred:</b> I've gotten well known for beginner/introductory topics, so I lean towards those (especially when starting out publishing other books.) But this is flexible depending on topic.</li>
+            </ul>
+
+            {% comment %}
+            <p>What does book publishing entail? Here's my process, which I would likely adapt for someone who's working with me (with flexibility):</p>
+            <ul>
+                <li>Start with an outline and first 2,000 words. See if it fits.</li>
+                <li>Work on writing the book while marketing starts. This would be a good place to run a Kickstarter to drum up initial interest and get a set of pre-orders.</li>
+                <li>Draft of the book will go through several rounds of editing - myself, a hired copyeditor, and perhaps your new customers from the Kickstarter giving their feedback.</li>
+            {% endcomment %}
+
+            <h3>Regarding money (since that's the most important part, right?)</h3>
+            <p>Ideally we'd run a Kickstarter campaign for the book to determine viability and to get pre-orders/initial marketing for the book (don't worry, I will coordinate everything for the campaign for you!) From there, you'll get your advance and we'll coordinate a much, much, much higher percentage than traditional publishers for royalties.</p>
+            <p>I have to coordinate and cover production costs, but my goal is for the majority of profits from your book to go straight to you.</p>
+
+            <h3>Interested? Questions?</h3>
+            <p>Send me an email at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a>. We can start chatting topics and answer any questions you have. I also have a book proposal document for you to fill out when you're ready to propose a topic.</p>
+
+            <p>I hope to work with you!</p>
+        </div>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Contact - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Contact");
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Contact</h1>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center" style="margin-bottom: 6rem;">
+
+            <p>All Hello Web Books were written by Tracy Osborn, and she can be reached at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a>.
+        </div>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

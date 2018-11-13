@@ -1,0 +1,17 @@
+{% if category == "tutorial" %}
+<a href="{% url '/category/tutorials.html' %}">
+{% elif category == "casestudy" %}
+<a href="{% url '/category/case-studies.html' %}">
+{% elif category == "production" %}
+<a href="{% url '/category/production.html' %}">
+{% elif category == "announcements" %}
+<a href="{% url '/category/announcements.html' %}">
+{% elif category == "interview" %}
+<a href="{% url '/category/interviews.html' %}">
+{% elif category == "design" %}
+<a href="{% url '/category/design.html' %}">
+{% else %}
+<a href="">
+{% endif %}
+#{{ category }}
+</a>

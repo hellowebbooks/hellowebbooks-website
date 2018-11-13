@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}About - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("About");
+{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron"></div>
+
+<div class="container">
+    <h1 class="text-center">About</h1>
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

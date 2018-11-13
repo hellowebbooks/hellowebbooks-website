@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Samples - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Samples");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="samples">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron"></div>
+
+<div class="container" style="margin-bottom: 7rem;">
+
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 text-center">
+            <h1>Book Samples</h1>
+            <p>Thanks for signing up for the Hello Web Books newsletter! You can download samples of any of the Hello Web Books below.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Hello Web App</h2>
+            <img src="{% static 'images/original/1.jpg' %}" alt="Hello Web App book" style="margin-bottom: 10px" />
+            <p><strong>Learn web app development</strong> using Python and Django with this step-by-step tutorial, from ideation to launching on Heroku.</p>
+            <a href="http://hellobks.com/sample" class="btn btn-primary btn-sm">Get the sample</a>
+            <a href="{% url '/order.html' %}" class="btn btn-secondary btn-sm">Buy the book</a>
+        </div>
+        <div class="col-md-4">
+            <h2>Hello Web App: <span style="font-size: 14px">Intermediate Concepts</span></h2>
+            <img src="{% static 'images/ic/1.jpg' %}" alt="Hello Web App: Intermediate Concepts book" style="margin-bottom: 10px" />
+            <p><strong>Continue growing your Django web app.</strong> Self-contained chapters cover concepts such as adding payments, working with multiple models, and more.</p>
+            <a href="http://hellobks.com/ic-sample" class="btn btn-primary btn-sm">Get the sample</a>
+            <a href="{% url '/order.html' %}" class="btn btn-secondary btn-sm">Buy the book</a>
+        </div>
+        <div class="col-md-4">
+            <h2>Hello Web Design</h2>
+            <img src="{% static 'images/hwd/1.jpg' %}" alt="Hello Web Design book" style="margin-bottom: 10px" />
+            <p><strong>Learn web design.</strong> Covers visual, UX, and UI design principles and shortcuts, aimed at programmers, developers, and non-designers.</p>
+            <a href="http://hellobks.com/hwd-sample" class="btn btn-primary btn-sm">Get the sample</a>
+            <a href="{% url '/learn-design.html' %}#hwd-packages" class="btn btn-secondary btn-sm">Buy the book</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

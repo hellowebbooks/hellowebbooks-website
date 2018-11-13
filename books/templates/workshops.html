@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Workshops - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Workshops");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="workshops">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 text-center">
+            <h1>Workshops</h1>
+            <p>I occasionally give in-person workshops, ranging from two hour to two day sessions. Interested in booking a Hello Web App workshop? Email me <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a></p>
+        </div>
+    </div>
+
+    <h2>Upcoming Workshops</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Date</td>
+                <td>Venue/Organizer</td>
+                <td>Cost</td>
+                <td>More Info</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="3">None currently scheduled, check back soon!</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Past Workshops</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Date</td>
+                <td>Venue/Organizer</td>
+                <td>Cost</td>
+                <td>More Info</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>July 17, 2016</td>
+                <td><a href="https://2016.djangocon.us">DjangoCon</a> &#8212; Philadelphia, PA</td>
+                <td>$150</td>
+                <td><a href="https://2016.djangocon.us/schedule/presentation/59/">Link</a></td>
+            </tr>
+            <tr>
+                <td>May. 29, 2016</td>
+                <td><a href="http://us.pycon.org">PyCon</a> &#8212; Portland, OR</td>
+                <td>$150</td>
+                <td><a href="https://us.pycon.org/2016/schedule/presentation/1567/">Link</a></td>
+            </tr>
+            <tr>
+                <td>Mar. 26, 2016</td>
+                <td><a href="http://www.meetup.com/designers-who-code/events/229374622/">Designers Who Code</a> &#8212; San Francisco, CA</td>
+                <td>$10</td>
+                <td><a href="https://ti.to/designers-who-code/django-for-designers-workshop">Link</a></td>
+            </tr>
+            <tr>
+                <td>Feb. 6, 2016</td>
+                <td><a href="https://www.pytennessee.org/">PyTennessee</a> &#8212; Nashville, TN</td>
+                <td>Free</td>
+                <td><a href="https://www.pytennessee.org/schedule/">Link</a></td>
+            </tr>
+            <tr>
+                <td>Sept. 26, 2015</td>
+                <td><a href="https://hackbrightacademy.com/">Hackbright Academy</a> &#8212; San Francisco, CA</td>
+                <td>Free</td>
+                <td><a href="http://www.eventbrite.com/e/build-your-first-web-app-with-tracy-osborn-tickets-17559146881?aff=es2">Link</a></td>
+            </tr>
+            <tr>
+                <td>Sept. 6, 2015</td>
+                <td><a href="http://2015.djangocon.us/">DjangoCon US</a> &#8212; Austin, TX</td>
+                <td>$150</td>
+                <td><a href="http://2015.djangocon.us/schedule/tutorials/list/">Link</a></td>
+            </tr>
+            <tr>
+                <td>May 31, 2015</td>
+                <td><a href="http://2015.djangocon.eu/">DjangoCon EU</a> &#8212; Cardiff, Wales, UK</td>
+                <td>Free</td>
+                <td><a href="http://2015.djangocon.eu/event/django-web-designers/">Link</a></td>
+            </tr>
+            <tr>
+                <td>May 21, 2015</td>
+                <td><a href="http://rfrshpdx.org/">Refresh Portland</a> &#8212; Portland, OR</td>
+                <td>$125</td>
+                <td><a href="http://rfrshpdx.org/build-a-web-app-workshop/">Link</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+{% include 'includes/newsletter.html' %}
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

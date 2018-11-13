@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Blog - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Blog Home");
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- main col -->
+        <div class="col-md-9">
+            <div class="blog-home-header">
+              <h1><span class="highlight">Articles + Tutorials</span></h1>
+              <p>I often write tutorials on fun, beginner web stuff as well as about how I produce my books and videos.</p>
+              <ul class="list-inline social-media">
+                  <li><a href="//twitter.com/hellowebbooks"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="//facebook.com/hellowebapp"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="//instagram.com/hellowebbooks"><i class="fa fa-instagram"></i></a></li>
+                  <li><a href="//github.com/hellowebbooks"><i class="fa fa-github"></i></a></li>
+                  <li><a href="mailto:tracy@hellowebbooks.com"><i class="fa fa-envelope"></i></a></li>
+                  <li><a href="/rss.xml"><i class="fa fa-rss"></i></a></li>
+              </ul>
+            </div>
+
+            <ul class="list-unstyled" id="archive-list">
+                {% for post in posts %}
+                {% if forloop.counter0 < 20 %}
+                {% include 'includes/post-link.html' with post=post %}
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-3">
+          {% include 'includes/blog-sidebar.html' %}
+        </div>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

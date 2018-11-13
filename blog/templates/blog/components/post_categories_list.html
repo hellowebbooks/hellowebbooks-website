@@ -1,0 +1,7 @@
+<i class="fas fa-tag"></i>
+{% for category in post.categories.all %}
+  <a href="/news/category/{{ category.slug }}/">
+    {{ category.name }}
+  </a>
+  {% if not forloop.last %} &middot; {% endif %}
+{% endfor %}

@@ -1,0 +1,174 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Hello Web Books{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static '/images/favicons/apple-touch-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static '/images/favicons/apple-touch-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static '/images/favicons/apple-touch-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static '/images/favicons/apple-touch-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static '/images/favicons/apple-touch-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static '/images/favicons/apple-touch-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static '/images/favicons/apple-touch-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static '/images/favicons/apple-touch-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static '/images/favicons/apple-touch-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" href="{% static '/images/favicons/favicon-32x32.png' %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static '/images/favicons/android-chrome-192x192.png' %}" sizes="192x192">
+    <link rel="icon" type="image/png" href="{% static '/images/favicons/favicon-96x96.png' %}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{% static '/images/favicons/favicon-16x16.png' %}" sizes="16x16">
+    <link rel="canonical" href="{{ CURRENT_PAGE.absolute_final_url }}" />
+    <link rel="stylesheet" href="{% static '/scss/style.scss.css' %}?v=34">
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hello Web Books" />
+    <meta name="twitter:site" content="@hellowebbooks"/>
+    <meta name="twitter:creator" content="@limedaring"/>
+    {% block header %}
+    {% endblock header %}
+    <script type="text/javascript">
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+    analytics.load("RYGBe9lnLwGVU8NK5t6tN1SkDdDNL4SC");
+    {% block analytics %}
+    analytics.page()
+    {% endblock %}
+    }}();
+    </script>
+    <meta name="google-site-verification" content="6qgsnShfjPXfY1ujiQBVnf-BK8dywp_atWp0bvz2Zb8" />
+    <meta name="google-site-verification" content="UCY_UR08IOIkky9jBQ0kYwnCGrrUA-S_nQ9IcD5cVOc" />
+    <meta name="p:domain_verify" content="082cf97b49f140588b479c2098ce4765"/>
+</head>
+
+{% block bodyclass %}
+<body>
+{% endblock bodyclass %}
+    <nav class="container" id="main-nav">
+        <div class="row">
+            <div class="logo col-md-6">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'images/hwb-logo.svg' %}" alt="Hello Web Books"/>
+                </a>
+                <p>Really friendly beginner web books by Tracy Osborn</p>
+            </div>
+            <nav class="col-md-6">
+                <ul class="list-inline">
+                    <li><a href="{% url 'courses' %}">Books<span class="hidden-md-down"> + Courses<span></a></li>
+                    <li><a href="/news">Articles<span class="hidden-md-down"> + Tutorials</span></a></li>
+                    {# <li><a href="{% url '/faq.html' %}">FAQ</a></li> #}
+                    <li><a href="{% url 'order' %}"><span class="highlight">Buy</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+
+    <div id="footer" class="container">
+        <nav>
+            <ul class="list-unstyled">
+              <li>Products
+                <ul class="list-unstyled">
+                  <li><a href="{% url 'courses' %}">All Products</a></li>
+                  <li><a href="{% url 'learn-design' %}">Hello Web Design</a></li>
+                  <li><a href="{% url 'learn-django' %}">Hello Web App</a></li>
+                  <li><a href="{% url 'order' %}">Order</a></li>
+                  <li><a href="{% url 'donate' %}">Donate</a></li>
+                  <li><a href="{% url 'workshops' %}">Workshops</a></li>
+                </ul>
+              </li>
+              <li>Discussion
+                <ul class="list-unstyled">
+                  <li><a href="/news">Blog</a></li>
+                  <li><a href="//discuss.hellowebapp.com">Discuss</a></li>
+                  <li><a href="{% url 'setup' %}">Django Setup</a></li>
+                </ul>
+              </li>
+              <li>About
+                <ul class="list-unstyled">
+                  <li><a href="{% url 'write' %}">Write for Hello Web Books</a></li>
+                  <li><a href="{% url 'faq' %}">FAQ</a></li>
+                  <li><a href="{% url 'press' %}">Press</a></li>
+                  <li><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
+                  <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+              </li>
+            </ul>
+        </nav>
+        <div class="footer-extra">
+            <p class="copy">Hello Web Books by Tracy Osborn, &copy; {% now "Y" %}</p>
+            <ul class="list-inline social-media">
+                <li><a href="//twitter.com/hellowebbooks"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="//facebook.com/hellowebbooks"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="//instagram.com/hellowebbooks"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="//github.com/hellowebbooks"><i class="fa fa-github"></i></a></li>
+                <li><a href="mailto:tracy@hellowebapp.com"><i class="fa fa-envelope"></i></a></li>
+                <li><a href="/rss.xml"><i class="fa fa-rss"></i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    {% comment %}
+    <div id="nagger">
+        <div id="nagger-wrap">
+            <p><a target="_blank" href="https://www.kickstarter.com/projects/1868398473/hello-web-app-20-build-your-first-web-app-with-dja">Learn how to build a web app!<span class="hidden-lg-down"> Support the <i>Hello Web App</i> Kickstarter, ending on Mar 30 2018.</span></a> &nbsp;
+            <a href="https://www.kickstarter.com/projects/1868398473/hello-web-app-20-build-your-first-web-app-with-dja" title="Hello Web App Kickstarter" class="btn btn-primary btn-sm" target="_blank"><span class="hidden-md-down">See on Kickstarter</span><span class="visible-md-down hidden-lg-up">Pre-order</span></a></p>
+        </div>
+        <div class="nagger-close">
+            <a title="Close this notification">x</a>
+        </div>
+    </div>
+    {% endcomment %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script async src="https://assets.convertkit.com/assets/CKJS4.js?v=21"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script src="{% static '/js/main.js' %}"></script>
+    <script>
+     WebFont.load({
+        google: {
+            families: ['Lato:400,400italic,700,700italic']
+        }
+      });
+
+        //if(is_nagger_enabled()) {
+        //    $("html").addClass("body-nagger");
+        //    $("#nagger").show();
+        //    $(".nagger-close").show();
+        //}
+
+        //function disable_nagger() {
+            //localStorage.setItem('enable-nagger', '0');
+        //    $("#nagger").slideUp();
+        //}
+
+        //function is_nagger_enabled() {
+        //   return localStorage.getItem('enable-nagger') != '0';
+        //}
+
+        //$(".nagger-close a").click(function() {
+        //    $(".nagger-close").hide();
+        //    disable_nagger();
+        //    $("html").animate({
+        //        'marginTop' : "-=40px"
+        //    });
+
+        //    return false;
+        //});
+
+    </script>
+
+    {% block scripts %}
+    {% endblock scripts %}
+
+<!-- begin olark code -->
+<script type="text/javascript" async> ;(function(o,l,a,r,k,y){if(o.olark)return; r="script";y=l.createElement(r);r=l.getElementsByTagName(r)[0]; y.async=1;y.src="//"+a;r.parentNode.insertBefore(y,r); y=o.olark=function(){k.s.push(arguments);k.t.push(+new Date)}; y.extend=function(i,j){y("extend",i,j)}; y.identify=function(i){y("identify",k.i=i)}; y.configure=function(i,j){y("configure",i,j);k.c[i]=j}; k=y._={s:[],t:[+new Date],c:{},l:a}; })(window,document,"static.olark.com/jsclient/loader.js");
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('4642-727-10-3831');</script>
+<!-- end olark code -->
+</body>
+</html>

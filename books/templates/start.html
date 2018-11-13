@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Start Here - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Start");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="start">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="content-block">
+        {% comment %}
+        <h1 class="text-center">Join 2,000+ other first-time programmers<span class="hidden-sm-down"> and other readers of Hello Web App.</span></h1>
+        {% endcomment %}
+        <h1 class="text-center">Build and design your side project with books by Tracy Osborn.</h1>
+        <img src="{% static 'images/me.png' %}" alt="Tracy Osborn" class="pull-right"/>
+        <p>Hi, I'm the author, Tracy.</p>
+        <p>I started writing books in 2014 after getting frustrated with the way that beginner concepts were being taught. <strong>I realized that web app programming could be taught (and should be) taught in a different way to learners like myself</strong> and <em>Hello Web App</em> was born. Three years later, <em>Hello Web App</em> has helped thousands of beginner programmers launch their first web app.</p>
+        <p><strong><em>Hello Web App</em> is down-to-earth with no nonsense.</strong> The book is written in an informal and friendly tone with no jargon. Many programming books suffer from wordiness and bloat &#8212; <strong>this is simply the basics in an easy-to-read and understand manner.</strong></p>
+        <p>My third book, <em>Hello Web Design</em>, was successfully funded on Kickstarter in early 2017 and will be released mid-to-late 2017 as an eBook, paperback, and video package. <strong><a href="{% url '/learn-design.html' %}">Pre-order <em>Hello Web Design</em> today.</strong></a></p>
+    </div>
+
+    {% comment %}
+    <div class="row">
+        <h2 class="text-center">Why Hello Web App is awesome</h2>
+        <div class="col-md-4 text-center">
+            <h3>No jargon</h3>
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Only the basics</h3>
+
+        </div>
+        <div class="col-md-4 text-center">
+            <h3>Easy to understand</h3>
+        </div>
+    </div>
+    {% endcomment %}
+
+    <div class="row text-center" id="hwd-packages">
+        <h2 class="text-center vertical-margin" style="font-size: 3rem;">Pre-order Hello Web Design</h2>
+        <div class="col-sm-4">
+            <h3 class="text-center">The eBooks</h3>
+            <p><strong>Hello Web Design in digital format</strong>, lovingly designed by Tracy herself. A brief book jam-packed with information. Comes in PDF, .mobi, and .ePub formats.</p>
+            <div class="text-center">
+                <script src="https://gumroad.com/js/gumroad.js"></script>
+                <a class="gumroad-button" href="https://gum.co/hwd-ebook">Pre-order for $14.95</a>
+            </div>
+            {% comment %}<p><small>$14.95</small></p>{% endcomment %}
+        </div>
+        <div class="col-sm-4">
+            <h3 class="text-center">The Video Package</h3>
+            <p><strong>The eBooks plus 15+ videos</strong> walking you through the theory and process parts of the book, plus extra "design critique" videos to help you train your design intuition. <em>Add the paperback book for $10 more.</em></p>
+            <div class="text-center">
+                <a class="gumroad-button gumroad-button-strong" href="https://gum.co/hwd-videos">Pre-order for $79</a>
+            </div>
+            {% comment %}<p><small>$79</small></p>{% endcomment %}
+        </div>
+        <div class="col-sm-4">
+            <h3 class="text-center">The Paperback Package</h3>
+            <p>Learn better with a physical book? I got you! This package contains the eBook (in all three formats) <strong>plus the paperback book</strong>. Shipping extra.</p>
+            <div class="text-center">
+                <a class="gumroad-button" href="https://gum.co/hwd-pb">Pre-order for $24.95</a>
+            </div>
+            {% comment %}<p><small>$24.95</small></p>{% endcomment %}
+        </div>
+    </div>
+
+    <div class="row">
+        <h2 class="text-center super-vertical-top-margin" style="font-size: 3rem;">Buy Hello Web App</h2>
+        <div class="col-sm-5">
+            <img src="{% static 'images/products/both-books.jpg' %}" alt="Both Hello Web App books" />
+        </div>
+        <div class="col-sm-7">
+            <h3 style="font-size: 2rem;">The Complete Double Hello Web App Package</h3>
+            <p>This package contains the entire Hello Web App series &#8212; the paperback books, the videos, and the eBooks. Learn how to build, grow, and monetize your web app all in one purchase.</p>
+            <h4>Full contents:</h4>
+            <ul>
+                <li>Six eBook files &#8212; PDF, .mobi, and .ePub files for both books.</li>
+                <li>28 videos &#8212; screencasts walking you through all chapters of the books plus four bonus beginner videos.</li>
+                <li>Two gorgeously designed paperback books.</li>
+            </ul>
+            <p class="text-center vertical-margin">
+                <a href="//gum.co/double-hwa-video-pb" class="btn btn-primary buy-button" data-title="Complete Double Video Paperback package" data-price="144">Buy for $144</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row super-vertical-margin">
+        <p class="text-center"><a href="{% url '/order.html' %}" class="btn btn-secondary">See all buying options here, starting at $14.95</a></p>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".buy-button").each(function() {
+            var link = $(this);
+            analytics.trackLink(link, 'Clicked Buy Link', {
+                title: $(link).data("title"),
+                price: $(link).data("price"),
+            });
+        });
+    });
+</script>
+{% endblock scripts %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Books and Courses - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Books and Courses");
+{% endblock %}
+
+{% block content %}
+<div class="container courses">
+    <h1><span class="highlight">Books and Courses</span></h1>
+    <p>I love to teach beginner web skills! See everything I've released so far:</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Learn Design</h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 style="margin-top:0.5em;"><a href="{% url 'learn-design' %}"><i>Hello Web Design</i></a></h3>
+                    <img style="margin-bottom:10px" src="{% static '/images/hwd/hwd-courses.jpg' %}" alt="Hello Web App" />
+                    <p><strong>Design shortcuts and fundamentals</strong> aimed for programmers, developers, marketers, and non-designers. Learn just enough design to be dangerous.</p>
+                    <p style="margin-bottom:0"><a href="{% url 'learn-design' %}" class="btn btn-primary">More about <i>Hello Web Design</i></a></p>
+                    <small><em>Pricing starts at $24.95</em></small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h2>Learn Programming</h2>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 style="margin-top:0.5em;"><a href="{% url 'learn-django' %}"><i>Hello Web App</i></a></h3>
+                    <img style="margin-bottom:10px" src="{% static '/images/original/hwa-courses.jpg' %}" alt="Hello Web App" />
+                    <p><strong>Want to build your first web app?</strong> Hello Web App walks you through building and launching a simple web app using Python and Django.</p>
+                    <p style="margin-bottom:0"><a href="{% url 'learn-django' %}" class="btn btn-primary">More about <i>Hello Web App</i></a></p>
+                    <small><em>Pricing starts at $34.95</em></small>
+                </div>
+                <div class="col-sm-6">
+                    <h3 style="margin-top:0.5em;"><a href="{% url 'learn-command-line' %}"><i>Friendly Command Line Intro</i></a></h3>
+                    <img style="margin-bottom:10px" src="{% static '/images/cmd/cmd-courses.jpg' %}" alt="Hello Web App" />
+                    <p><strong>Free intro to the command line.</strong> Free zine, printable, and online intro to the command line. Written as a companion to <i>Hello Web App</i>.</p>
+                    <p style="margin-bottom:0"><a href="{% url 'learn-command-line' %}" class="btn btn-secondary">See the booklet</a></p>
+                    <small><em>Free forever</em></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

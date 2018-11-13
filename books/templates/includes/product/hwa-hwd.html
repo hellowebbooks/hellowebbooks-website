@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<div class="col-lg-10 col-lg-offset-1 col-md-12 package-container video-area">
+    <div class="text-center" style="margin-bottom: 1em;">
+        <img src="{% static '/images/icons/video.png' %}" alt="" height="50" />
+        <h3><span class="highlight">The Videos + eBooks</span></h3>
+        <p class="quiet">Optional paperbacks for $30 USD + shipping extra</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div style="margin-left: 20px">
+                <a href="https://hellowebbooks.podia.com/hello-web-app-video-course" title="Buy on Podia">
+                    <img src="{% static '/images/products/videopreview.jpg' %}" alt="Preview of the Hello Web Design videos"/>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <p><strong>The complete Hello Web Books package!</strong> Includes all files and videos for <em>Hello Web Design</em> to teach you web design fundamentals, as well as the complete <em>Hello Web App</em> set to walk you through building a web app with Django.</p>
+
+            <p>Package contains:</p>
+
+            <ul>
+                <li><strong>45 videos and screencasts</strong> &#8212; go through the book with the author, Tracy, introducing you to each chapter and walking you through each concept.</li>
+                <li><strong>Hosted on the Podia platform</strong> so you can keep track of your progress.</li>
+                <li><strong>The three eBooks in three formats each</strong> &#8212; the PDF (designed by Tracy), .ePub, and .mobi/Kindle.</li>
+                <li><strong>The gorgeous paperback books</strong> &#8212; Optional add-on for $30 USD + shipping.</li>
+            </ul>
+
+            <div class="super-vertical-top-margin">
+              <a class="btn btn-primary buy-button" data-title="Hello Web Books Videos" data-category="Hello Web Books Combo" data-price="199" href="https://gum.co/hwb-videos">Buy the full course for $199</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-offset-1 col-lg-7 col-md-8">
+    <div class="package-container paperback-area">
+        <div class="text-center" style="margin-bottom: 1em;">
+            <a href="https://gum.co/hwb-pb"><img src="{% static '/images/icons/toc.png' %}" alt="" height="50" /></a>
+            <h3><span class="highlight">The Paperbacks (eBooks included)</span></h3>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <img src="{% static 'images/all/new-square.jpg' %}" alt="Hello Web Books paperbacks" />
+            </div>
+            <div class="col-md-7">
+                <p>Learn better with a physical book? I got you! <strong>This package contains the three eBooks</strong> (in all three formats) <strong>plus the paperback books</strong>. Shipping extra.</p>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-secondary buy-button" data-title="Hello Web Books Paperbacks" data-category="Hello Web Books Combo" data-price="79.95" href="https://gum.co/hwb-pb">Buy for $79.95 + shipping</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-3 col-md-4 package-container">
+    <div class="text-center" style="margin-bottom: 1em;">
+        <a href="https://gum.co/hwb-ebooks"><img src="{% static '/images/icons/ipad.png' %}" alt="" height="50" /></a>
+        <h3>Just the eBooks</h3>
+    </div>
+    <p><strong>The digital books</strong>, lovingly designed by Tracy herself. Each book comes in PDF, .mobi, and .ePub formats.</p>
+    <div class="text-center">
+        <script src="https://gumroad.com/js/gumroad.js"></script>
+        <a class="btn btn-secondary buy-button" data-title="Hello Web Books eBooks" data-category="Hello Web Books Combo" data-price="49.95" href="https://gum.co/hwb-ebooks">Buy for $49.95</a>
+        <!--<p style="line-height:1.2; margin-top: 10px;"><small><em>You'll be redirected to withcoach.com to finish your purchase.</em></small></p>-->
+    </div>
+</div>

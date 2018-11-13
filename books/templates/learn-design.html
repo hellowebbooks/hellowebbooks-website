@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Learn Web Design Fundamentals and Shortcuts with Hello Web Design - {{ block.super }}{% endblock %}
+
+{% block header %}
+    <meta property="og:url" content="https://hellowebbooks.com/learn-design/">
+    <meta property="og:title" content="Learn Web Design Fundamentals and Shortcuts with Hello Web Design">
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+          name="description" content="Beginner design books assume you want to become an expert designer. What if you want to learn just enough to complement your existing work? Hello Web Design will teach you the basics about design (no history!) and give you shortcuts so you can immediately become a better designer.">
+    <meta name="twitter:site" content="@hellowebbooks" />
+    <meta name="twitter:creator" content="@limedaring">
+    <meta name="twitter:image"
+          property="og:image" content="https://hellowebbooks.com/static/images/hwd/twitter-banner.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+{% endblock %}
+
+{% block analytics %}
+analytics.page("Hello Web Design book landing page");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="design" class="product-page">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-4">
+            <img src="{% static '/images/hwd/headline-graphic.png' %}" alt="Learn design with Hello Web Design" />
+        </div>
+        <div class="col-md-8">
+            <h1><span class="hl"><span>Learn design</span></span></h1>
+            <h2>Written for programmers and non-designers, this <strong>brief but  information-packed book and course</strong> will help you feel comfortable doing design.</h2>
+            <a href="#hwd-packages" class="btn btn-primary">Jump to buying options</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+  <hr style="margin-top:3em;"/>
+
+  {# The introduction area #}
+  <div class="row">
+    <div class="col-md-7">
+      {# <img src="{% static '/images/icons/computer.png' %}" alt=""  width="70"/> #}
+      <h2 style="margin-top:0.5em;">Design fundamentals and shortcuts for non-designers.</h2>
+      <p>Beginner design books assume you want to become an expert designer. What if you want to learn just enough to complement your existing work? Hello Web Design will teach you the basics about design (no history!) and give you shortcuts <strong>so you can immediately become a better designer.</strong></p>
+      <p>Raised <strong>over $22,000</strong> on <a href="https://www.kickstarter.com/projects/1868398473/hello-web-design-design-basics-for-non-designers/">Kickstarter</a> from over <strong>700</strong> backers. </p>
+    </div>
+    <div class="col-md-5">
+      <img src="{% static '/images/hwd/mockup.jpg' %}" alt="Hello Web Design" />
+      {# some sort of pretty computer / video illustration goes here? #}
+    </div>
+  </div>
+
+  <hr/>
+
+  {# The video and features area #}
+  <div class="row">
+    <div class="col-md-8">
+      <figure class="video" style="padding-bottom:54%">
+        <iframe width="560" height="315" src="//www.youtube.com/embed/GZ8WYjx-62Q" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </figure>
+    </div>
+    <div class="col-md-4">
+      <h3>Features include</h3>
+      <ul style="font-size:1.2rem;">
+        <li><b>17</b> videos and screencasts.</li>
+        <li><b>164 page</b> eBook.</li>
+        <li><b>Three eBook formats</b>: PDF, ePub, and .mobi/Kindle.</li>
+        <li><b>Paperback included.</b></li>
+        <li><b>Dozens of real-world examples.</b></li>
+        <li><b>Everything you need</b> to start designing today.</li>
+      </ul>
+    </div>
+  </div>
+
+  {# The big column features area #}
+  <div class="text-center super-vertical-top-margin">
+      <img src="{% static '/images/icons/lamp.png' %}" alt="" height="70" style="margin-top: 1.5em;"/>
+      <h2 class="design-headline">What you'll learn</h2>
+  </div>
+  <div class="row">
+      <div class="col-md-4">
+          <h3>Walkthrough the stages of design</h3>
+          <p>Learn the steps of designing to help you go from idea, to blank paper, to prototypes, to launched project.</p>
+      </div>
+      <div class="col-md-4">
+          <h3>Shortcuts on choosing colors</h3>
+          <p>Forget choosing colors randomly on a color wheel &nbsp; find out the best shortcuts to get you a great color palette fast.</p>
+      </div>
+      <div class="col-md-4">
+          <h3>The basics of fonts</h3>
+          <p>Learn the differences between fonts, basic typography, and where to find (and narrow down) great typefaces.</p>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-4">
+          <h3>Demystifying white space</h3>
+          <p>You know it's important, but how to use it? We'll go through where white space can help your design the most.</p>
+      </div>
+      <div class="col-md-4">
+          <h3>Where to find images and icons</h3>
+          <p>Great imagery can make a design. Learn some easy tips on how to use imagery and great resources on where to find it.</p>
+      </div>
+      <div class="col-md-4">
+          <h3>The importance of user experience</h3>
+          <p>Design isn't how it looks &nbsp; it's how it works. Learn how your visual design ties into the user-experience.</p>
+      </div>
+  </div>
+</div>
+
+{# Book banner area #}
+<div id="book-banner">
+</div>
+
+<div class="container">
+  {# The big quote area #}
+  <blockquote>
+      <p>This may have been my favorite talk of the convention. What I loved most was that Tracy didn't waste time talking about meaningless theory. She told me exactly why my website was shite to look at, and even more importantly, how to fix it.</p>
+      <cite>&#8212; Mark Knapik at PHP[Tek] in May 2017</cite>
+  </blockquote>
+
+  <div class="row">
+      <div class="col-md-6">
+          <blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">I can’t recommend “Hello Web Design” enough, short and sweet, by <a href="https://twitter.com/limedaring?ref_src=twsrc%5Etfw">@limedaring</a>, check it out here: <a href="https://t.co/dmQFuPRNfb">https://t.co/dmQFuPRNfb</a></p>&mdash; Tomek Paczkowski (@oinopion) <a href="https://twitter.com/oinopion/status/997436222887915521?ref_src=twsrc%5Etfw">May 18, 2018</a></blockquote>
+        </div>
+        <div class="col-md-6">
+            <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Took my sweet time but I finally finished <a href="https://twitter.com/hashtag/HelloWebDesign?src=hash&amp;ref_src=twsrc%5Etfw">#HelloWebDesign</a>.<br><br>Sooooo good! 100% worth it. Buy one if like me your in backend land and want a great intro <a href="https://t.co/WlUaEItkP5">https://t.co/WlUaEItkP5</a><br><br>Thank you <a href="https://twitter.com/limedaring?ref_src=twsrc%5Etfw">@limedaring</a> <a href="https://t.co/HkXfVdz3qe">pic.twitter.com/HkXfVdz3qe</a></p>&mdash; Froilán 🇵🇷 @ Playing with Twitch (@skfroi) <a href="https://twitter.com/skfroi/status/1008433160512770053?ref_src=twsrc%5Etfw">June 17, 2018</a></blockquote>
+        </div>
+      <div class="col-md-6">
+        <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Finished reading Hello Web Design by <a href="https://twitter.com/limedaring?ref_src=twsrc%5Etfw">@limedaring</a> a few days ago. I already learned a ton thanks to this book. Easy to read but very instructive, I highly recommend!</p>&mdash; Quentin (@quentindty) <a href="https://twitter.com/quentindty/status/971656553597145088?ref_src=twsrc%5Etfw">March 8, 2018</a></blockquote>
+      </div>
+      <div class="col-md-6">
+        <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Just got my hard copy of <a href="https://twitter.com/limedaring?ref_src=twsrc%5Etfw">@limedaring</a>&#39;s book Hello Web Design (already was a few chapters into the PDF), which expands on the stuff in this talk but in book form.  I recommend it.  <a href="https://t.co/TKrHnmHdFO">https://t.co/TKrHnmHdFO</a></p>&mdash; dustin king 👽 (@cathodion) <a href="https://twitter.com/cathodion/status/931309659239206912?ref_src=twsrc%5Etfw">November 16, 2017</a></blockquote>
+      </div>
+      <div class="col-md-6">
+        <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Gave <a href="https://twitter.com/limedaring?ref_src=twsrc%5Etfw">@limedaring</a>&#39;s Hello Web Design book to a client as I wrapped up walking them through the report on recent usability testing. They still want design help, but the more we can do to make our clients informed and independent, the better.</p>&mdash; мαттнєω σℓιρнαηт (@matto) <a href="https://twitter.com/matto/status/988570507975966720?ref_src=twsrc%5Etfw">April 24, 2018</a></blockquote>
+      </div>
+      <div class="col-md-6">
+          <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Sun, sea, no sand, but <a href="https://twitter.com/limedaring?ref_src=twsrc%5Etfw">@limedaring</a>’s brilliant HelloWebDesign book to keep my brain from melting. <a href="https://t.co/IruQeZZIu0">pic.twitter.com/IruQeZZIu0</a></p>&mdash; Ben Furfie (@frontendben) <a href="https://twitter.com/frontendben/status/1008279705622056961?ref_src=twsrc%5Etfw">June 17, 2018</a></blockquote>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  {# The ToC area #}
+  <div class="table-of-contents content-block">
+      <div class="text-center">
+          <img src="{% static '/images/icons/toc.png' %}" alt="" height="70" />
+      </div>
+      <h2 class="text-center design-headline" style="margin-bottom: 10px; margin-top: 1em;">Table of Contents</h2>
+      <p style="text-align: center; color: #999; font-size: 1.2rem; font-style:italic; margin-bottom: 2em;">Five chapters, two mega sections, 170 pages, over a hundred examples and shortcuts.</p>
+      <ul class="list-unstyled">
+          <li><span>0.0.</span> Introduction</li>
+          <li><span>1.0.</span> If You Only Read One Chapter, Make It This One</li>
+          <li>
+              <span>2.0.</span> Theory and Design Principles
+              <ul class="list-unstyled">
+                  <li><span>2.1.</span> Grid</li>
+                  <li><span>2.2.</span> Color</li>
+                  <li><span>2.3.</span> Typography</li>
+                  <li><span>2.4.</span> White Space</li>
+                  <li><span>2.5.</span> Layout &amp; Hierarchy</li>
+                  <li><span>2.6.</span> Content</li>
+                  <li><span>2.7.</span> User Experience</li>
+                  <li><span>2.8.</span> Images and Imagery</li>
+                  <li><span>2.9.</span> Extra Tidbits</li>
+              </ul>
+          </li>
+          <li>
+              <span>3.0.</span> The Process and Training Your Design Intuition
+              <ul class="list-unstyled">
+                  <li><span>3.1.</span> Finding Inspiration</li>
+                  <li><span>3.2.</span> Planning</li>
+                  <li><span>3.3.</span> Prototypes</li>
+                  <li><span>3.4.</span> Getting Feedback</li>
+                  <li><span>3.5.</span> Coding the Site</li>
+              </ul>
+          </li>
+          <li><span>4.0.</span> Reassurances</li>
+          <li><span>5.0.</span> Additional Resources</li>
+      </ul>
+  </div>
+
+  {# The buy area #}
+  <div class="row buy-packages" id="hwd-packages">
+      {# <h2 class="text-center">Start your design journey today</h2> #}
+      {% include 'includes/product/hwd.html' %}
+  </div>
+
+  <p class="text-center super-vertical-top-margin">(Want to buy another book as well? <a href="/order" title="Hello Web Books order page">See all combo packages here.</a>)</p>
+
+  {# The FAQ area #}
+  <div class="row">
+    <h1 class="text-center super-vertical-top-margin">Frequently Asked Questions</h1>
+    <dl class="col-md-8 col-md-offset-2">
+      <dt>What will I learn?</dt>
+      <dd><b><i>Hello Web Design</i> teaches visual and user experience fundamentals, specifically focusing on web-based design.</b> The goal is to help developers, in one brief book, feel comfortable jumping in and doing design themselves.</dd>
+
+      <dt>Does this involve code?</dt>
+      <dd><b>Absolutely no code.</b> No HTML, no CSS, no nothin'. <i>Hello Web Design</i> focuses on what you can see (and how to make it pretty) and why user experience is important (because you want what you build to be easy to use.) It's all about how to design and what to know, but not how to actually implement the design. Maybe in an upcoming book?</dd>
+
+      <dt>How does <i>Hello Web Design</i> differ from other design books and courses?</dt>
+      <dd><b><i>Hello Web Design</i> is deliberately short and the tone is friendly and informal with a bit of silliness mixed in.</b> Theory is touched on, but the focus is on shortcuts and real-world examples. Absolutely no bs or stodgy explanations. In a nutshell, it's small (in a good way), to the point, with lots of examples, and fun to read.</dd>
+
+      <dt>What if I don't like it?</dt>
+      <dd>That's cool! <b>Just let me know within 60 days</b> of ordering the book and I'll refund you in full.</dd>
+    </dl>
+  </div>
+
+  {# The about the author area #}
+  {% comment %}
+  <div class="row about-author">
+    <div class="col-md-7 col-md-offset-1">
+      <h3>Hi, I'm Tracy!</h3>
+      <p>I'm a developer/designer/entreprenerd living in Toronto, Canada. I wear a lot of hats, and being able to design <em>and</em> develop my own apps has allowed me to build my own projects swiftly and try out a lot of things without having to hire someone externally. I love what I do, and I want to help others do it all too! I love teaching beginner web skills and hope to create more designer+dev folk in the world.
+    </div>
+    <div class="col-md-3">
+        <img src="{% static '/images/me.png' %}" alt="Tracy Osborn, author of Hello Web Books" />
+    </div>
+  </div>
+  {% endcomment %}
+
+  <hr style="margin: 2em 5em;"/>
+
+  {# Remind people to buy again #}
+  <div class="row super-vertical-margin">
+    <div class="col-sm-6 col-md-4 col-md-offset-2 text-center">
+      <h3>Ready to buy?</h3>
+      <p><i>Hello Web Design</i> is available as a video course, paperback book, or eBooks.</p>
+      <a href="#hwd-packages" class="btn btn-large btn-primary">Buy today</a>
+    </div>
+    <div class="col-sm-6 col-md-4 text-center">
+      <h3>Need more time?</h3>
+      <p>Get the sample and a free email course with design tips by signing up below.</p>
+      <a rel="ck_modal" href="#ck_modal" data-loc="Jumbotron" class="btn btn-large btn-secondary">Get free sample</a>
+    </div>
+  </div>
+</div>
+
+{% include 'includes/newsletter.html' with book_name="Hello Web Design" form_id="298216" %}
+{% include 'includes/convertkit-modal.html' with book_name="Hello Web Design" book_image="https://s3.amazonaws.com/convertkit/subscription_forms/images/005/110/304/standard/IMG_6545-xsmall.jpg?1511098015" form_id="298477" %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".buy-button").each(function() {
+            var link = $(this);
+            analytics.trackLink(link, 'Clicked Buy Link', {
+                name: $(link).data("title"),
+                price: $(link).data("price"),
+                revenue: $(link).data("price"),
+                label: $(link).text(),
+                category: $(link).data("title")
+            });
+        });
+
+        $(".free-sample-link").each(function() {
+            var link = $(this);
+            analytics.trackLink(link, 'Clicked Free Sample Link', {
+                title: $(link).data("loc"),
+            });
+        });
+    });
+</script>
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

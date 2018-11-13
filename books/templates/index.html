@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ block.super }} - Really Friendly Beginner Web Books by Tracy Osborn{% endblock %}
+
+{% block header %}
+    <meta property="og:url" content="https://hellowebbooks.com/">
+    <meta property="og:title" content="Hello Web Books">
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+          name="description" content="Brief books and videos by Tracy Osborn to teach you how to build a web app, how to make better designs, or both.">
+    <meta name="twitter:site" content="@hellowebbooks" />
+    <meta name="twitter:creator" content="@limedaring">
+    <meta name="twitter:image"
+          property="og:image" content="https://hellowebbooks.com/static/images/blog/2017/11/mockup.jpg">
+    <meta name="twitter:card" content="summary">
+{% endblock %}
+
+{% block analytics %}
+analytics.page("Homepage");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="home" class="product-page">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1><span class="hl"><span>Build and design</span></span><span class="hl"><span>your side project</span></span></h1>
+    <h2><strong>Brief books and videos by Tracy Osborn</strong> to teach you how to build a web app, how to make better designs, or both.</h2>
+    {# <a href="{% url 'order' %}" class="btn btn-primary">Buy the books</a> #}
+</div>
+
+<div class="container">
+    <hr style="margin-top:0;"/>
+
+    {# List of books and courses #}
+    <div class="row packages" id="packages">
+        {# <h2 class="text-center">My books and courses:</h2> #}
+        <div class="col-sm-6 text-center hwd">
+            <img src="{% static '/images/icons/design.svg' %}" width="50" height="50" alt="" class="vertical-margin" />
+            <h4><a href="{% url 'learn-design' %}">Hello Web Design</a></h4>
+            <h5>Web design fundamentals and shortcuts.</h5>
+            {% comment %}<img src="{% static '/images/ic.jpg' %}" alt="Hello Web Design" class="vertical-margin" />{% endcomment %}
+            <p><strong>Design shortcuts and fundamentals</strong> aimed for programmers, developers, marketers, and non-designers. Learn just enough design to be dangerous.</p>
+            <p><a href="{% url 'learn-design' %}" class="btn btn-secondary">More about <i>Hello Web Design</i></a></p>
+        </div>
+        <div class="col-sm-6 text-center hwa">
+            <img src="{% static '/images/icons/hwa.svg' %}" width="50" height="50" alt="" class="vertical-margin" />
+            <h4><a href="{% url 'learn-django' %}">Hello Web App</a></h4>
+            <h5>Learn how to build your first web app.</h5>
+            {% comment %}<img src="{% static '/images/original.jpg' %}" alt="Hello Web App original" class="vertical-margin" />{% endcomment %}
+            <p><strong>Want to build your first web app?</strong> Hello Web App walks you through building and launching a simple web app using Python and Django.</p>
+            <p><a href="{% url 'learn-django' %}" class="btn btn-secondary">More about <i>Hello Web App</i></a></p>
+        </div>
+    </div>
+
+    <hr />
+
+    {# Blog list #}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2 class="text-center" style="margin-top:0; margin-bottom:1em;">Recent articles</h2>
+            <ul class="list-unstyled" id="archive-list">
+            {% for post in posts %}
+                {% if post.featured == True and forloop.counter < 10 %}
+                {% include 'includes/post-link.html' with post=post hide_cats=True %}
+                {% endif %}
+            {% endfor %}
+            </ul>
+
+            <p class="text-center" style="margin-bottom: 3em;">
+                <a href="/news" class="btn btn-secondary">More on the Hello Web Books blog</a>
+            </p>
+        </div>
+    </div>
+
+    {# Twitter link #}
+    <div class="sidebar-twitter-follow text-center">
+      <a href="https://twitter.com/hellowebbooks?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @hellowebbooks</a>
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

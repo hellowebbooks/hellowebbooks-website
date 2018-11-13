@@ -1,0 +1,113 @@
+{% extends "blog/post.html" %}
+{% load static wagtailcore_tags wagtailimages_tags blogapp_tags wagtailmd wagtailmarkdown %}
+
+{% block title %}{{ self.title }} | {{ blog_page.title }}{% endblock title %}
+{% block meta_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock meta_title %}
+{% block meta_description %}{% if self.search_description %}{{ self.search_description }}{% else %}{{ self.body|striptags|truncatewords:20 }}{% endif %}{% endblock meta_description %}
+{% block canonical %}{% canonical_url self%}{% endblock canonical %}
+
+{% block postcontent %}
+<article class="post container">
+  <div class="col-md-10 col-md-offset-1">
+      <header>
+          <h1><span class="highlight">{{ post.title }}</span></h1>
+          {% if post.excerpt %}<h2 class="headline">{{ post.excerpt }}</h2>{% endif %}
+          <div class="top-meta">
+            <span class="date small-sans">{{ post.date|date:"F j, Y" }}</span>
+            <span class="twitter-follow">
+              <a href="https://twitter.com/hellowebbooks?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @hellowebbooks</a>
+              <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </span>
+            {% comment %}<span class="category">{% include 'includes/category-link.html' with category=category %}</span>{% endcomment %}
+            <span class="category">{% post_categories %}</span>
+          </div>
+      </header>
+
+    {% comment %}{% if post.header_image %}
+        {% image post.header_image original as header_image %}
+        <img src="{{ header_image.url }}" class="img-fluid rounded" ></img>
+        <hr>
+    {% endif %}{% endcomment %}
+
+    <section id="post-body">
+      {% for block in page.body %}
+        <section>{% include_block block %}</section>
+      {% endfor %}
+    </section>
+    <hr>
+
+    {% post_tags_list %}
+
+    <footer id="post-meta" class="clearfix">
+    <div class="vertical-margin">
+      <a href="https://twitter.com/hellowebbooks?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @hellowebbooks</a>
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    </div>
+
+    <div><span>Posted on </span> {{ post.date|date:"M j, Y" }}</div>
+    <div><span>Written by</span> {{ post.author }}</div>
+    <div><span class="category">Category:</span> {% include 'includes/category-link.html' with category=category %}</div>
+
+    <section class="sharing">
+        <div>
+            <span>Share</span>
+            <a class="twitter" href="http://twitter.com/home/?status={{ post.title }} https://hellowebbooks.com/{{ path|cut:".html" }}/ (via @hellowebbooks)"><i class="fa fa-twitter"></i></a>
+
+            <a class="facebook" href="#" onclick="
+                window.open(
+                'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                'facebook-share-dialog',
+                'width=626,height=436');
+                return false;"><i class="fa fa-facebook"></i>
+            </a>
+            <a class="mail" href="mailto:?subject={{ post.title }}&amp;body=Here's the link: https://hellowebbooks.com/{{ path|cut:".html" }}/"><i class="fa fa-envelope"></i></a>
+        </div>
+        <span>Subscribe</span>
+
+        <div class="ck_form_container ck_inline" id="mc_embed_signup" data-ck-version="6">
+          <div class="ck_form ck_naked">
+          <div class="ck_form_fields" style="padding:0; width:auto; float: none;">
+            <div id="ck_success_msg" style="display:none;">
+              <p>Success! Now check your email to confirm your subscription.</p>
+            </div>
+
+            <!--  Form starts here  -->
+            <form id="ck_subscribe_form" class="ck_subscribe_form" action="https://app.convertkit.com/landing_pages/298684/subscribe" data-remote="true">
+              <input type="hidden" value="{&quot;form_style&quot;:&quot;naked&quot;,&quot;embed_style&quot;:&quot;inline&quot;,&quot;embed_trigger&quot;:&quot;scroll_percentage&quot;,&quot;scroll_percentage&quot;:&quot;70&quot;,&quot;delay_seconds&quot;:&quot;10&quot;,&quot;display_position&quot;:&quot;br&quot;,&quot;display_devices&quot;:&quot;all&quot;,&quot;days_no_show&quot;:&quot;15&quot;,&quot;converted_behavior&quot;:&quot;show&quot;}" id="ck_form_options">
+              <input type="hidden" name="id" value="298684" id="landing_page_id">
+              <input type="hidden" name="ck_form_recaptcha" value="" id="ck_form_recaptcha">
+              <div class="ck_errorArea">
+                <div id="ck_error_msg" style="display:none">
+                  <p>There was an error submitting your subscription. Please try again.</p>
+                </div>
+              </div>
+              <div class="ck_control_group ck_email_field_group" style="float: left;">
+                <label class="ck_label" for="ck_emailField" style="display: none">Email Address</label>
+                <input type="text" name="first_name" class="ck_first_name" id="ck_firstNameField" style="display: none;" placeholder="First Name">
+                <input type="email" name="email" class="ck_email_address" id="ck_emailField" style="width:200px; margin-right:10px;" placeholder="Email Address" required>
+              </div>
+              <div class="ck_control_group ck_captcha2_h_field_group ck-captcha2-h" style="position: absolute !important;left: -999em !important;">
+                <input type="text" name="captcha2_h" class="ck-captcha2-h" id="ck_captcha2_h" placeholder="We use this field to detect spam bots. If you fill this in, you will be marked as a spammer.">
+              </div>
+
+              <button class="subscribe_button ck_subscribe_button btn btn-primary btn-sm fields" id="ck_subscribe_button">
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+</footer>
+
+{% include 'includes/disqus.html' %}
+</div>
+</article>
+
+{% endblock %}
+
+{% block scripts %}
+<link rel="stylesheet" href="{% static '/css/tomorrow-night-blue.css' %}">
+<script src="{% static '/js/highlight.pack.js' %}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+{% endblock scripts %}

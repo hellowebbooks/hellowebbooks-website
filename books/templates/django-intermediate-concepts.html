@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Intermediate Concepts: Continue Growing Your Web App - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Intermediate Concepts landing page");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="ic" class="book-pages">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1>Continue building your web app.</h1>
+        <h2>Learn how to add more complex features like payments or an API, learn harder skills, and grow your web app into a success.</h2>
+
+        <a rel="ck_modal" href="#ck_modal" class="btn btn-secondary-outline free-sample-link" data-loc="Jumbotron">Free Sample</a>
+        <a href="{% url '/order.html' %}" class="btn btn-primary">Get the book</a>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="content-block text-center">Take your web app to the next level with Hello Web App: Intermediate Concepts.</h2>
+    <p class="content-block text-center"><strong>Hello Web App: Intermediate Concepts is for anyone who wants to build upon and improve their Django web app.</strong> Each chapter teaches a different skill, from walkthroughs of harder features like payments and user-uploaded images, to teaching skills like proper database design.</p>
+</div>
+
+<div class="container-fluid photo-row">
+    <div class="row">
+        <div class="col-sm-3">
+            <img src="{% static 'images/ic/2.jpg' %}" alt="" />
+        </div>
+
+        <div class="col-sm-3">
+            <img src="{% static 'images/ic/1.jpg' %}" alt="" />
+        </div>
+
+        <div class="col-sm-3">
+            <img src="{% static 'images/original/2.jpg' %}" alt="" />
+        </div>
+        <div class="col-sm-3">
+            <img src="{% static 'images/products/both-books.jpg' %}" alt="Both Hello Web App books" />
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row table-of-contents content-block">
+        <h2 class="text-center">Table of Contents</h2>
+        <ul class="col-sm-6">
+            <li>Introduction</li>
+            <li>Creating a Contact Form and Working with Custom Forms</li>
+            <li>Adding a New Model</li>
+            <li>Adding Easy Admin Emails, Helpers, Sitemaps, and More</li>
+            <li>Adding User-Uploaded Images</li>
+            <li>Editing and Resizing Images</li>
+            <li>Setting Up Django Messages for Alerts</li>
+            <li>Front-End Fun: Adding Gulp, Sass, and Bootstrap</li>
+        </ul>
+        <ul class="col-sm-5 col-sm-offset-1">
+            <li>Reading Source Code And Setting Up a Form to Edit User Email Addresses</li>
+            <li>Adding Payments with Stripe</li>
+            <li>Adding an API</li>
+            <li>Working with Sessions</li>
+            <li>Creating Your Own Scripts and a Bit About Cron Jobs</li>
+            <li>Database Pitfalls</li>
+            <li>Additional Information and Resources</li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <h2 class="text-center vertical-margin" style="font-size: 3rem;">Buy the book</h2>
+        <div class="col-sm-5">
+            <img src="{% static 'images/products/ic-videos.jpg' %}" alt="Hello Web App Intermediate Concepts paperback book" />
+        </div>
+        <div class="col-sm-7">
+            <h3 style="font-size: 2rem;">The Complete Hello Web App: Intermediate Concepts Package</h3>
+            <p>This package contains the entire Hello Web App series &#8212; the paperback books, the videos, and the eBooks. Learn how to build, grow, and monetize your web app all in one purchase.</p>
+            <h4>Full contents:</h4>
+            <ul>
+                <li>Three eBook files &#8212; PDF, .mobi, and .ePub.</li>
+                <li>13 videos &#8212; screencasts walking you through all chapters of the book.</li>
+                <li>The gorgeously designed paperback book.</li>
+            </ul>
+            <p class="text-center vertical-margin">
+                <a href="//gum.co/hwa-ic-complete-pb" class="btn btn-primary buy-button" data-title="Intermediate Concepts Video Paperback package" data-price="89">Buy for $89</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row super-vertical-margin">
+        <p class="text-center"><a href="{% url '/order.html' %}" class="btn btn-secondary">See all buying options here, starting at $14.95</a></p>
+    </div>
+
+</div>
+
+{% include 'includes/newsletter.html' with book_name="Hello Web App: Intermediate Concepts" form_id="298475" %}
+{% include 'includes/convertkit-modal.html' with book_name="Hello Web App: Intermediate Concepts" book_image="https://s3.amazonaws.com/convertkit/subscription_forms/images/005/110/501/standard/IMG_6477-xs-square.jpg?1511131585" form_id="298674" %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".buy-button").each(function() {
+            var link = $(this);
+            analytics.trackLink(link, 'Clicked Buy Link', {
+                title: $(link).data("title"),
+                price: $(link).data("price"),
+            });
+        });
+
+        var link = $(".free-sample-link");
+        analytics.trackLink(link, 'Clicked Free Sample Link', {
+            location: $(link).data("loc"),
+        });
+    });
+</script>
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

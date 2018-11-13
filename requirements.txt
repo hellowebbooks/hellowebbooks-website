@@ -1,0 +1,13 @@
+git+https://github.com/wagtail/wagtail.git@7938e81ab48327a084ac1dced9474c998fd44c2d
+wagtail-markdown==0.5
+django-taggit==0.22.2
+django-el-pagination==3.1.0
+Markdown==2.6.2
+wagtailmenus==2.8
+django-widget-tweaks==1.4.2
+isort==4.3.4
+flake8==3.5.0
+pycodestyle==2.3.0
+Django==2.1.2
+django-heroku
+gunicorn

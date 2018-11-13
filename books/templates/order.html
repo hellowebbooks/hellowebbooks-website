@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Order - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Order");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="order">
+{% endblock %}
+
+{% block content %}
+{# <div class="jumbotron"></div> #}
+
+<div class="container">
+    <h1 class="text-center"><span class="highlight">Order</span></h1>
+    <p class="text-center" style="margin-bottom:0.5rem;">Ready to buy? Choose which package you want below!</p>
+
+    <div class="text-center" style="max-width:600px; margin:0 auto; font-size:80%;">
+        <p>(Are you an <b>educational institution, library,</b> or <b>ordering paperbacks in bulk?</b> Please email <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and I can give you a discount and a special order form.)</p>
+    </div>
+
+    {% comment %}
+    Choose which books you want
+    {% endcomment %}
+    <div class="row packages choose-package">
+        <div class="col-md-4 text-center">
+            <a href="#hwd">
+                <img src="{% static '/images/hwd/new-square.jpg' %}" alt="Hello Web Design"/>
+            </a>
+            <h3>Hello Web Design</h3>
+            <p>Learn design fundamentals, a tiny bit of theory, and a ton of shortcuts to help you learn design.</p>
+            <a href="#hwd" class="btn btn-secondary">Choose package</a>
+            {# <p><small>Starting at $14.95</small></p> #}
+        </div>
+        <div class="col-md-4 text-center">
+            <a href="#all">
+                <img src="{% static '/images/all/new-square.jpg' %}" alt="Hello Web App"/>
+            </a>
+            <h3>Combo Pack</h3>
+            <p>Build and design your side project. Includes both <i>Hello Web App</i> and <i>Hello Web Design</i>.</p>
+            {# <a href="#" class="btn btn-secondary disabled" role="button" aria-disabled="true">Temporarily Out</a> #}
+            <a href="#all" class="btn btn-primary">Choose package</a>
+            {# <p><small>Starting at $34.95</small></p> #}
+        </div>
+        <div class="col-md-4 text-center">
+            <a href="#hwa">
+                <img src="{% static '/images/both/new-square.jpg' %}" alt="Hello Web App"/>
+            </a>
+            <h3>Hello Web App</h3>
+            <p>Everything you need to build and grow your first web app. Create a web app and make it a success.</p>
+            {# <a href="#" class="btn btn-secondary disabled" role="button" aria-disabled="true">Temporarily Out</a> #}
+            <a href="#hwa" class="btn btn-secondary">Choose package</a>
+            {# <p><small>Starting at $24.95</small></p> #}
+        </div>
+    </div>
+
+    <hr/>
+
+    {# Hello Web App - choose which package you want #}
+    <div class="row buy-packages" id="hwa" name="hwa">
+        <div class="intro text-center col-lg-10 col-lg-offset-1 col-md-12">
+            <h2>Now, choose your Hello Web App package</h2>
+            <p>Get everything you need to launch a your first web app and then add intermediate features like an API, customer payments, and more.</p>
+        </div>
+        {% include 'includes/product/hwa.html' %}
+    </div>
+
+    {# HWD - choose which package you want #}
+    <div class="row buy-packages" id="hwd" name="hwd">
+        <div class="intro text-center col-lg-10 col-lg-offset-1 col-md-12">
+            <h2>Now, choose your Hello Web Design package</h2>
+            <p>Beginner design books assume you want to become an expert designer. What if you want to learn just enough to complement your existing work? Hello Web Design will teach you the basics about design (no history!) and give you shortcuts so you can immediately become a better designer.</p>
+        </div>
+        {% include 'includes/product/hwd.html' %}
+    </div>
+
+    {# Both HWA and HWD - choose which package you want #}
+    <div class="row buy-packages" id="all" name="all">
+        <div class="intro text-center col-lg-10 col-lg-offset-1 col-md-12">
+            <h2>Now, choose your Hello Web Books combo package</h2>
+            <p>Build and launch your side project, from design to code. Includes both <i>Hello Web App</i> (to teach you web development with Python and Django) and <i>Hello Web Design</i> (to teach your web design fundamentals and shortcuts.)</p>
+        </div>
+        {% include 'includes/product/hwa-hwd.html' %}
+    </div>
+
+    <div class="text-center row">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>Curious about the videos and screencasts? See a preview:</h2>
+            <figure class="full video">
+                <iframe src="https://www.youtube.com/embed/_plvgaEjmak" frameborder="0" allowfullscreen></iframe>
+            </figure>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="content-block text-center">
+        <h2>Bulk and education discounts available</h2>
+        <p>Interested in a classroom or workshop pack? Email <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> for information on bulk licenses and discounts.</p>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        var toHide = false;
+        $('a[href*=#]:not([href=#])').on('click', function (event) {
+            event.preventDefault();
+            var element = $(this.hash);
+            if(toHide) {
+                $(toHide).hide();
+                toHide = false;
+            }
+            if(element.is(":hidden")) toHide = element.show();
+            $('html,body').animate({ scrollTop: element.offset().top },'normal', 'swing');
+        });
+
+        $(".buy-button").each(function() {
+            var link = $(this);
+            analytics.trackLink(link, 'Clicked Buy Link', {
+                name: $(link).data("title"),
+                price: $(link).data("price"),
+                revenue: $(link).data("price"),
+                label: $(link).text(),
+                category: $(link).data("title")
+            });
+        });
+    });
+</script>
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock %}
