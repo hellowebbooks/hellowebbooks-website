@@ -4,7 +4,7 @@ from website.settings import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-ALLOWED_HOSTS = ['165.227.33.196', '.herokuapp.com',]
+ALLOWED_HOSTS = ['165.227.33.196', 'hellowebbooks.com', '.hellowebbooks.com',]
 
 DEBUG = False
 
