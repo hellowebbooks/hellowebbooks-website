@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
@@ -39,6 +39,14 @@ urlpatterns = [
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('news/', include(wagtail_urls)),
+
+    # redirects
+    path('web-design/', RedirectView.as_view(pattern_name='learn-design', permanent=True)),
+    path('original/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
+    path('intermediate-concepts/', RedirectView.as_view(pattern_name='django-intermediate-concepts', permanent=True)),
+    path('preorder/', RedirectView.as_view(pattern_name='order', permanent=True)),
+    path('cmd-line-pdf/', RedirectView.as_view(url='https://goo.gl/LLGswY')),
+    path('cmd-line-printable/', RedirectView.as_view(url='https://goo.gl/B38FeX')),
 
     # admin
     path('accounts/', include('django.contrib.auth.urls')),
