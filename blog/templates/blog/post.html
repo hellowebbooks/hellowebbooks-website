@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags wagtailuserbar blogapp_tags el_pagination_tags wagtailmd %}
 
-{% block title %}{{ page.title }} - {{ block.super }}{% endblock title %}
+{% block title %}{{ block.super }}{% endblock title %}
 
 {% block header %}
     <meta property="og:url" content="https://hellowebbooks.com/{{ path|cut:".html" }}/">

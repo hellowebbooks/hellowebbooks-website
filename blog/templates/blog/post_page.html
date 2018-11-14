@@ -1,7 +1,7 @@
 {% extends "blog/post.html" %}
 {% load static wagtailcore_tags wagtailimages_tags blogapp_tags wagtailmd wagtailmarkdown %}
 
-{% block title %}{{ self.title }} | {{ blog_page.title }}{% endblock title %}
+{% block title %}{{ self.title }} - {{ block.super }}{% endblock title %}
 {% block meta_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock meta_title %}
 {% block meta_description %}{% if self.search_description %}{{ self.search_description }}{% else %}{{ self.body|striptags|truncatewords:20 }}{% endif %}{% endblock meta_description %}
 {% block canonical %}{% canonical_url self%}{% endblock canonical %}
@@ -45,7 +45,7 @@
     </div>
 
     <div><span>Posted on </span> {{ post.date|date:"M j, Y" }}</div>
-    <div><span>Written by</span> kj{{ post.owner.first_name }}</div>
+    <div><span>Written by</span> {{ post.owner.first_name }}</div>
     <div><span class="category">Category:</span> {% include 'includes/category-link.html' with category=category %}</div>
 
     <section class="sharing">
