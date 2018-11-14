@@ -55,9 +55,8 @@ analytics.page("Blog: {{ page.title }}");
               </div>
 
               <div><span>Posted on </span> {{ page.date|date:"M j, Y" }}</div>
-              <div><span>Written by</span> {{ page.author }}</div>
-              {% comment %}<div><span class="category">Category:</span> {% include 'includes/category-link.html' with category=category %}</div>{% endcomment %}
-              <div><span class="category">Category:</span> {% post_categories %}</div>
+              <div><span>Written by</span> {{ post.owner.first_name }} {{ post.owner.last_name }}</div>
+              <div><span class="category">Category:</span> {% include 'includes/post_categories_list.html' with post=post %}</div>
 
               <section class="sharing">
                   <div>
