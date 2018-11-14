@@ -1,7 +1,7 @@
 {% extends "blog/base.html" %}
 {% load static humanize el_pagination_tags %}
 
-{% block title %}Blog - {{ block.super }}{% endblock %}
+{% block title %}{% if search_type == "category" %}{{ search_type|title }}: {% if search_term == "casestudy" %}Case Studies{% else %}{{ search_term|title }}{% endif %}{% else %}{{ blog_page.title }}{% endif %} - {{ block.super }}{% endblock %}
 
 {% block analytics %}
 analytics.page("Blog Home");

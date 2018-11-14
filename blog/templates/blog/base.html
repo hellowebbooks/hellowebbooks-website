@@ -2,7 +2,7 @@
 {% comment %}{% load static wagtailcore_tags wagtailimages_tags wagtailuserbar blogapp_tags el_pagination_tags menu_tags wagtailmd %}{% endcomment %}
 {% load static wagtailcore_tags wagtailimages_tags wagtailuserbar blogapp_tags el_pagination_tags wagtailmd %}
 
-{% block title %}{{ blog_page.title }} - {{ block.super }}{% endblock title %}
+{% block title %}{{ block.super }}{% endblock title %}
 {% block header %}
     <meta name="description" content="{% block meta_description %}{{ blog_page.search_description }}{% endblock meta_description %}"/>
     <meta property="og:url" content="https://hellowebbooks.com/{{ path|cut:".html" }}/">
