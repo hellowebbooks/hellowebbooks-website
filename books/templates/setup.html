@@ -79,66 +79,51 @@ way, the books won't go out of date as quickly!)</p>
 
             <h2 id="install-python">1. Install Python</h2>
 
-{% filter markdown %}
-Unfortunately, unlike making web pages with HTML, we need to install Python before our computers can run the files that we're building.
-
-Head over to these links to install **Python 3** onto your computer:
-
-* [Mac OSX](http://docs.python-guide.org/en/latest/starting/install3/osx/)
-* [Windows](http://docs.python-guide.org/en/latest/starting/install3/win/)
-* [Linux](http://docs.python-guide.org/en/latest/starting/install3/linux/)
-
-Windows users, I highly encourage you to use the [Linux Subsystem for Windows](https://www.laptopmag.com/articles/use-bash-shell-windows-10) to give yourself the ability to use UNIX commands used in the books (like `touch`) in your command line.
-{% endfilter %}
+<p>Unfortunately, unlike making web pages with HTML, we need to install Python before our computers can run the files that we&#39;re building.</p>
+<p>Head over to these links to install <strong>Python 3</strong> onto your computer:</p>
+<ul>
+<li><a href="http://docs.python-guide.org/en/latest/starting/install3/osx/">Mac OSX</a></li>
+<li><a href="http://docs.python-guide.org/en/latest/starting/install3/win/">Windows</a></li>
+<li><a href="http://docs.python-guide.org/en/latest/starting/install3/linux/">Linux</a></li>
+</ul>
+<p>Windows users, I highly encourage you to use the <a href="https://www.laptopmag.com/articles/use-bash-shell-windows-10">Linux Subsystem for Windows</a> to give yourself the ability to use UNIX commands used in the books (like <code>touch</code>) in your command line.</p>
 
 <h3 id="install-pip">Do you have pip installed?</h3>
 
-{% filter markdown %}
-*pip* is the Python package installer — you'll use it heavily with *Hello Web
-App* and pretty much any Python project. If you followed the Python install
-instructions, you should have pip installed already.
-
-To check whether it's installed, open up your command line and run this *(don't
-include the* `$`*, it's an indicator that this command is being run in your
-command line utility)*:
-{% endfilter %}
+<p><em>pip</em> is the Python package installer — you&#39;ll use it heavily with <em>Hello Web
+App</em> and pretty much any Python project. If you followed the Python install
+instructions, you should have pip installed already.</p>
+<p>To check whether it&#39;s installed, open up your command line and run this <em>(don&#39;t
+include the</em> <code>$</code><em>, it&#39;s an indicator that this command is being run in your
+command line utility)</em>:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> pip list
 </code></pre>
 
-{% filter markdown %}
-It should be pretty obvious if it didn't work. If it didn't work, [check out
-this page](https://pip.pypa.io/en/stable/installing/).
-
-{% endfilter %}
+<p>It should be pretty obvious if it didn&#39;t work. If it didn&#39;t work, <a href="https://pip.pypa.io/en/stable/installing/">check out
+this page</a>.</p>
 
 <hr/>
 
 <h2 id="install-virtualenv">2. Install Virtualenv</h2>
 
-{% filter markdown %}
-When we start developing our Django apps, we want to make sure our projects are
-enclosed in "bubbles" known as virtual environments.
-
-For example, as of this writing, Django's current version is 2.0. When new
+<p>When we start developing our Django apps, we want to make sure our projects are
+enclosed in &quot;bubbles&quot; known as virtual environments.</p>
+<p>For example, as of this writing, Django&#39;s current version is 2.0. When new
 versions of Django are released, they may not be backwards compatible with
-previous versions of Django.
-
-Without a virtual environment, we'd have Django 1.9.2 installed *globally* on
+previous versions of Django.</p>
+<p>Without a virtual environment, we&#39;d have Django 1.9.2 installed <em>globally</em> on
 our computer, and every Django project you build would use that version. If you
-wanted to upgrade your version of Django, you'd have to go through every one of
-your projects to make sure they don't break.
-
-**With a virtual environment, every project can have a separate version of
-Django and other plugins that you install.** You can install Django 1.9 on one
+wanted to upgrade your version of Django, you&#39;d have to go through every one of
+your projects to make sure they don&#39;t break.</p>
+<p><strong>With a virtual environment, every project can have a separate version of
+Django and other plugins that you install.</strong> You can install Django 1.9 on one
 project, and down the line, start another project with Django 2.0. Every
 project can work off of whatever version of whatever you install, keeping them
-separate from each other. This is very important when you're programming.
-
-We should already have pip, so we'll use it to install virtualenv *(again,
-don't paste in the* `$` *)*:
-{% endfilter %}
+separate from each other. This is very important when you&#39;re programming.</p>
+<p>We should already have pip, so we&#39;ll use it to install virtualenv <em>(again,
+don&#39;t paste in the</em> <code>$</code> <em>)</em>:</p>
 
 <pre><code class="sh commandline">
 <span class="cmd">$</span> pip install virtualenv
@@ -148,13 +133,11 @@ don't paste in the* `$` *)*:
 
 <h2 id="setup-django">3. Set up Django and start your project</h2>
 
-{% filter markdown %}
-First thing we need to do is create a folder for your project. I personally use
-a "projects" folder in my top level user folder on my computer, which contains
-all my programming projects. If you'd like to do this as well, follow these
+<p>First thing we need to do is create a folder for your project. I personally use
+a &quot;projects&quot; folder in my top level user folder on my computer, which contains
+all my programming projects. If you&#39;d like to do this as well, follow these
 commands in your terminal to create the projects folder, and a folder within for
-this individual project:
-{% endfilter %}
+this individual project:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> mkdir projects
@@ -163,69 +146,52 @@ this individual project:
 <span class="cmd">projects $</span> cd myhellowebapp
 </code></pre>
 
-{% filter markdown %}
-If you need a command line review, `mkdir` creates folders, and `cd` changes
+<p>If you need a command line review, <code>mkdir</code> creates folders, and <code>cd</code> changes
 directories into that folder. If you ever get lost, your terminal should show
-which directory you're in, and running `ls` (on Mac or Linux, `dir` on Windows),
-will list out the contents of the folder you're in. Use `cd ..` to back up out
-of a folder.
-{% endfilter %}
+which directory you&#39;re in, and running <code>ls</code> (on Mac or Linux, <code>dir</code> on Windows),
+will list out the contents of the folder you&#39;re in. Use <code>cd ..</code> to back up out
+of a folder.</p>
 
 <h3 id="start-virtualenv">Start your virtual environment</h3>
 
-{% filter markdown %}
-Now that you're within your empty project folder, create your virtual
-environment.
-{% endfilter %}
+<p>Now that you're within your empty project folder, create your virtual
+environment.</p>
 
 <pre><code class="sh">
 <span class="cmd">projects/myhellowebapp $</span> virtualenv venv
 </code></pre>
 
-{% filter markdown %}
-And then activate the environment:
-{% endfilter %}
+<p>And then activate the environment:</p>
 
 <pre><code class="sh">
 <span class="cmd">projects/myhellowebapp $</span> source venv/bin/activate
 </code></pre>
 
-{% filter markdown %}
-You should see something like this in your command line before the folder
-structure — the (venv) indicates you're in the virtual environment:
-{% endfilter %}
+<p>You should see something like this in your command line before the folder
+structure — the (venv) indicates you're in the virtual environment:</p>
 
 <pre><code class="sh">
 (venv)limedaring@Orion ~/projects/myhellowebapp $
 </code></pre>
 
-{% filter markdown %}
-(Orion is my computer's name and limedaring is my username — your exact setup
+<p>(Orion is my computer's name and limedaring is my username — your exact setup
 will be different.)
 
 Now you're in your bubble, so we can start installing project-specific utilities.
-If you ever need to deactivate your environment, run `deactivate`.
-
-{% endfilter %}
+If you ever need to deactivate your environment, run <code>deactivate</code>.</p>
 
 <h3 id="install-django">Install Django</h3>
 
-{% filter markdown %}
-
-Finally, it's Django time! We'll use pip to install Django, so run this in your
+<p>Finally, it's Django time! We'll use pip to install Django, so run this in your
 command line, making sure you're in your project folder and the virtual
-environment is activated:
-{% endfilter %}
+environment is activated:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> pip install Django==2.0.8
 </code></pre>
 
-{% filter markdown %}
-We're telling pip to install a specific version of Django, in case Django
-releases a new version that this tutorial doesn't cover.
-
-{% endfilter %}
+<p>We're telling pip to install a specific version of Django, in case Django
+releases a new version that this tutorial doesn't cover.</p>
 
         </div>
     </div>
@@ -233,23 +199,18 @@ releases a new version that this tutorial doesn't cover.
     <div class="row">
         <div class="col-md-9 col-md-push-3">
             <h3 style="margin-top: 0;" id="start-git">Start git</h3>
-{% filter markdown %}
-We also want to start our version control system. Now that we're in our project
-folder, run this command to start git:
-{% endfilter %}
+<p>We also want to start our version control system. Now that we're in our project
+folder, run this command to start git:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> git init
 </code></pre>
 
-{% filter markdown %}
-Running this command in your project folder will make the entire folder and its
+<p>Running this command in your project folder will make the entire folder and its
 contents part of a new Git repository. For more about git and why we should use
-it (spoiler: version control is very important *and* it's needed for deployment
-to Heroku), see the [Git tips page
-here](https://github.com/limedaring/HelloWebApp/tree/master/git-tips).
-
-{% endfilter %}
+it (spoiler: version control is very important <em>and</em> it&#39;s needed for deployment
+to Heroku), see the <a href="https://github.com/limedaring/HelloWebApp/tree/master/git-tips">Git tips page
+here</a>.</p>
         </div>
         <div class="col-md-3 col-md-pull-9 text-right setup-sidebar">
             <p><small style="display:block">
@@ -268,30 +229,24 @@ here](https://github.com/limedaring/HelloWebApp/tree/master/git-tips).
 
 <h3 id="start-project">Start your Django project</h3>
 
-{% filter markdown %}
-
-We installed Django, now we can use Django to build all the starting files we
+<p>We installed Django, now we can use Django to build all the starting files we
 need for our web app. In your command line (again, in your project folder with
-your environment activated):
-{% endfilter %}
+your environment activated):</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> django-admin startproject hellowebapp .
 </code></pre>
 
-{% filter markdown %}
-_(The `.` at the end is important, don't forget it!)_
-
-This is going to start a Django project in your currect directory.
-
-* `django-admin`: The script we'll be running.
-* `startproject`: The specific utility we're using.
-* `hellowebapp`: The name we're giving the project.
-* `.`: The location where we're starting the project, with `.` denoting the
-  current directory.
-
-`startproject` will create these files and folders:
-{% endfilter %}
+<p><em>(The <code>.</code> at the end is important, don&#39;t forget it!)</em></p>
+<p>This is going to start a Django project in your currect directory.</p>
+<ul>
+<li><code>django-admin</code>: The script we&#39;ll be running.</li>
+<li><code>startproject</code>: The specific utility we&#39;re using.</li>
+<li><code>hellowebapp</code>: The name we&#39;re giving the project.</li>
+<li><code>.</code>: The location where we&#39;re starting the project, with <code>.</code> denoting the
+current directory.</li>
+</ul>
+<p><code>startproject</code> will create these files and folders:</p>
 
 <pre><code class="sh">
 myhellowebapp/
@@ -303,40 +258,32 @@ myhellowebapp/
         wsgi.py
 </code></pre>
 
-{% filter markdown %}
-The *myhellowebapp* folder is your top level directory.
-
-* *manage.py*: We won't edit this file, but will use this file in the command line
-  to interact with your project. You'll see it in action soon.
-* The inner *hellowebapp* folder holds your project.
-* *\__init\__.py*: Ignorable — tells Python that this is a Python "package".
-* *settings.py*: Aptly named — contains your settings.
-* *urls.py*: URL declarations for the project. Important and we'll go over this
-  soon.
-* *wsgi.py*: Not needed at this point until you deploy your project.
-
-{% endfilter %}
+<p>The <em>myhellowebapp</em> folder is your top level directory.</p>
+<ul>
+<li><em>manage.py</em>: We won&#39;t edit this file, but will use this file in the command line
+to interact with your project. You&#39;ll see it in action soon.</li>
+<li>The inner <em>hellowebapp</em> folder holds your project.</li>
+<li><em>__init__.py</em>: Ignorable — tells Python that this is a Python &quot;package&quot;.</li>
+<li><em>settings.py</em>: Aptly named — contains your settings.</li>
+<li><em>urls.py</em>: URL declarations for the project. Important and we&#39;ll go over this
+soon.</li>
+<li><em>wsgi.py</em>: Not needed at this point until you deploy your project.</li>
+</ul>
 
 <h3 id="create-app">Create your Django app</h3>
 
-{% filter markdown %}
-A project can run many apps (all doing something distinct), but we're just going
-to focus on having one for now, which is all you'll need for a very long
-time.
-
-In your top level folder (the one with *manage.py* in it), run this command:
-{% endfilter %}
+<p>A project can run many apps (all doing something distinct), but we&#39;re just going
+to focus on having one for now, which is all you&#39;ll need for a very long
+time.</p>
+<p>In your top level folder (the one with <em>manage.py</em> in it), run this command:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> django-admin startapp collection
 </code></pre>
 
-{% filter markdown %}
-Like before, `django-admin` is the script, `startapp` is the command, and
-`collection` is the name we're giving the app, which you can change if you wish.
-
-`startapp` will create an additional folder and a few files:
-{% endfilter %}
+<p>Like before, <code>django-admin</code> is the script, <code>startapp</code> is the command, and
+<code>collection</code> is the name we&#39;re giving the app, which you can change if you wish.</p>
+<p><code>startapp</code> will create an additional folder and a few files:</p>
 
 <pre><code class="sh">
 myhellowebapp/
@@ -354,18 +301,16 @@ myhellowebapp/
         wsgi.py
 </code></pre>
 
-{% filter markdown %}
-Note the additional "collection" folder in your project.
-
-* *\__init\__.py*: Ignorable — again, Python just needs this empty file.
-* *admin.py*: Contains admin codebits.
-* *models.py*: Where you'll define your database eventually.
-* *tests.py*: We'll eventually write tests to test your code for errors here.
-* *views.py*: Where the logic goes that powers your website.
-
-If that's a bit complicated, don't worry about it yet because we'll review it
-all later when we specifically start working with all those files.
-{% endfilter %}
+<p>Note the additional &quot;collection&quot; folder in your project.</p>
+<ul>
+<li><em>__init__.py</em>: Ignorable — again, Python just needs this empty file.</li>
+<li><em>admin.py</em>: Contains admin codebits.</li>
+<li><em>models.py</em>: Where you&#39;ll define your database eventually.</li>
+<li><em>tests.py</em>: We&#39;ll eventually write tests to test your code for errors here.</li>
+<li><em>views.py</em>: Where the logic goes that powers your website.</li>
+</ul>
+<p>If that&#39;s a bit complicated, don&#39;t worry about it yet because we&#39;ll review it
+all later when we specifically start working with all those files.</p>
 
         </div>
     </div>
@@ -373,14 +318,12 @@ all later when we specifically start working with all those files.
     <div class="row">
         <div class="col-md-9 col-md-push-3">
             <h3 style="margin-top: 0;" id="app-settings">Add your new app to your settings file</h3>
-{% filter markdown %}
 
-We need to tell the project that we've added an app to it — it doesn't find it
-automatically.  Open up your *settings.py* file (which is under the
-*hellowebapp* directory, see the directory tree above) and find the
-`INSTALLED_APPS` section. Add the name of your app to the beginning of the list
-(don't forget the trailing comma):
-{% endfilter %}
+            <p>We need to tell the project that we&#39;ve added an app to it — it doesn&#39;t find it
+            automatically.  Open up your <em>settings.py</em> file (which is under the
+            <em>hellowebapp</em> directory, see the directory tree above) and find the
+            <code>INSTALLED_APPS</code> section. Add the name of your app to the beginning of the list
+            (don&#39;t forget the trailing comma):</p>
 
 <pre><code class="python">
 INSTALLED_APPS = (
@@ -404,40 +347,31 @@ INSTALLED_APPS = (
 
 <h3 id="setup-database">Set up your database</h3>
 
-{% filter markdown %}
-Django has some fancypants utilities built in to keep your database (where
+<p>Django has some fancypants utilities built in to keep your database (where
 all your dynamic information is stored) managable. We need to run the initial
-migration before we start the app, so in your top level folder (the one with *manage.py* in it), type this in:
-{% endfilter %}
+migration before we start the app, so in your top level folder (the one with <em>manage.py</em> in it), type this in:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> python manage.py migrate
 </code></pre>
 
-{% filter markdown %}
-It's going to create your database automatically for you and port over some
-information. Don't worry about understanding this just yet — we'll go over
-databases and migrations a bit more in the "Adding Dynamic Data" chapter of
-Hello Web App.
-{% endfilter %}
+<p>It&#39;s going to create your database automatically for you and port over some
+information. Don&#39;t worry about understanding this just yet — we&#39;ll go over
+databases and migrations a bit more in the &quot;Adding Dynamic Data&quot; chapter of
+Hello Web App.</p>
 
 <h3 id="start-server">Start your local server</h3>
 
-{% filter markdown %}
-
-Want to see if everything worked? In your terminal, head over to your top level
-myhellowebapp folder (make sure you're in the same directory as *manage.py*)
-and run this command:
-{% endfilter %}
+<p>Want to see if everything worked? In your terminal, head over to your top level
+myhellowebapp folder (make sure you&#39;re in the same directory as <em>manage.py</em>)
+and run this command:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> python manage.py runserver
 </code></pre>
 
-{% filter markdown %}
-...and you'll see the local Django development server starting, which'll serve
-your project to your computer.
-{% endfilter %}
+<p>...and you'll see the local Django development server starting, which'll serve
+your project to your computer.</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> python manage.py runserver
@@ -450,12 +384,9 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 </code></pre>
 
-{% filter markdown %}
-Now just head to your favorite web browser and visit
-[http://localhost:8000](http://localhost:8000), where you'll see a "Welcome to
-Django" page. Congrats on starting Django!
-
-{% endfilter %}
+<p>Now just head to your favorite web browser and visit
+<a href="http://localhost:8000">http://localhost:8000</a>, where you&#39;ll see a &quot;Welcome to
+Django&quot; page. Congrats on starting Django!</p>
 
 <img src="{% static 'images/newproject.png' %}" alt="New project with Django" style="border: 1px solid #e1e1e1; margin-bottom: 1em;"/>
 
