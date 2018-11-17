@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}About - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("About");
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="text-center">Oops, 500 Server Error. :(</h1>
+      <p>This shouldn't happen and yet, here we are. Check back in the few minutes! Feel free to email me at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and let me know about the error.</p>
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}
