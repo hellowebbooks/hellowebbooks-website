@@ -11,8 +11,6 @@ analytics.page("Samples");
 {% endblock %}
 
 {% block content %}
-<div class="jumbotron"></div>
-
 <div class="container" style="margin-bottom: 7rem;">
 
     <div class="row">
@@ -31,7 +29,7 @@ analytics.page("Samples");
             <a href="{% url 'order' %}" class="btn btn-secondary btn-sm">Buy the book</a>
         </div>
         <div class="col-md-4">
-            <h2>Hello Web App: <span style="font-size: 14px">Intermediate Concepts</span></h2>
+            <h2 style="line-height:0.6;">Hello Web App: <br/><span style="font-size: 14px">Intermediate Concepts</span></h2>
             <img src="{% static 'images/ic/1.jpg' %}" alt="Hello Web App: Intermediate Concepts book" style="margin-bottom: 10px" />
             <p><strong>Continue growing your Django web app.</strong> Self-contained chapters cover concepts such as adding payments, working with multiple models, and more.</p>
             <a href="http://hellobks.com/ic-sample" class="btn btn-primary btn-sm">Get the sample</a>
