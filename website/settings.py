@@ -145,7 +145,7 @@ USE_TZ = True
 
 SERVER_EMAIL = 'hi@hellowebbooks.com'
 ADMINS = [
-    ('Tracy', 'tracy@hellowebbooks.com'), 
+    ('Tracy', 'tracy@hellowebbooks.com'),
 ]
 
 # Static files (CSS, JavaScript, Images)
