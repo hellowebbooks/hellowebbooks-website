@@ -123,7 +123,7 @@ class PostPage(Page):
     tags = ClusterTaggableManager(through='blog.BlogPageTag', blank=True)
 
     content_panels = Page.content_panels + [
-        MarkdownPanel('excerpt'),
+        FieldPanel('excerpt'),
         ImageChooserPanel('header_image'),
         FieldPanel('header_image_link'),
         StreamFieldPanel("body"),
