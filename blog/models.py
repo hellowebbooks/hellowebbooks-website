@@ -123,10 +123,10 @@ class PostPage(Page):
     tags = ClusterTaggableManager(through='blog.BlogPageTag', blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel('excerpt'),
+        StreamFieldPanel("body"),
         ImageChooserPanel('header_image'),
         FieldPanel('header_image_link'),
-        StreamFieldPanel("body"),
+        FieldPanel('excerpt'),
         FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         #FieldPanel('tags'),
         FieldPanel('featured'),
