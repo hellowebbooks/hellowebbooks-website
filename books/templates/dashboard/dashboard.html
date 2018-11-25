@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Dashboard - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Dashboard");
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Dashboard</h1>
+
+</div>
+
+<hr/>
+{% endblock content %}

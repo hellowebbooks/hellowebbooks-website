@@ -164,7 +164,7 @@ SITE_ID = 1
 
 # Registration
 ACCOUNT_ACTIVATION_DAYS = 7
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "dashboard"
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

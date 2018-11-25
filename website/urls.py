@@ -42,6 +42,9 @@ urlpatterns = [
     path('documents/', include(wagtaildocs_urls)),
     path('news/', include(wagtail_urls)),
 
+    # dashboard
+    path('dashboard/', views.dashboard, name="dashboard"),
+
     # registration
     path('accounts/password/reset/', password_reset,
         {'template_name': 'registration/password_reset_form.html'}, name="password_reset"),
