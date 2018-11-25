@@ -39,7 +39,7 @@ $btn-padding-y:              1rem;
 @import "convertkit";
 
 html {
-    border-top: 5px solid $brand-secondary;
+    //border-top: 5px solid $brand-secondary;
 }
 
 body {
@@ -198,6 +198,13 @@ figure.video {
 }
 
 // global elements
+#login-nav {
+    background-color: $brand-secondary;
+    a {
+      color: #fff;
+    }
+}
+
 #main-nav {
     margin-top: 1em;
     margin-bottom: 3em;

@@ -4911,10 +4911,6 @@ a.bg-danger:focus, a.bg-danger:hover {
     top: 5px;
   }
 }
-html {
-  border-top: 5px solid #498D90;
-}
-
 body {
   background-color: #fff;
   font-weight: 400;
@@ -5093,6 +5089,13 @@ figure.video iframe {
     white-space: inherit;
   }
 }
+#login-nav {
+  background-color: #498D90;
+}
+#login-nav a {
+  color: #fff;
+}
+
 #main-nav {
   margin-top: 1em;
   margin-bottom: 3em;

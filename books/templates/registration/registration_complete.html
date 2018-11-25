@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    Registration Complete - {{ block.super }}
+{% endblock title %}
+
+{% block analytics %}
+analytics.page("Registration Complete");
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Registration Complete</h1>
+    <p>Your account has been registered!</p>
+</div>
+{% endblock content %}

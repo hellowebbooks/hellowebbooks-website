@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'el_pagination',
     'modelcluster',
     'taggit',
+    'registration',
 
     # local Django app we just copyed
     'blog',
@@ -160,3 +161,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Wagtail
 WAGTAIL_SITE_NAME = 'Hello Web Books'
 SITE_ID = 1
+
+# Registration
+ACCOUNT_ACTIVATION_DAYS = 7
+LOGIN_REDIRECT_URL = "home"
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'testing@example.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+EMAIL_PORT = 1025

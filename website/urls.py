@@ -7,6 +7,8 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
+
 from books import views
 
 
@@ -40,6 +42,18 @@ urlpatterns = [
     path('documents/', include(wagtaildocs_urls)),
     path('news/', include(wagtail_urls)),
 
+    # registration
+    path('accounts/password/reset/', password_reset,
+        {'template_name': 'registration/password_reset_form.html'}, name="password_reset"),
+    path('accounts/password/reset/done/', password_reset_done,
+        {'template_name': 'registration/password_reset_done.html'}, name="password_reset_done"),
+    path('accounts/password/reset/<uidb64>/<token>/', password_reset_confirm,
+        {'template_name': 'registration/password_reset_confirm.html'}, name="password_reset_confirm"),
+    path('accounts/password/done/', password_reset_complete,
+        {'template_name': 'registration/password_reset_complete.html'},
+        name="password_reset_complete"),
+    path('accounts/', include('registration.backends.simple.urls')),
+
     # redirects
     path('web-design/', RedirectView.as_view(pattern_name='learn-design', permanent=True)),
     path('original/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
@@ -49,7 +63,7 @@ urlpatterns = [
     path('cmd-line-printable/', RedirectView.as_view(url='https://goo.gl/B38FeX')),
 
     # admin
-    path('accounts/', include('django.contrib.auth.urls')),
+    #path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]
 

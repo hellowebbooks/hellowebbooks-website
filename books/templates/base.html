@@ -46,6 +46,24 @@
 {% block bodyclass %}
 <body>
 {% endblock bodyclass %}
+    <nav id="login-nav">
+        <div class="container">
+            <ul class="list-inline">
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'auth_logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'auth_login' %}">Login</a>
+                </li>
+                <li>
+                    <a href="{% url 'registration_register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
     <nav class="container" id="main-nav">
         <div class="row">
             <div class="logo col-md-6">

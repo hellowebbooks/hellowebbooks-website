@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+    Registration Form - {{ block.super }}
+{% endblock title %}
+
+{% block analytics %}
+analytics.page("Registration Form");
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Registration Form</h1>
+    <form role="form" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+
+    {% include 'includes/newsletter.html' %}
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}i
