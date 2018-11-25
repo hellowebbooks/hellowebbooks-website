@@ -15,9 +15,8 @@ analytics.page("Registration Form");
         {{ form.as_p }}
         <input type="submit" value="Submit" />
     </form>
-
-    {% include 'includes/newsletter.html' %}
 </div>
+{% include 'includes/newsletter.html' %}
 {% endblock content %}
 
 {% block scripts %}
