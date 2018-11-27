@@ -15,13 +15,15 @@ from books import views
 urlpatterns = [
     # website pages
     path('', views.index, name='index'),
+    path('order/', views.order, name='order'),
+
+    # static pages
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact'),
     path('courses/', TemplateView.as_view(template_name='courses.html'), name='courses'),
     path('donate/', TemplateView.as_view(template_name='donate.html'), name='donate'),
     path('faq/', TemplateView.as_view(template_name='faq.html'), name='faq'),
     path('migrate/', TemplateView.as_view(template_name='migrate.html'), name='migrate'),
-    path('order/', TemplateView.as_view(template_name='order.html'), name='order'),
     path('press/', TemplateView.as_view(template_name='press.html'), name='press'),
     path('privacy-policy/', TemplateView.as_view(template_name='privacy-policy.html'), name='privacy-policy'),
     path('samples/', TemplateView.as_view(template_name='samples.html'), name='samples'),
@@ -42,7 +44,7 @@ urlpatterns = [
     path('documents/', include(wagtaildocs_urls)),
     path('news/', include(wagtail_urls)),
 
-    # dashboard
+    # dashboard and logged in views
     path('dashboard/', views.dashboard, name="dashboard"),
 
     # registration
