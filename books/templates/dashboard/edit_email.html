@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Edit Email - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Update Email</h1>
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        {% include 'includes/form.html' with form=form %}
+        <input type="submit" value="Submit" class="btn btn-lg btn-primary"/>
+    </form>
+</div>
+
+<hr/>
+{% endblock content %}

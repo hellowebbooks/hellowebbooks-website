@@ -11,18 +11,33 @@ analytics.page("Dashboard");
 <div class="container">
     <h1 class="text-center">Dashboard</h1>
 
-    <section id="memberships">
-        {% for membership in memberships %}
-        <div class="box">
-            <h2>
-                <a href="{% url 'product_page' product_id=membership.product.name|slugify %}">
-                    {{ membership.product.name }}
-                </a>
-            </h2>
-            <p>Bought on {{ membership.created|date:"M. d, Y" }}.</p>
+    <div class="row">
+        <div class="col-md-9">
+            <h2>Your Hello Web Books products:</h2>
+            <section id="memberships">
+                {% for membership in memberships %}
+                <div class="box">
+                    <h2>
+                        <a href="{% url 'product_page' product_id=membership.product.name|slugify %}">
+                            {{ membership.product.name }}
+                        </a>
+                    </h2>
+                    <p>Bought on {{ membership.created|date:"M. d, Y" }}.</p>
+                </div>
+                {% endfor %}
+            </section>
         </div>
-        {% endfor %}
-    </section>
+
+        <div class="col-md-3">
+            <h4>Administration</h4>
+            <ul>
+                <li><a href="{% url 'charge_update' %}">Update or cancel payment details</a></li>
+                <li><a href="{% url 'password_change' %}">Update password</a></li>
+                <li><a href="{% url 'edit_email' %}">Update email</a></li>
+                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 <hr/>

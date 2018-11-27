@@ -7,7 +7,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
+from django.contrib.auth.views import password_change, password_change_done, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 
 from books import views
 
@@ -46,9 +46,14 @@ urlpatterns = [
 
     # dashboard and logged in views
     path('dashboard/', views.dashboard, name="dashboard"),
+    path('dashboard/edit-email/', views.edit_email, name="edit_email"),
     path('dashboard/hello-web-app/', views.hwa, name="hwa"),
     path('dashboard/hello-web-design/', views.hwd, name="hwd"),
     path('dashboard/<product_id>/', views.product_page, name="product_page"),
+
+    # payment views
+    path('charge/update/', views.charge_update, name="charge_update"),
+    path('charge/cancel/', views.charge_cancel, name="charge_cancel"),
 
     # registration
     path('accounts/password/reset/', password_reset,
@@ -60,6 +65,13 @@ urlpatterns = [
     path('accounts/password/done/', password_reset_complete,
         {'template_name': 'registration/password_reset_complete.html'},
         name="password_reset_complete"),
+    path('accounts/password/change/', password_change, {
+        'template_name': 'registration/password_change_form.html'},
+        name='password_change'),
+    path('accounts/password/change/done/', password_change_done,
+        {'template_name': 'registration/password_change_done.html'},
+        name='password_change_done'),
+
     path('accounts/', include('registration.backends.simple.urls')),
 
     # redirects
