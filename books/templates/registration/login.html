@@ -9,16 +9,22 @@ analytics.page("Login");
 
 {% block content %}
 <div class="container">
-    <h1>Login</h1>
-    <form role="form" action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit" />
-    </form>
-    <p>
-        <a href="{% url 'password_reset' %}">
-            Forgot your password?
-        </a>
-    </p>
+    <h1 class="text-center">Login</h1>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center" style="margin-top: 2em;" >
+            <form method="post" role="form" action="">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                {% include 'includes/form.html' with form=form %}
+                <input type="submit" value="login" class="btn btn-primary" />
+            </form>
+            <p>
+                <a href="{% url 'password_reset' %}">
+                    Forgot your password?
+                </a>
+            </p>
+        </div>
+    </div>
 </div>
 {% endblock content %}

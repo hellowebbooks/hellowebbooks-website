@@ -5092,8 +5092,16 @@ figure.video iframe {
 #login-nav {
   background-color: #498D90;
 }
-#login-nav a {
+#login-nav ul {
+  margin-bottom: 2px;
+  margin-top: -5px;
+}
+#login-nav ul li {
+  font-size: 80%;
+}
+#login-nav ul a {
   color: #fff;
+  font-size: 0.6rem;
 }
 
 #main-nav {
@@ -5110,21 +5118,22 @@ figure.video iframe {
   margin-left: 10px;
   color: #666;
 }
-#main-nav nav {
+
+#login-nav, #main-nav {
   text-align: right;
 }
-#main-nav nav li {
+#login-nav li, #main-nav li {
   padding-right: 0;
   padding-left: 1.5em;
 }
-#main-nav nav a {
+#login-nav a, #main-nav a {
   font-weight: bold;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   color: #111;
   text-transform: uppercase;
 }
-#main-nav nav a:hover {
+#login-nav a:hover, #main-nav a:hover {
   color: #498D90;
   text-decoration: none;
 }

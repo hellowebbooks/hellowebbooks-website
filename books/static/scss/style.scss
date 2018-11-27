@@ -200,8 +200,11 @@ figure.video {
 // global elements
 #login-nav {
     background-color: $brand-secondary;
-    a {
-      color: #fff;
+    ul {
+        margin-bottom: 2px;
+        margin-top: -5px;
+        li { font-size: 80%; }
+        a { color: #fff; font-size: 0.6rem; }
     }
 }
 
@@ -220,22 +223,23 @@ figure.video {
             color: #666;
         }
     }
-    nav {
-        text-align: right;
-        li {
-            padding-right: 0;
-            padding-left: 1.5em;
-        }
-        a {
-            font-weight: bold;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            color: #111;
-            text-transform: uppercase;
-            &:hover {
-                color: $link-color;
-                text-decoration: none;
-            }
+}
+
+#login-nav, #main-nav {
+    text-align: right;
+    li {
+        padding-right: 0;
+        padding-left: 1.5em;
+    }
+    a {
+        font-weight: bold;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        color: #111;
+        text-transform: uppercase;
+        &:hover {
+            color: $link-color;
+            text-decoration: none;
         }
     }
 }
