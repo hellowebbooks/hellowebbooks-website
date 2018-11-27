@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ product_name }} Dashboard - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">{{ product_name }} Dashboard</h1>
+
+</div>
+
+<hr/>
+{% endblock content %}

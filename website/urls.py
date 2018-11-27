@@ -46,6 +46,9 @@ urlpatterns = [
 
     # dashboard and logged in views
     path('dashboard/', views.dashboard, name="dashboard"),
+    path('dashboard/hello-web-app/', views.hwa, name="hwa"),
+    path('dashboard/hello-web-design/', views.hwd, name="hwd"),
+    path('dashboard/<product_id>/', views.product_page, name="product_page"),
 
     # registration
     path('accounts/password/reset/', password_reset,

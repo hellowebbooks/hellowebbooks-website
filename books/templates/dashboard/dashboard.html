@@ -11,6 +11,18 @@ analytics.page("Dashboard");
 <div class="container">
     <h1 class="text-center">Dashboard</h1>
 
+    <section id="memberships">
+        {% for membership in memberships %}
+        <div class="box">
+            <h2>
+                <a href="{% url 'product_page' product_id=membership.product.name|slugify %}">
+                    {{ membership.product.name }}
+                </a>
+            </h2>
+            <p>Bought on {{ membership.created|date:"M. d, Y" }}.</p>
+        </div>
+        {% endfor %}
+    </section>
 </div>
 
 <hr/>

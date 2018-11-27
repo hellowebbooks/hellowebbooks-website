@@ -935,6 +935,17 @@ figure.video {
     }
 }
 
+/* DASHBOARD */
+#memberships {
+    display: grid; // There Andrey, I did CSS Grid :P
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1em;
+    .box {
+        border: 1px solid black;
+    }
+}
+
+
 // NAGGER
 /*
 #nagger {
