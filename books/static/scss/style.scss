@@ -204,7 +204,12 @@ figure.video {
         margin-bottom: 2px;
         margin-top: -5px;
         li { font-size: 80%; }
-        a { color: #fff; font-size: 0.6rem; }
+        a {
+            color: #fff;
+            font-size: 0.6rem;
+            &:hover { color: darken($highlight, 10%); }
+        }
+
     }
 }
 

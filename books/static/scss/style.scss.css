@@ -5103,6 +5103,9 @@ figure.video iframe {
   color: #fff;
   font-size: 0.6rem;
 }
+#login-nav ul a:hover {
+  color: #fff797;
+}
 
 #main-nav {
   margin-top: 1em;

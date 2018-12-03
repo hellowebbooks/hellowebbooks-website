@@ -10,9 +10,18 @@
         <p><a href="{% url 'dashboard' %}">Return to your main dashboard</a></p>
     </div>
 
-    <h3 style="margin-bottom:0">Download links:</h3>
-    <p><small>These files do not have DRM. Please do not share these files publicly.</small></p>
-    {% block files %}{% endblock %}
+    <div class="row">
+        <div class="col-sm-3">
+            <h3 style="margin-bottom:0">Files</h3>
+            <p><small>These files do not have DRM. Please do not share these files publicly.</small></p>
+            {% block files %}{% endblock %}
+        </div>
+        <div class="col-sm-9">
+            
+        </div>
+    </div>
+
+
 
 
 </div>

@@ -23,6 +23,11 @@ analytics.page("Dashboard");
                         </a>
                     </h2>
                     <p>Bought on {{ membership.created|date:"M. d, Y" }}.</p>
+                    {% if membership.video %}
+                    <a href="" class="btn btn-primary btn-sm">Play videos</a>
+                    {% endif %}
+                    <a href="" class="btn btn-secondary btn-sm">Download eBook files</a>
+                    <a href="" class="btn btn-secondary btn-sm">Slack channel</a>
                 </div>
                 {% endfor %}
             </section>
@@ -30,6 +35,16 @@ analytics.page("Dashboard");
 
         <div class="col-md-3">
             <h4>Administration</h4>
+            {% comment %}
+            {% filter markdown %}
+            * hello
+            * this
+
+            kdjdkjd
+
+            ## hello
+            {% endfilter %}
+            {% endcomment %}
             <ul>
                 <li><a href="{% url 'charge_update' %}">Update or cancel payment details</a></li>
                 <li><a href="{% url 'password_change' %}">Update password</a></li>
