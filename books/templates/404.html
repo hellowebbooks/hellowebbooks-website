@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}About - {{ block.super }}{% endblock %}
+{% block title %}404 - {{ block.super }}{% endblock %}
 
 {% block analytics %}
-analytics.page("About");
+analytics.page("404 Error");
 {% endblock %}
 
 {% block content %}
@@ -14,11 +14,4 @@ analytics.page("About");
       <p>This shouldn't happen and yet, here we are. Are you sure you typed in the correct address? Feel free to email me at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and let me know about the error.</p>
 </div>
 
-{% include 'includes/newsletter.html' %}
-
 {% endblock content %}
-
-{% block scripts %}
-{{ block.super }}
-{% include 'includes/newsletter-analytics.html' %}
-{% endblock scripts %}
