@@ -18,6 +18,7 @@ urlpatterns = [
     path('courses/', TemplateView.as_view(template_name='courses.html'), name='courses'),
     path('donate/', TemplateView.as_view(template_name='donate.html'), name='donate'),
     path('faq/', TemplateView.as_view(template_name='faq.html'), name='faq'),
+    path('gitignore/', TemplateView.as_view(template_name='gitignore.html'), name='gitignore'),
     path('migrate/', TemplateView.as_view(template_name='migrate.html'), name='migrate'),
     path('order/', TemplateView.as_view(template_name='order.html'), name='order'),
     path('press/', TemplateView.as_view(template_name='press.html'), name='press'),
