@@ -22,7 +22,7 @@ analytics.page("Start");
         <p>Hi, I'm the author, Tracy.</p>
         <p>I started writing books in 2014 after getting frustrated with the way that beginner concepts were being taught. <strong>I realized that web app programming could be taught (and should be) taught in a different way to learners like myself</strong> and <em>Hello Web App</em> was born. Three years later, <em>Hello Web App</em> has helped thousands of beginner programmers launch their first web app.</p>
         <p><strong><em>Hello Web App</em> is down-to-earth with no nonsense.</strong> The book is written in an informal and friendly tone with no jargon. Many programming books suffer from wordiness and bloat &#8212; <strong>this is simply the basics in an easy-to-read and understand manner.</strong></p>
-        <p>My third book, <em>Hello Web Design</em>, was successfully funded on Kickstarter in early 2017 and will be released mid-to-late 2017 as an eBook, paperback, and video package. <strong><a href="{% url '/learn-design.html' %}">Pre-order <em>Hello Web Design</em> today.</strong></a></p>
+        <p>My third book, <em>Hello Web Design</em>, was successfully funded on Kickstarter in early 2017 and will be released mid-to-late 2017 as an eBook, paperback, and video package. <strong><a href="{% url 'learn-design' %}">Pre-order <em>Hello Web Design</em> today.</strong></a></p>
     </div>
 
     {% comment %}
@@ -91,7 +91,7 @@ analytics.page("Start");
     </div>
 
     <div class="row super-vertical-margin">
-        <p class="text-center"><a href="{% url '/order.html' %}" class="btn btn-secondary">See all buying options here, starting at $14.95</a></p>
+        <p class="text-center"><a href="{% url 'order' %}" class="btn btn-secondary">See all buying options here, starting at $14.95</a></p>
     </div>
 </div>
 
