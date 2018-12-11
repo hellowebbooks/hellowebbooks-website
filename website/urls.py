@@ -43,6 +43,7 @@ urlpatterns = [
 
     # redirects
     path('web-design/', RedirectView.as_view(pattern_name='learn-design', permanent=True)),
+    path('tutorial/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
     path('original/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
     path('intermediate-concepts/', RedirectView.as_view(pattern_name='django-intermediate-concepts', permanent=True)),
     path('preorder/', RedirectView.as_view(pattern_name='order', permanent=True)),
