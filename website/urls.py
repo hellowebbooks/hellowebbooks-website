@@ -73,6 +73,7 @@ urlpatterns = [
         {'template_name': 'registration/password_change_done.html'},
         name='password_change_done'),
 
+    path('login/', RedirectView.as_view(url='/accounts/login/')),
     path('accounts/', include('registration.backends.simple.urls')),
 
     # redirects
