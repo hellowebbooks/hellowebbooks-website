@@ -9,7 +9,7 @@
     </div>
     {% elif post.header_image %}
     <div class="thumbnail col-sm-3">
-        <a href="{{ post.page.link_url|cut:".html" }}">
+        <a href="{{ post.url }}">
             <img src="{% static post.header_image %}" alt="{{ post.title }}" />
         </a>
     </div>
@@ -26,9 +26,9 @@
       <p>{{ post.headline }}</p>
       {% endif %}
       {% if post.excerpt %}
-      <p class="excerpt">{{ post.excerpt|truncatewords:50 }} <span class="readmore"><a href="{{ post.page.link_url|cut:".html" }}/">Read more...</a></span></p>
+      <p class="excerpt">{{ post.excerpt|truncatewords:50 }} <span class="readmore"><a href="{{ post.url }}">Read more...</a></span></p>
       {% else %}
-      <p class="readmore"><a href="{{ post.page.link_url|cut:".html" }}/">Read more</a></p>
+      <p class="readmore"><a href="{{ post.url }}">Read more</a></p>
       {% endif %}
     </div>
 </li>
