@@ -1,0 +1,12 @@
+<form action="{% url 'charge' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" id="amount" name="amount" value="{{ amount|cut:"." }}">
+    <script src="https://checkout.stripe.com/checkout.js"
+    class="stripe-button"
+    data-key="{{ key }}"
+    data-name="Hello Web Books"
+    data-description="eBook" data-amount="{{ amount|cut:"." }}"
+    data-allow-remember-me="false"
+    data-label="Order for ${{ amount }}">
+    </script>
+</form>

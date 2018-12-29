@@ -1,11 +1,17 @@
+import os
+import stripe
+
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from books import forms
 from books.models import Product, Membership
 from blog.models import PostPage
 
+stripe.api_key = os.environ['STRIPE_SECRET']
 
 def index(request):
     posts = PostPage.objects.select_related().all()
@@ -15,11 +21,10 @@ def index(request):
 
 
 def order(request):
-    # XXX: Probably want to remove the below and
-    # keep the order stuff to manual listings for now.
     products = Product.objects.all()
     return render(request, 'order.html', {
         'products': products,
+        'key': settings.STRIPE_PUBLISHABLE,
     })
 
 
@@ -90,6 +95,41 @@ def edit_email(request):
     return render(request, 'dashboard/edit_email.html', {
         'form': form,
     })
+
+
+@login_required
+def charge(request):
+    if request.method != "POST":
+        return redirect('order')
+
+    if not 'stripeToken' in request.POST:
+        messages.error(request, 'Something went wrong!')
+        return redirect('order')
+
+    try:
+        customer = stripe.Customer.create(
+            email=request.POST['stripeEmail'],
+            source=request.POST['stripeToken'],
+        )
+    except stripe.error.StripeError as e:
+        msg = "Stripe payment error: %s" % e
+        messages.error(request, msg)
+        mail_admins("Error with Stripe on App", msg)
+        return redirect('order')
+
+    # set the amount to charge, in cents
+    amount = request.POST['amount']
+
+    # charge the customer!
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='My one-time charge',
+    )
+
+    messages.success(request, 'Bought a book!')
+    return redirect('order')
 
 
 @login_required

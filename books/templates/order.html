@@ -20,10 +20,11 @@ analytics.page("Order");
         <p>(Are you an <b>educational institution, library,</b> or <b>ordering paperbacks in bulk?</b> Please email <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and I can give you a discount and a special order form.)</p>
     </div>
 
-    <!-- XXX: Update this -->
+    {% comment %}
     {% for product in products %}
     {{ product.name }}
     {% endfor %}
+    {% endcomment %}
 
     {% comment %}
     Choose which books you want

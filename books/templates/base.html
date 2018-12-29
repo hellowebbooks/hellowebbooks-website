@@ -22,7 +22,7 @@
     <link rel="icon" type="image/png" href="{% static '/images/favicons/favicon-96x96.png' %}" sizes="96x96">
     <link rel="icon" type="image/png" href="{% static '/images/favicons/favicon-16x16.png' %}" sizes="16x16">
     <link rel="canonical" href="{{ CURRENT_PAGE.absolute_final_url }}" />
-    <link rel="stylesheet" href="{% static '/scss/style.scss.css' %}?v=34">
+    <link rel="stylesheet" href="{% static '/scss/style.scss.css' %}?v=36">
     <meta property="og:locale" content="en_CA" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Hello Web Books" />
@@ -85,6 +85,16 @@
             </nav>
         </div>
     </nav>
+
+    {% if messages %}
+    <div class="container">
+        <ul class="messages list-unstyled">
+        {% for message in messages %}
+        <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
     {% block content %}
     {% endblock content %}

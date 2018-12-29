@@ -39,7 +39,7 @@ $btn-padding-y:              1rem;
 @import "convertkit";
 
 html {
-    border-top: 5px solid $brand-secondary;
+    //border-top: 5px solid $brand-secondary;
 }
 
 body {
@@ -198,6 +198,23 @@ figure.video {
 }
 
 // global elements
+.messages { margin-bottom: 3em; }
+
+#login-nav {
+    background-color: $brand-secondary;
+    ul {
+        margin-bottom: 2px;
+        margin-top: -5px;
+        li { font-size: 80%; }
+        a {
+            color: #fff;
+            font-size: 0.6rem;
+            &:hover { color: darken($highlight, 10%); }
+        }
+
+    }
+}
+
 #main-nav {
     margin-top: 1em;
     margin-bottom: 3em;
@@ -213,22 +230,23 @@ figure.video {
             color: #666;
         }
     }
-    nav {
-        text-align: right;
-        li {
-            padding-right: 0;
-            padding-left: 1.5em;
-        }
-        a {
-            font-weight: bold;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            color: #111;
-            text-transform: uppercase;
-            &:hover {
-                color: $link-color;
-                text-decoration: none;
-            }
+}
+
+#login-nav, #main-nav {
+    text-align: right;
+    li {
+        padding-right: 0;
+        padding-left: 1.5em;
+    }
+    a {
+        font-weight: bold;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        color: #111;
+        text-transform: uppercase;
+        &:hover {
+            color: $link-color;
+            text-decoration: none;
         }
     }
 }
@@ -927,6 +945,17 @@ figure.video {
         background-color: darken($hwd, 10%);
     }
 }
+
+/* DASHBOARD */
+#memberships {
+    display: grid; // There Andrey, I did CSS Grid :P
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1em;
+    .box {
+        border: 1px solid black;
+    }
+}
+
 
 // NAGGER
 /*
