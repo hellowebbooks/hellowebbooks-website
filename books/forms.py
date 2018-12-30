@@ -15,6 +15,11 @@ class EditEmailForm(forms.ModelForm):
         self.fields['email'].label = "Update your email address:"
 
 
+class AddEmailForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
 class CardForm(forms.Form):
     last_4_digits = forms.CharField(required=True, min_length=4, max_length=4, widget=forms.HiddenInput())
     stripe_token = forms.CharField(required=True, widget=forms.HiddenInput())

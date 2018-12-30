@@ -5881,6 +5881,55 @@ figure.video iframe {
   border: 1px solid black;
 }
 
+/* CHARGE PAGE */
+#charge-form {
+  width: 500px;
+  margin: 0 auto;
+  padding: 30px 40px 10px 40px;
+}
+
+#payment-form .control-group {
+  margin-top: 0;
+}
+#payment-form input {
+  font-size: 20px;
+  height: 28px;
+  line-height: 28px;
+  padding: 6px;
+  width: 400px;
+}
+#payment-form #cvc-field, #payment-form #expiration-fields {
+  float: left;
+}
+#payment-form #cvc-field {
+  margin-left: 30px;
+}
+#payment-form #cvc-field .help-text {
+  float: right;
+  width: 200px;
+  margin-left: 10px;
+  color: #818a91;
+  font-size: 12px;
+}
+#payment-form #coupon-code-group {
+  clear: both;
+}
+#payment-form #coupon-code-prompt {
+  display: block;
+  margin-top: 10px;
+}
+#payment-form button {
+  clear: both;
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+
+#stripe-disclaimer {
+  width: 500px;
+  margin: 20px auto;
+}
+
 /*
 #nagger {
     padding-top: 5px;

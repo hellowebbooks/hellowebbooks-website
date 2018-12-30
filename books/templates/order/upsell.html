@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Confirm Email - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Confirm Email");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="upsell">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% include 'includes/form.html' with form=form %}
+            <input type="submit" value="Submit" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

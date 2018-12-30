@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Add Credit Card Details - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Add Credit Card Details");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="credit-details">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+        <div id="charge-form" class="side-note col-md-6 col-md-offset-3">
+            {% for key, value in form.errors.items %}
+                <p>{{ value }}</p>
+            {% endfor %}
+            {% for key, value in form.non_field_errors.items %}
+                <p>{{ value }}</p>
+            {% endfor %}
+
+            <form action="" method="POST" id="payment-form" class="" autocomplete="on" role="form">
+                {% csrf_token %}
+                <noscript>
+                    <p>This form requires Javascript to use.</p>
+                </noscript>
+                <div class="payment-errors"></div>
+                <input id="id_last_4_digits" name="last_4_digits" type="hidden" />
+                <input id="id_stripe_token" name="stripe_token" type="hidden" />
+                <input id="id_coupon" name="coupon" type="hidden" />
+
+                {% if plan_name == 'global' %}
+                <p>You have chosen an online/e-commerce/destination profile for <strong>$270/year</strong>.</p>
+                {% elif plan_name == 'certifiedglobal' %}
+                <p>You have chosen a online/e-commerce/destination profile for <strong>$270/year</strong> and are applying for a Certified Lovely Vendor&trade; account for <strong>$190/year</strong> for a full charge of <strong>$460</strong>. Payment will be refunded if you're not approved.</p>
+                {% endif %}
+
+                <div class="form-group {% if form.card_number.errors %}has-error{% endif %}">
+                    <label class="control-label" for="id_card_number">
+                        Card number
+                    </label>
+
+                    <div class="controls">
+                        {{ form.card_number }}
+                        {% if form.card_number.errors %}
+                            {% for error in form.card_number.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if form.card_number.help_text %}
+                            <div class="help-text">
+                                <p>{{ form.card_number.help_text }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.card_expiry_month.errors %}has-error{% endif %}" id="expiration-fields">
+                    <label class="control-label" for="id_card_expiry_month">
+                        Expiration
+                    </label>
+
+                    <div class="controls">
+                        {{ form.card_expiry_month }}
+                        / {{ form.card_expiry_year }}
+                        {% if form.card_expiry_month.errors %}
+                            {% for error in form.card_expiry_month.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.card_expiry_year.errors %}
+                            {% for error in form.card_expiry_year.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.card_cvc.errors %}has-error{% endif %}" id="cvc-field">
+                    <label class="control-label" for="id_card_cvc">
+                        Security Code
+                    </label>
+
+                    <div class="controls">
+                        {{ form.card_cvc }}
+                        {% if form.card_cvc.errors %}
+                            {% for error in form.card_cvc.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="help-text">
+                            <p>3 digits on the back of your card. <br/>Amex: 4 digits on front.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.coupon_code.errors %}has-error{% endif %}" id="coupon-code-group">
+                    <label class="control-label" for="id_coupon_code">
+                        Coupon code
+                    </label>
+
+                    <div class="controls">
+                        {{ form.coupon_code }}
+                        {% if form.coupon_code.errors %}
+                            {% for error in form.coupon_code.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if form.coupon_code.help_text %}
+                            <div class="help-text">
+                                <p>{{ form.coupon_code.help_text }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div style="clear:both;">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Submit credit card
+                    </button>
+                </div>
+                <p><small><a id="coupon-code-prompt" href="#">Got a coupon code?</a></small></p>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+{% include 'includes/newsletter.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+{% include 'includes/newsletter-analytics.html' %}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+    Stripe.setPublishableKey('{{ publishable_key }}');
+
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $(".payment-errors").html(response.error.message);
+            $('button').removeAttr('disabled') // re-enable form so people can fix errors
+        } else {
+            var form$ = $("#payment-form");
+
+            $("#id_stripe_token").val(response.id);
+            $("#id_last_4_digits").val(response.card.last4);
+            $("#id_coupon").val($('.coupon-code').val());
+            form$.get(0).submit();
+        }
+    }
+
+    $(document).ready(function() {
+        $("#coupon-code-group").hide();
+        $("#coupon-code-prompt").click(function() {
+            $("#coupon-code-group").show("slow");
+            return false;
+        });
+
+        $("#payment-form").submit(function(event) {
+            var $form = $(this);
+            $form.find('button').prop('disabled', true);
+
+            // var amount = 1000; //amount you want to charge in cents - disabled since it's set later?
+            Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val(),
+                address_zip: $('.card-address-zip').val()
+            }, stripeResponseHandler);
+            // }, amount, stripeResponseHandler);
+
+            return false; // prevent the form from submitting with the default action
+        });
+    });
+</script>
+{% endblock scripts %}

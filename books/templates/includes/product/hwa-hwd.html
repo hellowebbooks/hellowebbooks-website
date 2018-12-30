@@ -29,7 +29,8 @@
 
             <div class="super-vertical-top-margin">
               <!--<a class="btn btn-primary buy-button" data-title="Hello Web Books Videos" data-category="Hello Web Books Combo" data-price="199" href="https://gum.co/hwb-videos">Buy the full course for $199</a>-->
-              {% include 'includes/order-form.html' with amount="199.00" %}
+              {% comment %}{% include 'includes/order-form.html' with amount="199.00" %}{% endcomment %}
+              <a href="{% url 'upsell' product='hwb-video' %}">Go to upsell page</a>
             </div>
         </div>
     </div>

@@ -956,6 +956,45 @@ figure.video {
     }
 }
 
+/* CHARGE PAGE */
+#charge-form {
+    width: 500px;
+    margin: 0 auto;
+    padding: 30px 40px 10px 40px;
+}
+#payment-form {
+    .control-group { margin-top: 0; }
+    input {
+        font-size: 20px;
+        height: 28px;
+        line-height: 28px;
+        padding: 6px;
+        width: 400px;
+    }
+    #cvc-field, #expiration-fields { float: left; }
+    #cvc-field {
+        margin-left: 30px;
+        .help-text {
+            float: right;
+            width: 200px;
+            margin-left: 10px;
+            color: $gray-light;
+            font-size: 12px;
+        }
+    }
+    #coupon-code-group { clear: both; }
+    #coupon-code-prompt { display: block; margin-top: 10px; }
+    button {
+        clear: both;
+        font-size: 16px;
+        font-weight: 300;
+        margin-top: 10px;
+    }
+}
+#stripe-disclaimer {
+    width: 500px;
+    margin: 20px auto;
+}
 
 // NAGGER
 /*

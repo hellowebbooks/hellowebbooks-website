@@ -53,9 +53,10 @@ urlpatterns = [
     path('dashboard/<product_id>/', views.product_page, name="product_page"),
 
     # payment views
-    path('charge/', views.charge, name='charge'),
+    path('charge/<product_name>/', views.charge, name='charge'),
     path('charge/update/', views.charge_update, name="charge_update"),
     path('charge/cancel/', views.charge_cancel, name="charge_cancel"),
+    path('buy/<product>/', views.upsell, name='upsell'),
 
     # registration
     path('accounts/password/reset/', password_reset,
