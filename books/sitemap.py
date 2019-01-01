@@ -8,6 +8,7 @@ from blog.models import PostPage
 class PostPageSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.5
+    protocol = "https"
 
     def items(self):
         return PostPage.objects.all()
@@ -20,6 +21,7 @@ class StaticSitemap(Sitemap):
     lastmod = None
     priority = 0.5
     changefreq = "weekly"
+    protocol = "https"
 
     def items(self):
         return ['about', 'contact', 'courses', 'donate', 'faq', 'migrate', 'order', 'press', 'privacy-policy', 'setup', 'start', 'workshops', 'write', 'django-intermediate-concepts', 'learn-command-line', 'learn-django', 'learn-design',]
@@ -30,6 +32,7 @@ class StaticSitemap(Sitemap):
 class HomepageSitemap(Sitemap):
     priority = 1
     changefreq = "daily"
+    protocol = "https"
 
     def items(self):
         return ['index',]
