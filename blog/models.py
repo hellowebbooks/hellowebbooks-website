@@ -36,6 +36,9 @@ class BlogPage(RoutablePageMixin, Page):
         FieldPanel('description', classname="full")
     ]
 
+    def get_absolute_url(self):
+        return "/%s/" % self.slug
+
     def get_context(self, request, *args, **kwargs):
         context = super(BlogPage, self).get_context(request, *args, **kwargs)
         context['posts'] = self.posts
@@ -145,6 +148,9 @@ class PostPage(Page):
         context['blog_page'] = self.blog_page
         context['post'] = self
         return context
+
+    def get_absolute_url(self):
+        return "/news/%s/" % self.slug
 
 
 @register_snippet
