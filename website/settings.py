@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     # Third party package used by our blog
     'el_pagination',
     'modelcluster',
+    'wagtail_feeds',
     'taggit',
 
     # local Django app we just copyed
