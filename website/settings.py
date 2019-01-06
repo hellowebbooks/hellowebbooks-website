@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail.core',
     "wagtail.contrib.routable_page",
+    'wagtail.contrib.settings',
 
     # Third party package used by our blog
     'el_pagination',
