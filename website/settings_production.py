@@ -19,12 +19,11 @@ DATABASES = {
     }
 }
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = os.environ['SENDGRID_API'],
-EMAIL_PORT = 25
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = 'hwb@mg.hellowebbooks.com'
+EMAIL_HOST_PASSWORD = os.environ['SENDGRID_API']
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-SERVER_EMAIL = EMAIL_HOST_USER
 
 STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (

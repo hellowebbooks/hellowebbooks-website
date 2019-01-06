@@ -18,6 +18,11 @@ stripe.api_key = os.environ['STRIPE_SECRET']
 
 def index(request):
     posts = PostPage.objects.select_related().all()
+    mail_admins(
+        "Hey the email integration works",
+        "This",
+    )
+
     return render(request, 'index.html', {
         'posts': posts,
     })
