@@ -7,7 +7,7 @@ from blog.models import PostPage
 def index(request):
     posts = PostPage.objects.select_related().all()
     mail_admins(
-        "Subscribe to Mailchimp didn't work, skipping",
+        "Hey the email integration works",
         "This",
     )
 
