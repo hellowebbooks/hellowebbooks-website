@@ -10,3 +10,4 @@ flake8==3.5.0
 pycodestyle==2.3.0
 Django==2.1.2
 gunicorn
+django-wagtail-feeds
