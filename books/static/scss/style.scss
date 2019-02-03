@@ -966,10 +966,11 @@ figure.video {
 
 .box {
     //border: 1px solid black;
-    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     .content {
         background-color: white;
+        border-radius: 0 0 10px 10px;
         margin-top: 200px;
         padding: 30px 20px;
         h2 {
