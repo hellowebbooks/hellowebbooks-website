@@ -7,45 +7,49 @@
 analytics.page("Dashboard");
 {% endblock %}
 
+{% block bodyclass %}
+<body id="membership-page">
+{% endblock %}
+
 {% block content %}
 <div class="container">
-    <h1 class="text-center">Dashboard</h1>
+    <h1 class="text-center"><span class="highlight">Dashboard</span></h1>
 
     <div class="row">
         <div class="col-md-9">
-            <h2>Your Hello Web Books products:</h2>
+            <h2>Your products:</h2>
             <section id="memberships">
                 {% for membership in memberships %}
-                <div class="box">
-                    <h2>
-                        <a href="{% url 'product_page' product_id=membership.product.name|slugify %}">
-                            {{ membership.product.name }}
-                        </a>
-                    </h2>
-                    <p>Bought on {{ membership.created|date:"M. d, Y" }}.</p>
-                    {% if membership.video %}
-                    <a href="" class="btn btn-primary btn-sm">Play videos</a>
-                    {% endif %}
-                    <a href="" class="btn btn-secondary btn-sm">Download eBook files</a>
-                    <a href="" class="btn btn-secondary btn-sm">Slack channel</a>
+                <div class="box {{ membership.product.name|slugify }}">
+                    <div class="content">
+                        <h2>
+                            <a href="{% url 'product_page' product_id=membership.product.name|slugify %}">
+                                {{ membership.product.name }}
+                            </a>
+                        </h2>
+                        <p class="boughton">Bought on {{ membership.created|date:"M. d, Y" }}.</p>
+                        <div class="super-vertical-margin">
+                            <p class="no-bottom-margin">Download eBook files:</p>
+                            <!-- XXX: Link to eBook files -->
+                            <ul>
+                                <li><a href="" title="Download {{ membership.product.name }} PDF">PDF</a></li>
+                                <li><a href="" title="Download {{ membership.product.name }} ePub">ePub</a></li>
+                                <li><a href="" title="Download {{ membership.product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
+                            </ul>
+                        </div>
+                        {% if membership.video %}
+                        <a href="" class="btn btn-primary btn-sm">Play videos</a>
+                        {% endif %}
+                        <a href="" class="btn btn-secondary btn-sm">Visit Slack channel</a>
+                    </div>
                 </div>
                 {% endfor %}
             </section>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3 sidebar">
             <h4>Administration</h4>
-            {% comment %}
-            {% filter markdown %}
-            * hello
-            * this
-
-            kdjdkjd
-
-            ## hello
-            {% endfilter %}
-            {% endcomment %}
-            <ul>
+            <ul class="list-unstyled">
                 <li><a href="{% url 'charge_update' %}">Update or cancel payment details</a></li>
                 <li><a href="{% url 'password_change' %}">Update password</a></li>
                 <li><a href="{% url 'edit_email' %}">Update email</a></li>

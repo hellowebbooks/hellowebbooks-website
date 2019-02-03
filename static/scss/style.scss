@@ -45,7 +45,7 @@ html {
 body {
     background-color: #fff;
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -145,6 +145,10 @@ hr {
 .super-vertical-top-margin {
     margin-top: 2em;
     margin-bottom: 1em;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0;
 }
 
 .content-block {
@@ -952,7 +956,46 @@ figure.video {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 1em;
     .box {
-        border: 1px solid black;
+        //border: 1px solid black;
+        box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+        border-radius: 10px;
+        .content {
+            background-color: white;
+            margin-top: 200px;
+            padding: 30px 20px;
+            h2 {
+                margin: 0 0 5px 0;
+            }
+            p.boughton {
+                font-size: 0.9rem;
+                color: #999;
+            }
+            .btn-sm {
+                font-size: 0.7rem;
+            }
+        }
+    }
+    .box.hello-web-design {
+        background: url(../images/hwd/2.jpg) 0 -100px no-repeat;
+        background-size: cover;
+    }
+    .box.hello-web-app {
+        background: url(../images/original/1.jpg) 0 -100px no-repeat;
+        background-size: cover;
+    }
+}
+
+.sidebar {
+    padding-left: 30px;
+    li {
+        font-size: 1rem;
+
+    }
+}
+
+@include media-breakpoint-down(lg) {
+    .sidebar {
+        padding-left: 0px;
     }
 }
 

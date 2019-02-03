@@ -4995,7 +4995,7 @@ a.bg-danger:focus, a.bg-danger:hover {
 body {
   background-color: #fff;
   font-weight: 400;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -5112,6 +5112,10 @@ hr {
 .super-vertical-top-margin {
   margin-top: 2em;
   margin-bottom: 1em;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0;
 }
 
 .content-block {
@@ -5878,9 +5882,45 @@ figure.video iframe {
   grid-gap: 1em;
 }
 #memberships .box {
-  border: 1px solid black;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+#memberships .box .content {
+  background-color: white;
+  margin-top: 200px;
+  padding: 30px 20px;
+}
+#memberships .box .content h2 {
+  margin: 0 0 5px 0;
+}
+#memberships .box .content p.boughton {
+  font-size: 0.9rem;
+  color: #999;
+}
+#memberships .box .content .btn-sm {
+  font-size: 0.7rem;
+}
+#memberships .box.hello-web-design {
+  background: url(../images/hwd/2.jpg) 0 -100px no-repeat;
+  background-size: cover;
+}
+#memberships .box.hello-web-app {
+  background: url(../images/original/1.jpg) 0 -100px no-repeat;
+  background-size: cover;
 }
 
+.sidebar {
+  padding-left: 30px;
+}
+.sidebar li {
+  font-size: 1rem;
+}
+
+@media (max-width: 74.9em) {
+  .sidebar {
+    padding-left: 0px;
+  }
+}
 /* CHARGE PAGE */
 #charge-form {
   width: 500px;

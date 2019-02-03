@@ -16,7 +16,7 @@
         {{ field }}
     {% else %}
     <div class="form-group {% if field.errors %}has-error{% endif %}" id="group_{{ field.name }}">
-            <label for="id_{{ field.name }}" class="control-label">{{ field.label }}</label>
+            <label for="id_{{ field.name }}" class="control-label">{{ field.label }}: </label>
 
             {{ field }}
 
