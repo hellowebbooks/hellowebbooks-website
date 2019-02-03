@@ -47,9 +47,8 @@ analytics.page("Dashboard");
                 {% endfor %}
             </section>
 
-            <hr />
-
             {% if not has_hwd or not has_hwa %}
+            <hr />
             <h4>Want to buy more?</h4>
             <section id="upsells">
                 {% if not has_hwd %}
@@ -74,7 +73,7 @@ analytics.page("Dashboard");
                 {% endif %}
             </section>
             {% else %}
-            <p class="text-center">You have every book I offer! Thank you. 💕</p>
+            <p class="text-center super-vertical-margin">You have every book I offer! Thank you. 💕</p>
             {% endif %}
         </div>
 
@@ -90,6 +89,4 @@ analytics.page("Dashboard");
         </div>
     </div>
 </div>
-
-<hr/>
 {% endblock content %}

@@ -5251,31 +5251,29 @@ figure.video iframe {
   margin-top: 2em;
   margin-bottom: 2em;
 }
-#footer nav ul li {
-  font-weight: bold;
-  float: left;
-  margin-right: 4em;
+#footer nav {
+  margin: 2em 0 0.5em 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 1em;
 }
-#footer nav ul li li {
+#footer nav div {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+#footer nav div h6 {
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+#footer nav div li {
+  display: block;
+  text-transform: none;
+  letter-spacing: 0;
   font-weight: normal;
-  float: none;
-  margin-right: 0;
+  margin-bottom: 0;
 }
 
-@media (max-width: 47.9em) {
-  #footer nav > ul > li {
-    min-height: 160px;
-    margin-bottom: 1em;
-    margin-right: 1em;
-  }
-
-  .footer-extra {
-    clear: left;
-  }
-  .footer-extra p.copy {
-    margin-bottom: 0.5em;
-  }
-}
 #home hr {
   margin: 4em 5em;
 }
@@ -5876,6 +5874,11 @@ figure.video iframe {
 }
 
 /* DASHBOARD */
+#membership-page #footer {
+  border-top: 5px solid #f7f7f7;
+  padding-top: 2em;
+}
+
 #memberships {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

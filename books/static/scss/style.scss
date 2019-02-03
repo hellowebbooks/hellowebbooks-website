@@ -272,33 +272,30 @@ figure.video {
 #footer {
   margin-top: 2em;
   margin-bottom: 2em;
-  nav ul li {
-    font-weight: bold;
-    float: left;
-    margin-right: 4em;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 1rem;
-    li {
-        text-transform: none;
-        letter-spacing: 0;
-        font-weight: normal;
-        float: none;
-        margin-right: 0;
-    }
+  nav {
+    margin: 2em 0 0.5em 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-gap: 1em;
+      div {
+        //float: left;
+        //margin-right: 4em;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        h6 {
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        li {
+            display: block;
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+      }
   }
-}
-
-@include media-breakpoint-down(sm) {
-    #footer nav > ul > li {
-        min-height: 160px;
-        margin-bottom: 1em;
-        margin-right: 1em;
-    }
-    .footer-extra {
-        clear: left;
-        p.copy { margin-bottom: 0.5em; }
-    }
 }
 
 // home
@@ -956,6 +953,11 @@ figure.video {
 }
 
 /* DASHBOARD */
+#membership-page #footer {
+    border-top: 5px solid #f7f7f7;
+    padding-top: 2em;
+}
+
 #memberships {
     display: grid; // There Andrey, I did CSS Grid :P
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
