@@ -20,6 +20,7 @@ analytics.page("Dashboard");
         <div class="col-md-9">
             <h2>Your products:</h2>
             <section id="memberships">
+                <!-- XXX: This needs to be updated so if only one book, it doesn't go gigantic -->
                 {% for membership in memberships %}
                 <div class="box {{ membership.product.name|slugify }}">
                     <div class="content">
@@ -39,9 +40,14 @@ analytics.page("Dashboard");
                             </ul>
                         </div>
                         {% if membership.video %}
+                        <!-- XXX: Finish videos link -->
                         <a href="" class="btn btn-primary btn-sm">Play videos</a>
-                        {% endif %}
                         <a href="" class="btn btn-secondary btn-sm">Visit Slack channel</a>
+                        {% else %}
+                        <!-- XXX: Finish upsell link -->
+                        <a href="" class="btn btn-primary btn-sm">Visit Slack channel</a>
+                        <a href="" class="btn btn-secondary btn-sm">Upgrade: Buy video course for 20% off ({% if membership.product.name == "Hello Web App" %}$79{% elif membership.product.name == "Hello Web Design" %}$49{% endif %})</a>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
