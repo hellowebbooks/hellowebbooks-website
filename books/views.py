@@ -38,9 +38,20 @@ def order(request):
 
 @login_required
 def dashboard(request):
+    has_hwa = False
+    has_hwd = False
+
     memberships = Membership.objects.filter(customer__user=request.user)
+    for m in memberships:
+        if m.product.name == "Hello Web App":
+            has_hwa = True
+        elif m.product.name == "Hello Web Design":
+            has_hwd = True
+
     return render(request, 'dashboard/dashboard.html', {
         'memberships': memberships,
+        'has_hwa': has_hwa,
+        'has_hwd': has_hwd,
     })
 
 

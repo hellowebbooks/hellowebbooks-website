@@ -5881,32 +5881,52 @@ figure.video iframe {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 1em;
 }
-#memberships .box {
+
+.box {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
-#memberships .box .content {
+.box .content {
   background-color: white;
   margin-top: 200px;
   padding: 30px 20px;
 }
-#memberships .box .content h2 {
+.box .content h2 {
   margin: 0 0 5px 0;
+  font-weight: 400;
 }
-#memberships .box .content p.boughton {
+.box .content p.boughton {
   font-size: 0.9rem;
   color: #999;
 }
-#memberships .box .content .btn-sm {
+.box .content .btn-sm {
   font-size: 0.7rem;
 }
-#memberships .box.hello-web-design {
+
+.box.hello-web-design {
   background: url(../images/hwd/2.jpg) 0 -100px no-repeat;
   background-size: cover;
 }
-#memberships .box.hello-web-app {
+
+.box.hello-web-app {
   background: url(../images/original/1.jpg) 0 -100px no-repeat;
   background-size: cover;
+}
+
+#upsells {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1em;
+}
+#upsells .box .content {
+  margin-top: 100px;
+}
+#upsells .box h5 {
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+#upsells .box p {
+  font-size: 1rem;
 }
 
 .sidebar {

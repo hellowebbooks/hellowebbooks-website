@@ -16,6 +16,7 @@ analytics.page("Dashboard");
     <h1 class="text-center"><span class="highlight">Dashboard</span></h1>
 
     <div class="row">
+        <!-- Main column -->
         <div class="col-md-9">
             <h2>Your products:</h2>
             <section id="memberships">
@@ -45,8 +46,39 @@ analytics.page("Dashboard");
                 </div>
                 {% endfor %}
             </section>
+
+            <hr />
+
+            {% if not has_hwd or not has_hwa %}
+            <h4>Want to buy more?</h4>
+            <section id="upsells">
+                {% if not has_hwd %}
+                <div class="box hello-web-design">
+                    <div class="content">
+                        <h5>Hello Web Design</h5>
+                        <p>Learn web design fundamentals and shortcuts. Everything you need to learn just enough design for your projects.</p>
+                        <p>Use the coupon code <b>CUSTOMER</b> for 20% off.</p>
+                        <a href="{% url 'learn-design' %}" class="btn btn-secondary btn-sm">See product page</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if not has_hwa %}
+                <div class="box hello-web-app">
+                    <div class="content">
+                        <h5>Hello Web App</h5>
+                        <p>Create a unique web app using Python 3 and Django 2.0 and launch on Heroku. Two book set.</p>
+                        <p>Use the coupon code <b>CUSTOMER</b> for 20% off.</p>
+                        <a href="{% url 'learn-django' %}" class="btn btn-secondary btn-sm">See product page</a>
+                    </div>
+                </div>
+                {% endif %}
+            </section>
+            {% else %}
+            <p class="text-center">You have every book I offer! Thank you. 💕</p>
+            {% endif %}
         </div>
 
+        <!-- Sidebar -->
         <div class="col-md-3 sidebar">
             <h4>Administration</h4>
             <ul class="list-unstyled">
