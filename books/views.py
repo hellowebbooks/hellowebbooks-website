@@ -153,6 +153,8 @@ def charge(request, product_name=None):
         hwb_bundle = False
         coupon = ""
 
+        # TODO: This is probably a bad way of doing this. Look into something
+        # more future-proof.
         split_product = product_name.split("-")
         if split_product[0] == "hwa":
             product = Product.objects.get(name="Hello Web App")
@@ -175,8 +177,6 @@ def charge(request, product_name=None):
                 card=form.cleaned_data['stripe_token'],
             )
 
-            print(stripe_customer)
-
             if form.cleaned_data['coupon']:
                 coupon = form.cleaned_data['coupon']
                 stripe_customer['coupon'] = coupon
@@ -184,7 +184,6 @@ def charge(request, product_name=None):
             try:
                 customer = stripe.Customer.create(**stripe_customer)
                 is_stripe_valid = True
-                print("Stripe valid")
             except stripe.error.CardError as e:
                 body = e.json_body
                 err  = body.get('error', {})

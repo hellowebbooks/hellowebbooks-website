@@ -20,6 +20,13 @@ class AddEmailForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+    def __init__(self, *args, **kwargs):
+        super(AddEmailForm, self).__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['placeholder'] = 'buttercup@florin.com'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+
+
     def clean_email(self):
         email = self.data['email']
         if "@" not in email:
