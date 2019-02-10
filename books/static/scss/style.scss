@@ -1031,17 +1031,14 @@ figure.video {
 
 /* CHARGE PAGE */
 #charge-form {
-    width: 500px;
-    margin: 0 auto;
-    padding: 30px 40px 10px 40px;
 }
 #payment-form {
     .control-group { margin-top: 0; }
     input {
         font-size: 20px;
-        height: 28px;
-        line-height: 28px;
-        padding: 6px;
+        height: 40px;
+        line-height: 40px;
+        padding: 12px;
         width: 400px;
     }
     #cvc-field, #expiration-fields { float: left; }

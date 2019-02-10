@@ -13,9 +13,10 @@ analytics.page("Add Credit Card Details");
 
 {% block content %}
 <div class="container">
-
     <div class="row">
         <div id="charge-form" class="side-note col-md-6 col-md-offset-3">
+            <h1>Add Credit Card Details</h1>
+            <p>Add your credit card here and you'll be charged for your purchase. Your card details will also be saved for future purchases.</p>
             {% for key, value in form.errors.items %}
                 <p>{{ value }}</p>
             {% endfor %}
@@ -32,12 +33,6 @@ analytics.page("Add Credit Card Details");
                 <input id="id_last_4_digits" name="last_4_digits" type="hidden" />
                 <input id="id_stripe_token" name="stripe_token" type="hidden" />
                 <input id="id_coupon" name="coupon" type="hidden" />
-
-                {% if plan_name == 'global' %}
-                <p>You have chosen an online/e-commerce/destination profile for <strong>$270/year</strong>.</p>
-                {% elif plan_name == 'certifiedglobal' %}
-                <p>You have chosen a online/e-commerce/destination profile for <strong>$270/year</strong> and are applying for a Certified Lovely Vendor&trade; account for <strong>$190/year</strong> for a full charge of <strong>$460</strong>. Payment will be refunded if you're not approved.</p>
-                {% endif %}
 
                 <div class="form-group {% if form.card_number.errors %}has-error{% endif %}">
                     <label class="control-label" for="id_card_number">
@@ -67,7 +62,8 @@ analytics.page("Add Credit Card Details");
 
                     <div class="controls">
                         {{ form.card_expiry_month }}
-                        / {{ form.card_expiry_year }}
+                        <span style="display:inline-block; margin-right:5px; margin-left:5px;">/</span>
+                        {{ form.card_expiry_year }}
                         {% if form.card_expiry_month.errors %}
                             {% for error in form.card_expiry_month.errors %}
                                 <span class="help-inline">{{ error|escape }}</span>

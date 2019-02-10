@@ -142,40 +142,6 @@ def upsell(request, product):
         'form': form,
     })
 
-"""
-def charge(request):
-    if request.method != "POST":
-        return redirect('order')
-
-    if not 'stripeToken' in request.POST:
-        messages.error(request, 'Something went wrong!')
-        return redirect('order')
-
-    try:
-        customer = stripe.Customer.create(
-            email=request.POST['stripeEmail'],
-            source=request.POST['stripeToken'],
-        )
-    except stripe.error.StripeError as e:
-        msg = "Stripe payment error: %s" % e
-        messages.error(request, msg)
-        mail_admins("Error with Stripe on App", msg)
-        return redirect('order')
-
-    # set the amount to charge, in cents
-    amount = request.POST['amount']
-
-    # charge the customer!
-    charge = stripe.Charge.create(
-        customer=customer.id,
-        amount=amount,
-        currency='usd',
-        description='My one-time charge',
-    )
-
-    messages.success(request, 'Bought a book!')
-    return redirect('order')
-"""
 
 @login_required
 def charge(request, product_name=None):
@@ -231,7 +197,8 @@ def charge(request, product_name=None):
                     mail_admins("Bad happenings on HWB", "Payment failure for [%s]" % (user.email))
 
             # set the amount to charge, in cents
-            amount = 333
+            #amount = 333
+            amount = request.POST['amount']
 
             # charge the customer!
             charge = stripe.Charge.create(
