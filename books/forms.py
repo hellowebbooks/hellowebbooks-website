@@ -1,6 +1,7 @@
 from django import forms
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 from books.widgets import NoNameTextInput
 
@@ -18,6 +19,21 @@ class EditEmailForm(forms.ModelForm):
 class AddEmailForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_email(self):
+        email = self.data['email']
+        if "@" not in email:
+            raise forms.ValidationError("Please enter a valid email address.")
+        else:
+            try:
+                User.objects.get(email=email)
+            except ObjectDoesNotExist:
+                return email
+
+            # XXX: If an email already has an account, we need to log in, right?
+            raise forms.ValidationError("Sorry, that email is already associated with an account. Make one here?")
+
+        return email
 
 
 class CardForm(forms.Form):
