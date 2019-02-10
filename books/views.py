@@ -133,7 +133,7 @@ def upsell(request, product):
                 password=password,
             )
             login(request, user)
-            return redirect('charge', product=product)
+            return redirect('charge', product_name=product)
 
     else:
         form = form_class()
