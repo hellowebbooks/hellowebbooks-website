@@ -19,6 +19,7 @@ DATABASES = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_HOST_USER = 'hwb@mg.hellowebbooks.com'
 EMAIL_HOST_PASSWORD = os.environ['SENDGRID_API']

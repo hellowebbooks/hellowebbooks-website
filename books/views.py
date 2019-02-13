@@ -17,11 +17,10 @@ from blog.models import PostPage
 stripe.api_key = os.environ['STRIPE_SECRET']
 
 def index(request):
-    posts = PostPage.objects.select_related().all()
-    mail_admins(
-        "Hey the email integration works",
-        "This",
-    )
+    posts = PostPage.objects.select_related().all().order_by('-date')
+
+    for post in posts:
+        print(post.date)
 
     return render(request, 'index.html', {
         'posts': posts,
