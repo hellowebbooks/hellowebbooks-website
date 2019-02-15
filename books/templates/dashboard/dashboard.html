@@ -30,13 +30,18 @@ analytics.page("Dashboard");
                             </a>
                         </h2>
                         <p class="boughton">Bought on {{ membership.created|date:"M. d, Y" }}.</p>
-                        <div class="super-vertical-margin">
-                            <p class="no-bottom-margin">Download eBook files:</p>
-                            <!-- XXX: Link to eBook files -->
+                        <div style="margin-top: 1em; margin-bottom: 2em;">
+                            <p class="no-bottom-margin"><b>Download eBook files:</b></p>
+                            <!-- XXX: This isn't the best solution but it's good enough for now -->
                             <ul>
-                                <li><a href="" title="Download {{ membership.product.name }} PDF">PDF</a></li>
-                                <li><a href="" title="Download {{ membership.product.name }} ePub">ePub</a></li>
-                                <li><a href="" title="Download {{ membership.product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
+                                {% if membership.product.name == "Hello Web App" %}
+                                <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ membership.product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ membership.product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ membership.product.name }} Kindle/.mobi">.mobi/Kindle</a></li>
+                                <li>Intermediate Concepts: <a href="{{ hwaic_pdf }}" title="Download {{ membership.product.name }} Intermediate Concepts PDF">PDF</a>, <a href="{{ hwaic_epub }}" title="Download {{ membership.product.name }} Intermediate Concepts ePub">ePub</a>, <a href="{{ hwaic_mobi }}" title="Download {{ membership.product.name }} Intermediate Concepts Kindle/.mobi">.mobi/Kindle</a></li>
+                                {% elif membership.product.name == "Hello Web Design" %}
+                                <li><a href="{{ hwd_pdf }}" title="Download {{ membership.product.name }} PDF">PDF</a></li>
+                                <li><a href="{{ hwd_epub }}" title="Download {{ membership.product.name }} ePub">ePub</a></li>
+                                <li><a href="{{ hwd_mobi }}" title="Download {{ membership.product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         {% if membership.video %}

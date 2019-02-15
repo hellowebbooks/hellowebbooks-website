@@ -16,6 +16,7 @@ from blog.models import PostPage
 
 stripe.api_key = os.environ['STRIPE_SECRET']
 
+
 def index(request):
     posts = PostPage.objects.select_related().all().order_by('-date')
 
@@ -51,6 +52,16 @@ def dashboard(request):
         'memberships': memberships,
         'has_hwa': has_hwa,
         'has_hwd': has_hwd,
+        # FIXME: Bad hack. Replace with temporary generated URLs on a private S3 file.
+        'hwa_pdf': os.environ['HWA_PDF'],
+        'hwa_epub': os.environ['HWA_EPUB'],
+        'hwa_mobi': os.environ['HWA_MOBI'],
+        'hwaic_pdf': os.environ['HWAIC_PDF'],
+        'hwaic_epub': os.environ['HWAIC_EPUB'],
+        'hwaic_mobi': os.environ['HWAIC_MOBI'],
+        'hwd_pdf': os.environ['HWD_PDF'],
+        'hwd_epub': os.environ['HWD_EPUB'],
+        'hwd_mobi': os.environ['HWD_MOBI'],
     })
 
 
