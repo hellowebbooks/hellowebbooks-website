@@ -28,9 +28,10 @@
             </ul>
 
             <div class="super-vertical-top-margin">
-              <!--<a class="btn btn-primary buy-button" data-title="Hello Web Books Videos" data-category="Hello Web Books Combo" data-price="199" href="https://gum.co/hwb-videos">Buy the full course for $199</a>-->
-              {% comment %}{% include 'includes/order-form.html' with amount="199.00" %}{% endcomment %}
+              {% comment %}<a class="btn btn-primary buy-button" data-title="Hello Web Books Videos" data-category="Hello Web Books Combo" data-price="199" href="https://gum.co/hwb-videos">Buy the full course for $199</a>
+              {% include 'includes/order-form.html' with amount="199.00" %}{% endcomment %}
               <a href="{% url 'upsell' product='hwb-video' %}">Go to upsell page</a>
+              <a class="btn btn-primary buy-button" data-title="Hello Web Books Videos" data-category="Hello Web Books Combo" data-price="199" href="{% url 'upsell' product='hwb-video' %}">Buy the full course for $199</a>
             </div>
         </div>
     </div>
@@ -63,7 +64,6 @@
     </div>
     <p><strong>The digital books</strong>, lovingly designed by Tracy herself. Each book comes in PDF, .mobi, and .ePub formats.</p>
     <div class="text-center">
-        <script src="https://gumroad.com/js/gumroad.js"></script>
         <a class="btn btn-secondary buy-button" data-title="Hello Web Books eBooks" data-category="Hello Web Books Combo" data-price="49.95" href="https://gum.co/hwb-ebooks">Buy for $49.95</a>
         <!--<p style="line-height:1.2; margin-top: 10px;"><small><em>You'll be redirected to withcoach.com to finish your purchase.</em></small></p>-->
     </div>
