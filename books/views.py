@@ -10,7 +10,7 @@ from django.core.mail import send_mail, mail_admins
 from django.http import Http404
 from django.shortcuts import render, redirect
 
-from books import forms
+from books import forms, options
 from books.models import Product, Membership, Customer
 from blog.models import PostPage
 
@@ -127,6 +127,11 @@ def edit_email(request):
 
 
 def upsell(request, product):
+    # User is logged in, go straight to buy page
+    if request.user.is_authenticated:
+        return redirect('charge', product_name=product)
+
+    # Get someone to log in OR create an account
     form_class = forms.AddEmailForm
 
     if request.method == 'POST':
@@ -154,8 +159,11 @@ def upsell(request, product):
 
 
 @login_required
-def charge(request, product_name=None):
+def charge(request, product=None):
     user = request.user
+
+    # FIXME: What happens if nothing is found?
+    amount = options.PRODUCT_LOOKUP[product].amount
 
     if request.method == "POST":
         form = forms.StripePaymentForm(request.POST)
@@ -165,7 +173,7 @@ def charge(request, product_name=None):
 
         # TODO: This is probably a bad way of doing this. Look into something
         # more future-proof.
-        split_product = product_name.split("-")
+        split_product = product.split("-")
         if split_product[0] == "hwa":
             product = Product.objects.get(name="Hello Web App")
         elif split_product[0] == "hwd":
@@ -205,14 +213,10 @@ def charge(request, product_name=None):
                     messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
                     mail_admins("Bad happenings on HWB", "Payment failure for [%s]" % (user.email))
 
-            # set the amount to charge, in cents
-            #amount = 333
-            amount = request.POST['amount']
-
             # charge the customer!
             charge = stripe.Charge.create(
                 customer=customer.id,
-                amount=amount,
+                amount=amount, # set above POST
                 currency='usd',
                 description='My one-time charge',
             )
@@ -264,7 +268,7 @@ def charge(request, product_name=None):
             return render(request, "order/charge.html", {
                 'form': form,
                 'publishable_key': settings.STRIPE_PUBLISHABLE,
-                'product_name': product_name
+                'product': product
             })
     else:
         form = forms.StripePaymentForm()
@@ -272,7 +276,9 @@ def charge(request, product_name=None):
     return render(request, "order/charge.html", {
         'form': form,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
-        'product_name': product_name,
+        'product': product,
+        'amount': amount,
+        'product_name': options.PRODUCT_LOOKUP[product].description,
         #'stripe_profile': stripe_profile,
     })
 
