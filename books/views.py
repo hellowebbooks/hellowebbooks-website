@@ -129,7 +129,9 @@ def edit_email(request):
 def upsell(request, product):
     # User is logged in, go straight to buy page
     if request.user.is_authenticated:
-        return redirect('charge', product_name=product)
+        return redirect('charge', product=product)
+
+    # XXX: Uh also we need to upsell the paperbacks for the video package buyers
 
     # Get someone to log in OR create an account
     form_class = forms.AddEmailForm

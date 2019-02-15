@@ -9,9 +9,7 @@
     <div class="row">
         <div class="col-md-4">
             <div style="margin-left: 20px">
-                <a href="https://hellowebbooks.podia.com/courses/hello-web-design-video-course/9122-videos/20258-introduction" title="Buy on Podia">
-                    <img src="{% static '/images/products/videopreview.jpg' %}" alt="Preview of the Hello Web Design videos"/>
-                </a>
+                <img src="{% static '/images/products/videopreview.jpg' %}" alt="Preview of the Hello Web Design videos"/>
             </div>
         </div>
 
@@ -28,8 +26,7 @@
             </ul>
 
             <div class="super-vertical-top-margin">
-              <a class="btn btn-primary buy-button" data-title="Hello Web Design Videos" data-category="Hello Web Design" data-price="99" href="https://gum.co/hwd-videos">Buy the full course for $99</a>
-              <!--<p><small><em>You'll be redirected to withcoach.com to finish your purchase.</em></small></p>-->
+              <a class="btn btn-primary buy-button" data-title="Hello Web Design Videos" data-category="Hello Web Design" data-price="99" href="{% url 'upsell' product='hwd-video' %}">Buy the full course for $99</a>
             </div>
         </div>
     </div>
@@ -49,7 +46,7 @@
                 <p>Learn better with a physical book? I got you! <strong>This package contains the eBook</strong> (in all three formats) <strong>plus the paperback book</strong>. Shipping extra.</p>
             </div>
             <div class="text-center">
-                <a class="btn btn-secondary buy-button" data-title="Hello Web Design Paperback" data-category="Hello Web Design" data-price="39.95" href="https://gum.co/hwd-pb">Buy for $39.95</a>
+                <a class="btn btn-secondary buy-button" data-title="Hello Web Design Paperback" data-category="Hello Web Design" data-price="39.95" href="{% url 'upsell' product='hwd-pb' %}">Buy for $39.95</a>
             </div>
         </div>
     </div>
@@ -62,7 +59,6 @@
     </div>
     <p><strong>The digital book</strong>, lovingly designed by Tracy herself. Comes in PDF, .mobi, and .ePub formats.</p>
     <div class="text-center">
-        <a class="btn btn-secondary buy-button" data-title="Hello Web Design eBooks" data-category="Hello Web Design" data-price="24.95" href="https://gum.co/hwd-ebook">Buy for $24.95</a>
-        <!--<p style="line-height:1.2; margin-top: 10px;"><small><em>You'll be redirected to withcoach.com to finish your purchase.</em></small></p>-->
+        <a class="btn btn-secondary buy-button" data-title="Hello Web Design eBooks" data-category="Hello Web Design" data-price="24.95" href="{% url 'upsell' product='hwd-ebooks' %}">Buy for $24.95</a>
     </div>
 </div>
