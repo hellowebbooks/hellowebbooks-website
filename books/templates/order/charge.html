@@ -22,27 +22,19 @@ analytics.page("Add Credit Card Details");
 
             <h1>Pay with Stripe</h1>
 
+            <!-- XXX: Add the image of the order here? -->
+
             <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">${{ amount|cents_to_dollars }}<span></strong>. After purchase, you will have access to a product dashboard to download your DRM-free files.</p>
 
-            <button id="customButton" class="btn btn-primary">Pay <span id="pay_amount"></span></button>
-
-            {% comment %}
-            <form action="" method="POST">
-              <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="pk_test_jiLBGxG4cd2MTORmantWx7PH"
-                data-amount=pay_amount
-                data-name="Tracy Jean Osborn"
-                data-email="{{ request.user.email }}"
-                data-description="Widget"
-                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                data-locale="auto"
-                data-shipping-address="true"
-                data-label=pay_amount
-                data-currency="usd">
-              </script>
+            <form action="" method="POST" id="payment-form">
+                {% csrf_token %}
+                <input type="hidden" id="stripeToken" name="stripeToken" />
+                <input type="hidden" id="stripeEmail" name="stripeEmail" />
+                <input type="hidden" id="stripeArgs" name="stripeArgs" />
+                <input type="hidden" id="paymentAmount" name="paymentAmount" />
+                <input type="hidden" id="stripeCoupon" name="stripeCoupon" />
+                <button id="customButton" class="btn btn-primary">Pay <span id="pay_amount"></span></button>
             </form>
-            {% endcomment %}
 
             <p><small><a id="coupon-code-prompt" href="#">Got a coupon code?</a></small></p>
 
@@ -62,114 +54,6 @@ analytics.page("Add Credit Card Details");
                 </div>
             </form>
 
-            {% comment %}
-            {% for key, value in form.errors.items %}
-                <p>{{ value }}</p>
-            {% endfor %}
-            {% for key, value in form.non_field_errors.items %}
-                <p>{{ value }}</p>
-            {% endfor %}
-            <form action="" method="POST" id="payment-form" class="" autocomplete="on" role="form">
-                {% csrf_token %}
-                <noscript>
-                    <p>This form requires Javascript to use.</p>
-                </noscript>
-                <div class="payment-errors"></div>
-                <input id="id_last_4_digits" name="last_4_digits" type="hidden" />
-                <input id="id_stripe_token" name="stripe_token" type="hidden" />
-                <input id="id_coupon" name="coupon" type="hidden" />
-
-                <div class="form-group {% if form.card_number.errors %}has-error{% endif %}">
-                    <label class="control-label" for="id_card_number">
-                        Card number
-                    </label>
-
-                    <div class="controls">
-                        {{ form.card_number }}
-                        {% if form.card_number.errors %}
-                            {% for error in form.card_number.errors %}
-                                <span class="help-inline">{{ error|escape }}</span>
-                            {% endfor %}
-                        {% endif %}
-
-                        {% if form.card_number.help_text %}
-                            <div class="help-text">
-                                <p>{{ form.card_number.help_text }}</p>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="form-group {% if form.card_expiry_month.errors %}has-error{% endif %}" id="expiration-fields">
-                    <label class="control-label" for="id_card_expiry_month">
-                        Expiration
-                    </label>
-
-                    <div class="controls">
-                        {{ form.card_expiry_month }}
-                        <span style="display:inline-block; margin-right:5px; margin-left:5px;">/</span>
-                        {{ form.card_expiry_year }}
-                        {% if form.card_expiry_month.errors %}
-                            {% for error in form.card_expiry_month.errors %}
-                                <span class="help-inline">{{ error|escape }}</span>
-                            {% endfor %}
-                        {% endif %}
-                        {% if form.card_expiry_year.errors %}
-                            {% for error in form.card_expiry_year.errors %}
-                                <span class="help-inline">{{ error|escape }}</span>
-                            {% endfor %}
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="form-group {% if form.card_cvc.errors %}has-error{% endif %}" id="cvc-field">
-                    <label class="control-label" for="id_card_cvc">
-                        Security Code
-                    </label>
-
-                    <div class="controls">
-                        {{ form.card_cvc }}
-                        {% if form.card_cvc.errors %}
-                            {% for error in form.card_cvc.errors %}
-                                <span class="help-inline">{{ error|escape }}</span>
-                            {% endfor %}
-                        {% endif %}
-
-                        <div class="help-text">
-                            <p>3 digits on the back of your card. <br/>Amex: 4 digits on front.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group {% if form.coupon_code.errors %}has-error{% endif %}" id="coupon-code-group">
-                    <label class="control-label" for="id_coupon_code">
-                        Coupon code
-                    </label>
-
-                    <div class="controls">
-                        {{ form.coupon_code }}
-                        {% if form.coupon_code.errors %}
-                            {% for error in form.coupon_code.errors %}
-                                <span class="help-inline">{{ error|escape }}</span>
-                            {% endfor %}
-                        {% endif %}
-
-                        {% if form.coupon_code.help_text %}
-                            <div class="help-text">
-                                <p>{{ form.coupon_code.help_text }}</p>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div style="clear:both;">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        Submit credit card
-                    </button>
-                </div>
-                <p><small><a id="coupon-code-prompt" href="#">Got a coupon code?</a></small></p>
-            </form>
-            {% endcomment %}
             <hr class="super-vertical-margin"/>
             <p><small>Hello Web Books use <a href="https://stripe.com">Stripe</a> for processing. Stripe has been audited by a PCI-certified auditor, and is certified to <a href="https://www.visa.com/splisting/searchGrsp.do?companyNameCriteria=stripe">PCI Service Provider Level 1</a>. This is the most stringent level of certification available. All card numbers are encrypted on disk with AES-256. <a href="https://stripe.com/help/security">Click here for more about Stripe's security</a>.</small></p>
 
@@ -198,9 +82,12 @@ analytics.page("Add Credit Card Details");
       shippingAddress: 'true',
       billingAddress: 'true',
       image: "{% static '/images/icons/icon3.png' %}",
-      token: function(token) {
-        // You can access the token ID with `token.id`.
-        // Get the token ID to your server-side code for use.
+      token: function(token, args) {
+          $("#stripeToken").val(token.id);
+          $("#stripeEmail").val(token.email);
+          $("#stripeArgs").val(args);
+          $("#paymentAmount").val(pay_amount);
+          $("#payment-form").submit();
       }
     });
 
@@ -268,7 +155,6 @@ analytics.page("Add Credit Card Details");
         //$(this).attr("disabled", "disabled"); // disable the submit button to prevent repeated clicks
         var coupon = $(".coupon-code").val()
 
-
         $.ajax({
             type: 'GET',
             url: '/check_coupon/',
@@ -281,6 +167,7 @@ analytics.page("Add Credit Card Details");
                 document.getElementById('coupon-code-label').innerHTML = 'Price updated with ' + json.discount + '% discount!';
                 pay_amount = pay_amount * discount
                 document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
+                $("#stripeCoupon").val(coupon);
             },
             error: function(e){
                 console.log(e.message);

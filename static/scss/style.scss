@@ -966,10 +966,11 @@ figure.video {
 
 .box {
     //border: 1px solid black;
-    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     .content {
         background-color: white;
+        border-radius: 0 0 10px 10px;
         margin-top: 200px;
         padding: 30px 20px;
         h2 {
@@ -1030,17 +1031,15 @@ figure.video {
 
 /* CHARGE PAGE */
 #charge-form {
-    width: 500px;
-    margin: 0 auto;
-    padding: 30px 40px 10px 40px;
 }
+/*
 #payment-form {
     .control-group { margin-top: 0; }
     input {
         font-size: 20px;
-        height: 28px;
-        line-height: 28px;
-        padding: 6px;
+        height: 40px;
+        line-height: 40px;
+        padding: 12px;
         width: 400px;
     }
     #cvc-field, #expiration-fields { float: left; }
@@ -1063,6 +1062,7 @@ figure.video {
         margin-top: 10px;
     }
 }
+*/
 #stripe-disclaimer {
     width: 500px;
     margin: 20px auto;

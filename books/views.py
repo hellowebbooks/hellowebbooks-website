@@ -150,7 +150,7 @@ def upsell(request, product):
                 password=password,
             )
             login(request, user)
-            return redirect('charge', product_name=product)
+            return redirect('charge', product=product)
 
     else:
         form = form_class()
@@ -164,18 +164,23 @@ def upsell(request, product):
 def charge(request, product=None):
     user = request.user
 
-    """
-    if 'friendoftracy' in coupon_codes.COUPON_LOOKUP:
-        print("yes")
-        print(coupon_codes.COUPON_LOOKUP['friendoftracy'])
-    """
-
-    # FIXME: What happens if nothing is found?
+    # FIXME: Case for not finding the product?
     amount = options.PRODUCT_LOOKUP[product].amount
 
     if request.method == "POST":
-        form = forms.StripePaymentForm(request.POST)
-        is_stripe_valid = True
+        print("in post")
+        source = request.POST['stripeToken']
+        print(source)
+        print("payment?")
+        print(request.POST['paymentAmount'])
+        print("coupon?")
+        coupon = request.POST['stripeCoupon']
+        print(coupon)
+        print("args?")
+        print(request.POST['stripeArgs'])
+
+        #form = forms.StripePaymentForm(request.POST)
+        #is_stripe_valid = True
         hwb_bundle = False
         coupon = ""
 
@@ -191,6 +196,81 @@ def charge(request, product=None):
             product = Product.objects.get(name="Hello Web App")
             product2 = Product.objects.get(name="Hello Web Design")
 
+        stripe_customer = dict(
+            description=user,
+            email=user.email,
+            card=source,
+        )
+
+        if coupon:
+            stripe_customer['coupon'] = coupon
+
+        try:
+            customer = stripe.Customer.create(**stripe_customer)
+            is_stripe_valid = True
+        except stripe.error.CardError as e:
+            body = e.json_body
+            err  = body.get('error', {})
+            messages.error(request, err.message)
+        except stripe.error.StripeError as e:
+            if e.param == 'coupon':
+                messages.error(request, 'Sorry, that coupon is invalid!')
+            else:
+                messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
+                mail_admins("Bad happenings on HWB", "Payment failure for [%s]" % (user.email))
+
+        # charge the customer!
+        charge = stripe.Charge.create(
+            customer=customer.id,
+            amount=amount, # set above POST
+            currency='usd',
+            description='My one-time charge',
+        )
+
+        cus = Customer(
+            stripe_id = customer.id,
+            last_4_digits = charge.source.last4,
+            user = user,
+        )
+
+        if coupon:
+            cus.coupon = coupon
+
+        cus.save()
+
+        # XXX Deal with the paperback / video cases
+        membership = Membership(
+            customer = cus,
+            product = product,
+            paperback = True,
+            video = False,
+        )
+        membership.save()
+
+        if hwb_bundle:
+            membership2 = Membership(
+                customer = cus,
+                product = product2,
+                paperback = True,
+                video = False,
+            )
+            membership2.save()
+
+        # send email to admin
+        send_mail(
+            'New paying customer',
+            '%s bought a book. Woohoo!' % (user.email),
+            'noreply@hellowebbooks.com',
+            ['tracy@hellowebbooks.com'],
+        )
+
+        # log in customer, redirect to their dashboard
+        return redirect('dashboard')
+
+
+
+
+        """
         if form.is_valid(): # charges the card
             # create the Stripe customer from the token submitted
             is_stripe_valid = False
@@ -278,11 +358,9 @@ def charge(request, product=None):
                 'publishable_key': settings.STRIPE_PUBLISHABLE,
                 'product': product
             })
+            """
     else:
         form = forms.StripePaymentForm()
-
-    # XXX: The form needs to be updated to grab someone's address for the
-    # paperbacks
 
     return render(request, "order/charge.html", {
         'form': form,
