@@ -7,10 +7,10 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail, mail_admins
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
 
-from books import forms, options
+from books import forms, options, coupon_codes
 from books.models import Product, Membership, Customer
 from blog.models import PostPage
 
@@ -164,6 +164,12 @@ def upsell(request, product):
 def charge(request, product=None):
     user = request.user
 
+    """
+    if 'friendoftracy' in coupon_codes.COUPON_LOOKUP:
+        print("yes")
+        print(coupon_codes.COUPON_LOOKUP['friendoftracy'])
+    """
+
     # FIXME: What happens if nothing is found?
     amount = options.PRODUCT_LOOKUP[product].amount
 
@@ -275,6 +281,9 @@ def charge(request, product=None):
     else:
         form = forms.StripePaymentForm()
 
+    # XXX: The form needs to be updated to grab someone's address for the
+    # paperbacks
+
     return render(request, "order/charge.html", {
         'form': form,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
@@ -283,6 +292,30 @@ def charge(request, product=None):
         'product_name': options.PRODUCT_LOOKUP[product].description,
         #'stripe_profile': stripe_profile,
     })
+
+
+@login_required
+def check_coupon(request):
+    coupon = request.GET.get("coupon")
+    format = request.GET.get("format")
+    discount = 0
+
+    if coupon in coupon_codes.COUPON_LOOKUP:
+        discount = coupon_codes.COUPON_LOOKUP[coupon]
+
+    if format == 'json':
+        data = {
+            'status': 'ok',
+            'discount': discount,
+        }
+
+        return JsonResponse(data)
+
+    data = {
+        'status': 'fail',
+    }
+    return JsonResponse(data)
+
 
 
 @login_required

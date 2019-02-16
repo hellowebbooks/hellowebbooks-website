@@ -20,17 +20,55 @@ analytics.page("Add Credit Card Details");
               <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
 
-            <h1>Add Credit Card Details</h1>
+            <h1>Pay with Stripe</h1>
 
             <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">${{ amount|cents_to_dollars }}<span></strong>. After purchase, you will have access to a product dashboard to download your DRM-free files.</p>
 
+            <button id="customButton" class="btn btn-primary">Pay <span id="pay_amount"></span></button>
+
+            {% comment %}
+            <form action="" method="POST">
+              <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_jiLBGxG4cd2MTORmantWx7PH"
+                data-amount=pay_amount
+                data-name="Tracy Jean Osborn"
+                data-email="{{ request.user.email }}"
+                data-description="Widget"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-shipping-address="true"
+                data-label=pay_amount
+                data-currency="usd">
+              </script>
+            </form>
+            {% endcomment %}
+
+            <p><small><a id="coupon-code-prompt" href="#">Got a coupon code?</a></small></p>
+
+            <form class="{% url 'check_coupon' %}" id="coupon-code-group">
+                <label class="control-label" for="id_coupon_code" id="coupon-code-label">
+                    Enter coupon code code here:
+                </label>
+
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <input type="text" maxlength="20" class="form-control form-control-sm coupon-code" id="id_coupon_code">
+                    </div>
+
+                    <div class="col-sm-2">
+                        <input type="submit" class="btn btn-primary btn-sm coupon-input" value="Apply coupon" />
+                    </div>
+                </div>
+            </form>
+
+            {% comment %}
             {% for key, value in form.errors.items %}
                 <p>{{ value }}</p>
             {% endfor %}
             {% for key, value in form.non_field_errors.items %}
                 <p>{{ value }}</p>
             {% endfor %}
-
             <form action="" method="POST" id="payment-form" class="" autocomplete="on" role="form">
                 {% csrf_token %}
                 <noscript>
@@ -131,6 +169,7 @@ analytics.page("Add Credit Card Details");
                 </div>
                 <p><small><a id="coupon-code-prompt" href="#">Got a coupon code?</a></small></p>
             </form>
+            {% endcomment %}
             <hr class="super-vertical-margin"/>
             <p><small>Hello Web Books use <a href="https://stripe.com">Stripe</a> for processing. Stripe has been audited by a PCI-certified auditor, and is certified to <a href="https://www.visa.com/splisting/searchGrsp.do?companyNameCriteria=stripe">PCI Service Provider Level 1</a>. This is the most stringent level of certification available. All card numbers are encrypted on disk with AES-256. <a href="https://stripe.com/help/security">Click here for more about Stripe's security</a>.</small></p>
 
@@ -145,8 +184,39 @@ analytics.page("Add Credit Card Details");
 {% block scripts %}
 {{ block.super }}
 {% include 'includes/newsletter-analytics.html' %}
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+{% comment %}<script type="text/javascript" src="https://js.stripe.com/v2/"></script>{% endcomment %}
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript">
+    var pay_amount = {{ amount }}
+    document.getElementById('pay_amount').innerHTML = "$" + pay_amount/100;
+
+    var handler = StripeCheckout.configure({
+      key: 'pk_test_jiLBGxG4cd2MTORmantWx7PH',
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      token: function(token) {
+        // You can access the token ID with `token.id`.
+        // Get the token ID to your server-side code for use.
+      }
+    });
+
+    document.getElementById('customButton').addEventListener('click', function(e) {
+      // Open Checkout with further options:
+      handler.open({
+        name: 'Tracy Jean Osborn',
+        description: '2 widgets',
+        currency: 'usd',
+        amount: pay_amount
+      });
+      e.preventDefault();
+    });
+
+    // Close Checkout on page navigation:
+    window.addEventListener('popstate', function() {
+      handler.close();
+    });
+
+    /*
     Stripe.setPublishableKey('{{ publishable_key }}');
 
     function stripeResponseHandler(status, response) {
@@ -162,6 +232,7 @@ analytics.page("Add Credit Card Details");
             form$.get(0).submit();
         }
     }
+    */
 
     $(document).ready(function() {
         $("#coupon-code-group").hide();
@@ -170,7 +241,7 @@ analytics.page("Add Credit Card Details");
             return false;
         });
 
-        $("#payment-form").submit(function(event) {
+        /*$("#payment-form").submit(function(event) {
             var $form = $(this);
             $form.find('button').prop('disabled', true);
 
@@ -185,7 +256,34 @@ analytics.page("Add Credit Card Details");
             // }, amount, stripeResponseHandler);
 
             return false; // prevent the form from submitting with the default action
-        });
+        });*/
     });
+
+    $(".coupon-input").click(function() {
+        //$(this).attr("disabled", "disabled"); // disable the submit button to prevent repeated clicks
+        var coupon = $(".coupon-code").val()
+
+
+        $.ajax({
+            type: 'GET',
+            url: '/check_coupon/',
+            data: {"format": "json", 'coupon': coupon },
+            dataType: 'json',
+            contentType: "application/json",
+            success: function(json){
+                pay_amount = {{ amount }}
+                const discount = 1-(json.discount/100)
+                document.getElementById('coupon-code-label').innerHTML = 'Price updated with ' + json.discount + '% discount!';
+                pay_amount = pay_amount * discount
+                document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
+            },
+            error: function(e){
+                console.log(e.message);
+            },
+        });
+
+        return false;
+    });
+
 </script>
 {% endblock scripts %}

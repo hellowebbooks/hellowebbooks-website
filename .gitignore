@@ -1,4 +1,5 @@
 /*.tgz
+coupon_codes.py
 db.sqlite3
 venv
 *.pyc
