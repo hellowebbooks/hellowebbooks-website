@@ -79,8 +79,10 @@ analytics.page("Add Credit Card Details");
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       // XXX: Need to remove these both for digital purchases
+      {% if paperback %}
       shippingAddress: 'true',
       billingAddress: 'true',
+      {% endif %}
       image: "{% static '/images/icons/icon3.png' %}",
       token: function(token, args) {
           $("#stripeToken").val(token.id);

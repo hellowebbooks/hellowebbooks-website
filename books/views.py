@@ -127,6 +127,8 @@ def edit_email(request):
 
 
 def upsell(request, product):
+    # XXX: Need a flow for if someone is buying as a gift :O
+
     # User is logged in, go straight to buy page
     if request.user.is_authenticated:
         return redirect('charge', product=product)
@@ -163,9 +165,33 @@ def upsell(request, product):
 @login_required
 def charge(request, product=None):
     user = request.user
+    hwb_bundle = False
+    paperback = False
+    amount = 0
+    product_name = ""
 
-    # FIXME: Case for not finding the product?
-    amount = options.PRODUCT_LOOKUP[product].amount
+    try:
+        amount = options.PRODUCT_LOOKUP[product].amount
+        product_name = options.PRODUCT_LOOKUP[product].description
+    except KeyError:
+        messages.error(request, "Product not found.")
+        mail_admins("Bad happenings on HWB", "Product not found in order page: [%s]" % (product))
+        return redirect('order')
+
+    # TODO: This is probably a bad way of doing this. Look into something
+    # more future-proof.
+    split_product = product.split("-")
+    if split_product[0] == "hwa":
+        product = Product.objects.get(name="Hello Web App")
+    elif split_product[0] == "hwd":
+        product = Product.objects.get(name="Hello Web Design")
+    elif split_product[0] == "hwb":
+        hwb_bundle = True
+        product = Product.objects.get(name="Hello Web App")
+        product2 = Product.objects.get(name="Hello Web Design")
+
+    if split_product[1] == "pb":
+        paperback = True
 
     if request.method == "POST":
         print("in post")
@@ -181,20 +207,8 @@ def charge(request, product=None):
 
         #form = forms.StripePaymentForm(request.POST)
         #is_stripe_valid = True
-        hwb_bundle = False
         coupon = ""
 
-        # TODO: This is probably a bad way of doing this. Look into something
-        # more future-proof.
-        split_product = product.split("-")
-        if split_product[0] == "hwa":
-            product = Product.objects.get(name="Hello Web App")
-        elif split_product[0] == "hwd":
-            product = Product.objects.get(name="Hello Web Design")
-        elif split_product[0] == "hwb":
-            hwb_bundle = True
-            product = Product.objects.get(name="Hello Web App")
-            product2 = Product.objects.get(name="Hello Web Design")
 
         stripe_customer = dict(
             description=user,
@@ -366,8 +380,9 @@ def charge(request, product=None):
         'form': form,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
         'product': product,
+        'paperback': paperback,
         'amount': amount,
-        'product_name': options.PRODUCT_LOOKUP[product].description,
+        'product_name': product_name,
         #'stripe_profile': stripe_profile,
     })
 
