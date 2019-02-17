@@ -31,11 +31,11 @@ analytics.page("Add Credit Card Details");
                 <label for="shippingCostSelect">Choose your country to add shipping:</label>
                 <select class="form-control" id="shippingCostSelect">
                    <option value="0" selected disabled hidden>Choose here</option>
-                   <option value="300">United States: $3.00</option>
-                   <option value="800">Canada: $8.00</option>
-                   <option value="1500">Europe: $15.00</options>
-                   <option value="2000">Australia: $20.00</option>
-                   <option value="2900">Elsewhere: $29</option>
+                   <option value="{{ us_postage }}">United States: ${{ us_postage|cents_to_dollars }}</option>
+                   <option value="{{ can_postage }}">Canada: ${{ can_postage|cents_to_dollars }}</option>
+                   <option value="{{ eur_postage }}">Europe: ${{ eur_postage|cents_to_dollars }}</options>
+                   <option value="{{ aus_postage }}">Australia: ${{ aus_postage|cents_to_dollars }}</option>
+                   <option value="{{ else_postage }}">Elsewhere: ${{ else_postage|cents_to_dollars }}</option>
                 </select>
                 <small class="form-text text-muted">
                   All prices in USD.

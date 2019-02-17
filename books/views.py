@@ -186,10 +186,19 @@ def charge(request, product=None):
     paperback = False
     amount = 0
     product_name = ""
+    us_postage = 0
+    can_postage = 0
+    aus_postage = 0
+    else_postage = 0
 
     try:
         amount = options.PRODUCT_LOOKUP[product].amount
         product_name = options.PRODUCT_LOOKUP[product].description
+        us_postage = options.PRODUCT_LOOKUP[product].us_postage
+        can_postage = options.PRODUCT_LOOKUP[product].can_postage
+        aus_postage = options.PRODUCT_LOOKUP[product].aus_postage
+        eur_postage = options.PRODUCT_LOOKUP[product].eur_postage
+        else_postage = options.PRODUCT_LOOKUP[product].else_postage
     except KeyError:
         messages.error(request, "Product not found.")
         mail_admins("Bad happenings on HWB", "Product not found in order page: [%s]" % (product))
@@ -400,6 +409,12 @@ def charge(request, product=None):
         'paperback': paperback,
         'amount': amount,
         'product_name': product_name,
+        'us_postage': us_postage,
+        'can_postage': can_postage,
+        'eur_postage': eur_postage,
+        'aus_postage': aus_postage,
+        'else_postage': else_postage,
+
         #'stripe_profile': stripe_profile,
     })
 
