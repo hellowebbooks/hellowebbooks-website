@@ -22,9 +22,26 @@ analytics.page("Add Credit Card Details");
 
             <h1>Pay with Stripe</h1>
 
-            <!-- XXX: Add the image of the order here? -->
+            <!-- FIXME: Add the image of the order here? -->
 
-            <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">${{ amount|cents_to_dollars }}<span></strong>. After purchase, you will have access to a product dashboard to download your DRM-free files.</p>
+            <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">${{ amount|cents_to_dollars }}</span></strong>. After purchase, you will have access to a product dashboard to download your DRM-free files.</p>
+
+            {% if paperback %}
+            <form id="shippingForm" style="margin-bottom:1em;">
+                <label for="shippingCostSelect">Choose your country to add shipping:</label>
+                <select class="form-control" id="shippingCostSelect">
+                   <option value="0" selected disabled hidden>Choose here</option>
+                   <option value="300">United States: $3.00</option>
+                   <option value="800">Canada: $8.00</option>
+                   <option value="1500">Europe: $15.00</options>
+                   <option value="2000">Australia: $20.00</option>
+                   <option value="2900">Elsewhere: $29</option>
+                </select>
+                <small class="form-text text-muted">
+                  All prices in USD.
+                </small>
+            </form>
+            {% endif %}
 
             <form action="" method="POST" id="payment-form">
                 {% csrf_token %}
@@ -72,6 +89,10 @@ analytics.page("Add Credit Card Details");
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript">
     var pay_amount = {{ amount }}
+    var base_price = Number({{ amount }})
+    var discount = 1
+    var shipping = 0
+
     document.getElementById('pay_amount').innerHTML = "$" + pay_amount/100;
 
     var handler = StripeCheckout.configure({
@@ -128,7 +149,23 @@ analytics.page("Add Credit Card Details");
     }
     */
 
+    function calculateFinalPrice() {
+        var before_coupon = Number(base_price) + Number(shipping)
+        pay_amount = before_coupon * discount
+        document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
+    };
+
+    $('#shippingCostSelect').change(function() {
+      shipping = $(this).val();
+      calculateFinalPrice()
+      document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
+      document.getElementById("customButton").disabled = false;
+    });
+
     $(document).ready(function() {
+        {% if paperback %}
+        document.getElementById("customButton").disabled = true;
+        {% endif %}
         $("#coupon-code-group").hide();
         $("#coupon-code-prompt").click(function() {
             $("#coupon-code-group").show("slow");
@@ -165,10 +202,9 @@ analytics.page("Add Credit Card Details");
             contentType: "application/json",
             success: function(json){
                 pay_amount = {{ amount }}
-                const discount = 1-(json.discount/100)
+                discount = 1-(json.discount/100)
                 document.getElementById('coupon-code-label').innerHTML = 'Price updated with ' + json.discount + '% discount!';
-                pay_amount = pay_amount * discount
-                document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
+                calculateFinalPrice()
                 $("#stripeCoupon").val(coupon);
             },
             error: function(e){
