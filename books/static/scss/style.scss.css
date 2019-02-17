@@ -2891,6 +2891,18 @@ input[type=button].btn-block {
   color: #843534;
 }
 
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebcccc;
+  color: #a94442;
+}
+.alert-danger hr {
+  border-top-color: #e4b9b9;
+}
+.alert-danger .alert-link {
+  color: #843534;
+}
+
 @keyframes progress-bar-stripes {
   from {
     background-position: 1rem 0;

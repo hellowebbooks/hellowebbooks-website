@@ -3,9 +3,10 @@ import stripe
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, mail_admins
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect
@@ -19,9 +20,6 @@ stripe.api_key = os.environ['STRIPE_SECRET']
 
 def index(request):
     posts = PostPage.objects.select_related().all().order_by('-date')
-
-    for post in posts:
-        print(post.date)
 
     return render(request, 'index.html', {
         'posts': posts,
@@ -145,14 +143,33 @@ def upsell(request, product):
             password = form.cleaned_data['password']
             username = email.replace("@", "").replace(".", "")
 
-            # XXX Test for username uniqueness
-            user = User.objects.create_user(
-                username=username,
-                email=email,
-                password=password,
-            )
-            login(request, user)
-            return redirect('charge', product=product)
+            # check to see if they already have an account
+            user = authenticate(username=username, password=password)
+
+            if not user:
+                # no user returned by authenticate either means wrong password
+                # or no account
+                try:
+                    User.objects.get(email=email)
+                except ObjectDoesNotExist:
+                    # create new account
+                    user = User.objects.create_user(
+                        username=username,
+                        email=email,
+                        password=password,
+                    )
+                    login(request, user)
+                    return redirect('charge', product=product)
+
+                # user wasn't found but the email exists in the system, so their
+                # password must be wrong (or something)
+                messages.error(request, 'Email address found in system but password did not match. Try again?')
+                return redirect('upsell', product=product)
+
+            else:
+                # existing user was found and logged in
+                login(request, user)
+                return redirect('charge', product=product)
 
     else:
         form = form_class()
