@@ -158,6 +158,7 @@ def upsell(request, product):
                         email=email,
                         password=password,
                     )
+                    request.session['brand_new_user'] = True
                     login(request, user)
                     return redirect('charge', product=product)
 
@@ -305,6 +306,7 @@ def charge(request, product=None):
         )
 
         # log in customer, redirect to their dashboard
+        request.session.pop('brand_new_user', None)
         return redirect('dashboard')
 
 
