@@ -3,7 +3,7 @@ import stripe
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -526,3 +526,7 @@ def charge_cancel(request, directory=None):
 
     messages.info(request, 'Your upgraded account has been cancelled and your profile downgraded. Let us know what we can do to improve!')
     return redirect('profile_dashboard')
+
+
+class MyLoginView(auth_views.LoginView):
+    form_class = forms.MyAuthenticationForm

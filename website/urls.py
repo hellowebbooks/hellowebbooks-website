@@ -85,6 +85,7 @@ urlpatterns = [
         name='password_change_done'),
 
     path('login/', RedirectView.as_view(url='/accounts/login/')),
+    path('accounts/login/', views.MyLoginView.as_view(), name='login'),
     path('accounts/', include('registration.backends.simple.urls')),
 
     # redirects

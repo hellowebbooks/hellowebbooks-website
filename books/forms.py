@@ -1,5 +1,6 @@
 from django import forms
 
+from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.models import User
 
 from books.widgets import NoNameTextInput
@@ -78,3 +79,9 @@ class StripePaymentForm(CardForm):
         if card_number and (len(card_number) < 13 or len(card_number) > 16):
             raise forms.ValidationError("Please enter in a valid credit card number.")
         return card_number
+
+
+class MyAuthenticationForm(auth_forms.AuthenticationForm):
+    def __init__(self, request=None, *args, **kwargs):
+        super(MyAuthenticationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].label = "Email"
