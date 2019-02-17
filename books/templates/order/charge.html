@@ -26,7 +26,17 @@ analytics.page("Add Credit Card Details");
 
             <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">${{ amount|cents_to_dollars }}</span></strong>. After purchase, you will have access to a product dashboard to download your DRM-free files.</p>
 
-            {% if paperback %}
+            {% if not paperback %}
+            <form id="addPaperbackForm" style="margin-bottom:1em;">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="1" id="addPaperback">
+                  <label class="form-check-label" for="addPaperback">
+                      <em>Add the paperback book for $30 + shipping?</em>
+                  </label>
+                </div>
+            </form>
+            {% endif %}
+
             <form id="shippingForm" style="margin-bottom:1em;">
                 <label for="shippingCostSelect">Choose your country to add shipping:</label>
                 <select class="form-control" id="shippingCostSelect">
@@ -41,7 +51,6 @@ analytics.page("Add Credit Card Details");
                   All prices in USD.
                 </small>
             </form>
-            {% endif %}
 
             <form action="" method="POST" id="payment-form">
                 {% csrf_token %}
@@ -66,7 +75,7 @@ analytics.page("Add Credit Card Details");
                     </div>
 
                     <div class="col-sm-2">
-                        <input type="submit" class="btn btn-primary btn-sm coupon-input" value="Apply coupon" />
+                        <input type="submit" class="btn btn-secondary btn-sm coupon-input" value="Apply coupon" />
                     </div>
                 </div>
             </form>
@@ -88,10 +97,18 @@ analytics.page("Add Credit Card Details");
 {% comment %}<script type="text/javascript" src="https://js.stripe.com/v2/"></script>{% endcomment %}
 <script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript">
-    var pay_amount = {{ amount }}
-    var base_price = Number({{ amount }})
-    var discount = 1
-    var shipping = 0
+    let pay_amount = {{ amount }}
+    let base_price = Number({{ amount }})
+    let discount = 1
+    let shipping = 0
+    let hasPaperback = false
+    let paperbackAddl = 0
+    document.getElementById('shippingForm').style.display = 'none';
+
+    {% if paperback %}
+    hasPaperback = true
+    document.getElementById('shippingForm').style.display = 'block';
+    {% endif %}
 
     document.getElementById('pay_amount').innerHTML = "$" + pay_amount/100;
 
@@ -100,10 +117,8 @@ analytics.page("Add Credit Card Details");
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       // XXX: Need to remove these both for digital purchases
-      {% if paperback %}
-      shippingAddress: 'true',
-      billingAddress: 'true',
-      {% endif %}
+      shippingAddress: hasPaperback,
+      billingAddress: hasPaperback,
       image: "{% static '/images/icons/icon3.png' %}",
       token: function(token, args) {
           $("#stripeToken").val(token.id);
@@ -150,17 +165,32 @@ analytics.page("Add Credit Card Details");
     */
 
     function calculateFinalPrice() {
-        var before_coupon = Number(base_price) + Number(shipping)
+        let before_coupon = Number(base_price) + Number(shipping) + Number(paperbackAddl)
         pay_amount = before_coupon * discount
         document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
     };
 
     $('#shippingCostSelect').change(function() {
-      shipping = $(this).val();
-      calculateFinalPrice()
-      document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
-      document.getElementById("customButton").disabled = false;
+        shipping = $(this).val();
+        calculateFinalPrice()
+        document.getElementById("customButton").disabled = false;
     });
+
+    $('#addPaperback').change(function() {
+        if($(this).is(":checked")) {
+            hasPaperback = true
+            paperbackAddl = 3000
+            $('#shippingForm').show('fast');
+            document.getElementById("customButton").disabled = true;
+        } else {
+            hasPaperback = false
+            paperbackAddl = 0
+            shipping = 0
+            $('#shippingForm').hide('fast');
+        }
+        calculateFinalPrice()
+    });
+
 
     $(document).ready(function() {
         {% if paperback %}
@@ -192,7 +222,7 @@ analytics.page("Add Credit Card Details");
 
     $(".coupon-input").click(function() {
         //$(this).attr("disabled", "disabled"); // disable the submit button to prevent repeated clicks
-        var coupon = $(".coupon-code").val()
+        let coupon = $(".coupon-code").val()
 
         $.ajax({
             type: 'GET',
