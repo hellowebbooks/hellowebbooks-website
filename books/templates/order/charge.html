@@ -116,9 +116,6 @@ analytics.page("Add Credit Card Details");
       key: 'pk_test_jiLBGxG4cd2MTORmantWx7PH',
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
-      // XXX: Need to remove these both for digital purchases
-      shippingAddress: hasPaperback,
-      billingAddress: hasPaperback,
       image: "{% static '/images/icons/icon3.png' %}",
       token: function(token, args) {
           $("#stripeToken").val(token.id);
@@ -135,6 +132,8 @@ analytics.page("Add Credit Card Details");
         name: 'Hello Web Books',
         description: '{{ product_name }}',
         currency: 'usd',
+        shippingAddress: hasPaperback,
+        billingAddress: hasPaperback,
         email: '{{ request.user.email }}',
         amount: pay_amount
       });
@@ -170,6 +169,37 @@ analytics.page("Add Credit Card Details");
         document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
     };
 
+    function checkCoupon(coupon) {
+        $.ajax({
+            type: 'GET',
+            url: '/check_coupon/',
+            data: {"format": "json", 'coupon': coupon },
+            dataType: 'json',
+            contentType: "application/json",
+            success: function(json){
+                pay_amount = {{ amount }}
+                discount = 1-(json.discount/100)
+                if(discount!=1) {
+                    document.getElementById('coupon-code-label').innerHTML = 'Price updated with ' + json.discount + '% discount!';
+                } else {
+                    document.getElementById('coupon-code-label').innerHTML = 'Discount not valid or removed.';
+                }
+                calculateFinalPrice()
+                $("#stripeCoupon").val(coupon);
+            },
+            error: function(e){
+                console.log(e.message);
+            },
+        });
+    }
+
+    $(".coupon-input").click(function() {
+        //$(this).attr("disabled", "disabled"); // disable the submit button to prevent repeated clicks
+        let coupon = $(".coupon-code").val()
+        checkCoupon(coupon)
+        return false;
+    });
+
     $('#shippingCostSelect').change(function() {
         shipping = $(this).val();
         calculateFinalPrice()
@@ -196,11 +226,19 @@ analytics.page("Add Credit Card Details");
         {% if paperback %}
         document.getElementById("customButton").disabled = true;
         {% endif %}
+        {% if not coupon_supplied %}
         $("#coupon-code-group").hide();
+        {% endif %}
         $("#coupon-code-prompt").click(function() {
             $("#coupon-code-group").show("slow");
             return false;
         });
+
+        {% if coupon_supplied %}
+            let coupon = "{{ coupon_supplied }}"
+            checkCoupon(coupon)
+            document.getElementById("id_coupon_code").value = coupon
+        {% endif %}
 
         /*$("#payment-form").submit(function(event) {
             var $form = $(this);
@@ -218,31 +256,6 @@ analytics.page("Add Credit Card Details");
 
             return false; // prevent the form from submitting with the default action
         });*/
-    });
-
-    $(".coupon-input").click(function() {
-        //$(this).attr("disabled", "disabled"); // disable the submit button to prevent repeated clicks
-        let coupon = $(".coupon-code").val()
-
-        $.ajax({
-            type: 'GET',
-            url: '/check_coupon/',
-            data: {"format": "json", 'coupon': coupon },
-            dataType: 'json',
-            contentType: "application/json",
-            success: function(json){
-                pay_amount = {{ amount }}
-                discount = 1-(json.discount/100)
-                document.getElementById('coupon-code-label').innerHTML = 'Price updated with ' + json.discount + '% discount!';
-                calculateFinalPrice()
-                $("#stripeCoupon").val(coupon);
-            },
-            error: function(e){
-                console.log(e.message);
-            },
-        });
-
-        return false;
     });
 
 </script>

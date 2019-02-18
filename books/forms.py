@@ -82,6 +82,7 @@ class StripePaymentForm(CardForm):
 
 
 class MyAuthenticationForm(auth_forms.AuthenticationForm):
+    # XXX: This needs to accept email address instead
     def __init__(self, request=None, *args, **kwargs):
         super(MyAuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = "Email"

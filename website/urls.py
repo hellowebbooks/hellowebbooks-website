@@ -63,7 +63,7 @@ urlpatterns = [
     # payment views
     path('charge/<product>/', views.charge, name='charge'),
     path('charge/update/', views.charge_update, name="charge_update"),
-    path('charge/cancel/', views.charge_cancel, name="charge_cancel"),
+    #path('charge/cancel/', views.charge_cancel, name="charge_cancel"),
     path('buy/<product>/', views.upsell, name='upsell'),
     path('check_coupon/', views.check_coupon, name='check_coupon'),
 

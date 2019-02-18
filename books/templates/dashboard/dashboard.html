@@ -67,8 +67,9 @@ analytics.page("Dashboard");
                     <div class="content">
                         <h5>Hello Web Design</h5>
                         <p>Learn web design fundamentals and shortcuts. Everything you need to learn just enough design for your projects.</p>
-                        <p>Use the coupon code <b>CUSTOMER</b> for 20% off.</p>
+                        <p>Use the coupon code <b>CUSTOMERFRIEND</b> for 20% off.</p>
                         <a href="{% url 'learn-design' %}" class="btn btn-secondary btn-sm">See product page</a>
+                        <a href="{% url 'charge' product="hwd-ebooks" %}?coupon=customerfriend">Buy the eBook</a>
                     </div>
                 </div>
                 {% endif %}
@@ -77,7 +78,7 @@ analytics.page("Dashboard");
                     <div class="content">
                         <h5>Hello Web App</h5>
                         <p>Create a unique web app using Python 3 and Django 2.0 and launch on Heroku. Two book set.</p>
-                        <p>Use the coupon code <b>CUSTOMER</b> for 20% off.</p>
+                        <p>Use the coupon code <b>CUSTOMERFRIEND</b> for 20% off.</p>
                         <a href="{% url 'learn-django' %}" class="btn btn-secondary btn-sm">See product page</a>
                     </div>
                 </div>

@@ -404,6 +404,9 @@ def charge(request, product=None):
     else:
         form = forms.StripePaymentForm()
 
+    # check whether we're going to this page with a coupon specified
+    coupon_supplied = request.GET.get("coupon", None)
+
     return render(request, "order/charge.html", {
         'form': form,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
@@ -416,6 +419,7 @@ def charge(request, product=None):
         'eur_postage': eur_postage,
         'aus_postage': aus_postage,
         'else_postage': else_postage,
+        'coupon_supplied': coupon_supplied,
 
         #'stripe_profile': stripe_profile,
     })
@@ -474,58 +478,6 @@ def charge_update(request):
         'publishable_key': settings.STRIPE_PUBLISHABLE,
         'form': form,
     })
-
-
-@login_required
-def charge_cancel(request, directory=None):
-    """
-    If a vendor clicks the button to cancel their paid account, this changes
-    them back to a free account.
-    """
-    user = request.user
-    profile = get_object_or_404(Profile, user=user)
-    account = get_object_or_404(StripeProfile, profile=profile)
-    plan_name = profile.payment_method
-    company_name = profile.company_name
-
-    cu = stripe.Customer.retrieve(account.stripe_id)
-    #import pdb; pdb.set_trace()
-    subs = stripe.Subscription.all(customer=cu)
-    for sub in subs:
-        sub.delete()
-
-    profile.is_pro_profile = False
-    profile.online = False
-    profile.payment_method = ""
-    profile.save()
-
-    account.delete()
-
-    # send email to admin
-    send_mail(
-        'WeddingLovely vendor subscription cancel',
-        '%s just cancelled their %s account. Boo!' % (company_name, plan_name),
-        'noreply@weddinglovely.com',
-        ['admin@weddinglovely.com']
-    )
-
-    # send email to customer
-    template_cus = get_template('shared/sales/cancel_customer_email.txt')
-    context_cus = Context({
-        'company_name': company_name,
-        'directory' : "WeddingLovely",
-    })
-    content_cus = template_cus.render(context_cus)
-
-    send_mail(
-        'Your account has been downgraded on WeddingLovely',
-        content_cus,
-        'yesreply@weddinglovely.com',
-        [user.email],
-    )
-
-    messages.info(request, 'Your upgraded account has been cancelled and your profile downgraded. Let us know what we can do to improve!')
-    return redirect('profile_dashboard')
 
 
 class MyLoginView(auth_views.LoginView):
