@@ -2185,7 +2185,7 @@ fieldset[disabled] .checkbox label {
 .has-success .checkbox-inline, .has-success.radio label, .has-success.checkbox label, .has-success.radio-inline label, .has-success.checkbox-inline label {
   color: #5cb85c;
 }
-.has-success .form-control {
+.has-success .form-control, .has-success input[type=text], .has-success select, .has-success input[type=password], .has-success input[type=email], .has-success textarea {
   border-color: #5cb85c;
 }
 .has-success .input-group-addon {
@@ -2208,7 +2208,7 @@ fieldset[disabled] .checkbox label {
 .has-warning .checkbox-inline, .has-warning.radio label, .has-warning.checkbox label, .has-warning.radio-inline label, .has-warning.checkbox-inline label {
   color: #f0ad4e;
 }
-.has-warning .form-control {
+.has-warning .form-control, .has-warning input[type=text], .has-warning select, .has-warning input[type=password], .has-warning input[type=email], .has-warning textarea {
   border-color: #f0ad4e;
 }
 .has-warning .input-group-addon {
@@ -2231,7 +2231,7 @@ fieldset[disabled] .checkbox label {
 .has-error .checkbox-inline, .has-error.radio label, .has-error.checkbox label, .has-error.radio-inline label, .has-error.checkbox-inline label {
   color: #d9534f;
 }
-.has-error .form-control {
+.has-error .form-control, .has-error input[type=text], .has-error select, .has-error input[type=password], .has-error input[type=email], .has-error textarea {
   border-color: #d9534f;
 }
 .has-error .input-group-addon {

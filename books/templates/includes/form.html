@@ -27,7 +27,7 @@
             {% endif %}
 
             {% if field.help_text %}
-                <p class="help-block">{{ field.help_text }}</p>
+                <small class="form-text text-muted">{{ field.help_text|safe }}</small>
             {% endif %}
         </div>
     {% endif %}
