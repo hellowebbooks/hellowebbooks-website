@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, mail_admins
 from django.http import Http404, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 from books import forms, options, coupon_codes
 from books.models import Product, Membership, Customer
@@ -129,9 +129,8 @@ def upsell(request, product):
 
     # User is logged in, go straight to buy page
     if request.user.is_authenticated:
-        return redirect('charge', product=product)
-
-    # XXX: Uh also we need to upsell the paperbacks for the video package buyers
+        return redirect('/charge/%s' % product + '?coupon=customerfriend')
+        #return redirect('charge', product=product)
 
     # Get someone to log in OR create an account
     form_class = forms.AddEmailForm
@@ -170,7 +169,7 @@ def upsell(request, product):
             else:
                 # existing user was found and logged in
                 login(request, user)
-                return redirect('charge', product=product)
+                return redirect('/charge/%s' % product + '?coupon=customerfriend')
 
     else:
         form = form_class()
@@ -191,6 +190,9 @@ def charge(request, product=None):
     can_postage = 0
     aus_postage = 0
     else_postage = 0
+
+    # check whether we're going to this page with a coupon specified
+    coupon_supplied = request.GET.get("coupon", None)
 
     try:
         amount = options.PRODUCT_LOOKUP[product].amount
@@ -231,6 +233,8 @@ def charge(request, product=None):
         print(coupon)
         print("args?")
         print(request.POST['stripeArgs'])
+
+        # XXX: Still need to figure out the system for fulfilling print orders
 
         #form = forms.StripePaymentForm(request.POST)
         #is_stripe_valid = True
@@ -403,9 +407,6 @@ def charge(request, product=None):
             """
     else:
         form = forms.StripePaymentForm()
-
-    # check whether we're going to this page with a coupon specified
-    coupon_supplied = request.GET.get("coupon", None)
 
     return render(request, "order/charge.html", {
         'form': form,

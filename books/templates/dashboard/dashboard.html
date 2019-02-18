@@ -77,7 +77,7 @@ analytics.page("Dashboard");
                     </div>
                 </div>
                 {% endif %}
-                {% comment %}{% if not has_hwa %}{% endcomment %}
+                {% if not has_hwa %}
                 <div class="box hello-web-app">
                     <div class="content">
                         <h5>Hello Web App</h5>
@@ -90,7 +90,7 @@ analytics.page("Dashboard");
                         <a href="{% url 'learn-django' %}" class="btn btn-secondary btn-sm">See product page</a>
                     </div>
                 </div>
-                {% comment %}{% endif %}{% endcomment %}
+                {% endif %}
             </section>
             {% else %}
             <p class="text-center super-vertical-margin">You have every book I offer! Thank you. 💕</p>
