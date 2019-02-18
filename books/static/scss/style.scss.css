@@ -5976,7 +5976,7 @@ figure.video iframe {
   font-weight: 400;
   font-size: 1.5rem;
 }
-#upsells .box p {
+#upsells .box p, #upsells .box li {
   font-size: 1rem;
 }
 

@@ -32,7 +32,7 @@ analytics.page("Dashboard");
                         <p class="boughton">Bought on {{ membership.created|date:"M. d, Y" }}.</p>
                         <div style="margin-top: 1em; margin-bottom: 2em;">
                             <p class="no-bottom-margin"><b>Download eBook files:</b></p>
-                            <!-- XXX: This isn't the best solution but it's good enough for now -->
+                            <!-- FIXME: This isn't the best solution but it's good enough for now -->
                             <ul>
                                 {% if membership.product.name == "Hello Web App" %}
                                 <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ membership.product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ membership.product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ membership.product.name }} Kindle/.mobi">.mobi/Kindle</a></li>
@@ -61,28 +61,36 @@ analytics.page("Dashboard");
             {% if not has_hwd or not has_hwa %}
             <hr />
             <h4>Want to buy another <i>Hello Web Books</i> product?</h4>
+            <p>You get 20% off all products as an existing customer!</p>
             <section id="upsells">
                 {% if not has_hwd %}
                 <div class="box hello-web-design">
                     <div class="content">
                         <h5>Hello Web Design</h5>
                         <p>Learn web design fundamentals and shortcuts. Everything you need to learn just enough design for your projects.</p>
-                        <p>Use the coupon code <b>CUSTOMERFRIEND</b> for 20% off.</p>
+                        <ul>
+                            <li><a href="{% url 'charge' product="hwd-video" %}?coupon=customerfriend">Buy the video package</a> for <b>$79.20</b> (originally $99.00). Add the paperback for $30 + shipping.</li>
+                            <li><a href="{% url 'charge' product="hwd-pb" %}?coupon=customerfriend">Buy the paperback package</a> for <b>$31.96</b> + shipping (originally $39.95).</li>
+                            <li><a href="{% url 'charge' product="hwd-ebooks" %}?coupon=customerfriend">Buy the eBook package</a> for <b>$19.96</b> (originally $24.95).</li>
+                        </ul>
                         <a href="{% url 'learn-design' %}" class="btn btn-secondary btn-sm">See product page</a>
-                        <a href="{% url 'charge' product="hwd-ebooks" %}?coupon=customerfriend">Buy the eBook</a>
                     </div>
                 </div>
                 {% endif %}
-                {% if not has_hwa %}
+                {% comment %}{% if not has_hwa %}{% endcomment %}
                 <div class="box hello-web-app">
                     <div class="content">
                         <h5>Hello Web App</h5>
                         <p>Create a unique web app using Python 3 and Django 2.0 and launch on Heroku. Two book set.</p>
-                        <p>Use the coupon code <b>CUSTOMERFRIEND</b> for 20% off.</p>
+                        <ul>
+                            <li><a href="{% url 'charge' product="hwa-video" %}?coupon=customerfriend">Buy the video package</a> for <b>$143.20</b> (originally $179.00). Add the paperback for $30 + shipping.</li>
+                            <li><a href="{% url 'charge' product="hwa-pb" %}?coupon=customerfriend">Buy the paperback package</a> for <b>$47.96</b> + shipping (originally $59.95).</li>
+                            <li><a href="{% url 'charge' product="hwa-ebooks" %}?coupon=customerfriend">Buy the eBook package</a> for <b>$27.96</b> (originally $34.95).</li>
+                        </ul>
                         <a href="{% url 'learn-django' %}" class="btn btn-secondary btn-sm">See product page</a>
                     </div>
                 </div>
-                {% endif %}
+                {% comment %}{% endif %}{% endcomment %}
             </section>
             {% else %}
             <p class="text-center super-vertical-margin">You have every book I offer! Thank you. 💕</p>
