@@ -50,8 +50,13 @@ analytics.page("Dashboard");
                         <a href="" class="btn btn-secondary btn-sm">Visit Slack channel</a>
                         {% else %}
                         <!-- XXX: Finish upsell link -->
+                        <!-- XXX: Finish Slack integration -->
                         <a href="" class="btn btn-primary btn-sm">Visit Slack channel</a>
-                        <a href="" class="btn btn-secondary btn-sm">Upgrade: Buy video course for 20% off ({% if membership.product.name == "Hello Web App" %}$79{% elif membership.product.name == "Hello Web Design" %}$49{% endif %})</a>
+                        {% if membership.product.name == "Hello Web App" %}
+                        <a href="{% url 'charge' product="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm">Upgrade: Buy video course for 20% off ($115.24)</a>
+                        {% elif membership.product.name == "Hello Web Design" %}
+                        <a href="{% url 'charge' product="hwd-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm">Upgrade: Buy video course for 20% off ($59.24)</a>
+                        {% endif %}
                         {% endif %}
                     </div>
                 </div>
@@ -108,5 +113,6 @@ analytics.page("Dashboard");
             </ul>
         </div>
     </div>
+    <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
 </div>
 {% endblock content %}

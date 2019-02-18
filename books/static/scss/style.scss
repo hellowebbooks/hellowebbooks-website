@@ -953,11 +953,6 @@ figure.video {
 }
 
 /* DASHBOARD */
-#membership-page #footer {
-    border-top: 5px solid #f7f7f7;
-    padding-top: 2em;
-}
-
 #memberships {
     display: grid; // There Andrey, I did CSS Grid :P
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
