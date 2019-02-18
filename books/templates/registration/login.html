@@ -13,7 +13,7 @@ analytics.page("Login");
     <p class="text-center">Access your eBook and video files.</p>
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2 text-center" style="margin-top: 2em;" >
+        <div class="col-md-4 col-md-offset-4 super-vertical-margin">
             <form method="post" role="form" action="">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next }}" />
@@ -27,5 +27,6 @@ analytics.page("Login");
             </p>
         </div>
     </div>
+    <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
 </div>
 {% endblock content %}

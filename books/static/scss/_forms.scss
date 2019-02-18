@@ -2,7 +2,7 @@
 // Textual form controls
 //
 
-.form-control {
+.form-control, input[type="text"], select, input[type="password"], input[type="email"], textarea  {
   display: block;
   width: 100%;
   // // Make inputs at least the height of their button counterpart (base line-height + padding + border)
