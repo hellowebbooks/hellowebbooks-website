@@ -22,7 +22,7 @@
 
             {% if field.errors %}
                 {% for error in field.errors %}
-                <p class="help-block"><span class="text-danger">{{ error|escape }}</span></p>
+                <p class="help-block"><span class="text-danger"><small>{{ error|escape }}</small></span></p>
                 {% endfor %}
             {% endif %}
 
