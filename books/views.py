@@ -203,6 +203,7 @@ def charge(request, product=None):
         aus_postage = options.PRODUCT_LOOKUP[product].aus_postage
         eur_postage = options.PRODUCT_LOOKUP[product].eur_postage
         else_postage = options.PRODUCT_LOOKUP[product].else_postage
+        paperback_price = options.PRODUCT_LOOKUP[product].paperback_addl
     except KeyError:
         messages.error(request, "Product not found.")
         mail_admins("Bad happenings on HWB", "Product not found in order page: [%s]" % (product))
@@ -211,18 +212,14 @@ def charge(request, product=None):
     # TODO: This is probably a bad way of doing this. Look into something
     # more future-proof.
     split_product = product.split("-")
-    short_name = split_product[0]
-    if short_name == "hwa":
+    if split_product[0] == "hwa":
         product = Product.objects.get(name="Hello Web App")
-        paperback_price = 2000
-    elif short_name == "hwd":
+    elif split_product[0] == "hwd":
         product = Product.objects.get(name="Hello Web Design")
-        paperback_price = 1000
-    elif short_name == "hwb":
+    elif split_product[0] == "hwb":
         hwb_bundle = True
         product = Product.objects.get(name="Hello Web App")
         product2 = Product.objects.get(name="Hello Web Design")
-        paperback_price = 3000
 
     if split_product[1] == "pb":
         paperback = True
@@ -417,7 +414,6 @@ def charge(request, product=None):
         'form': form,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
         'product': product,
-        'short_name': short_name,
         'paperback': paperback,
         'paperback_price': paperback_price,
         'amount': amount,
