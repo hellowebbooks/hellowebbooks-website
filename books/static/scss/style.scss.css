@@ -5993,37 +5993,43 @@ figure.video iframe {
   }
 }
 /* CHARGE PAGE */
-/*
-#payment-form {
-    .control-group { margin-top: 0; }
-    input {
-        font-size: 20px;
-        height: 40px;
-        line-height: 40px;
-        padding: 12px;
-        width: 400px;
-    }
-    #cvc-field, #expiration-fields { float: left; }
-    #cvc-field {
-        margin-left: 30px;
-        .help-text {
-            float: right;
-            width: 200px;
-            margin-left: 10px;
-            color: $gray-light;
-            font-size: 12px;
-        }
-    }
-    #coupon-code-group { clear: both; }
-    #coupon-code-prompt { display: block; margin-top: 10px; }
-    button {
-        clear: both;
-        font-size: 16px;
-        font-weight: 300;
-        margin-top: 10px;
-    }
+#update-payment-form .control-group {
+  margin-top: 0;
 }
-*/
+#update-payment-form input {
+  font-size: 20px;
+  height: 40px;
+  line-height: 40px;
+  padding: 12px;
+  width: 400px;
+}
+#update-payment-form #cvc-field, #update-payment-form #expiration-fields {
+  float: left;
+}
+#update-payment-form #cvc-field {
+  margin-left: 30px;
+}
+#update-payment-form #cvc-field .help-text {
+  float: right;
+  width: 200px;
+  margin-left: 10px;
+  color: #818a91;
+  font-size: 12px;
+}
+#update-payment-form #coupon-code-group {
+  clear: both;
+}
+#update-payment-form #coupon-code-prompt {
+  display: block;
+  margin-top: 10px;
+}
+#update-payment-form button {
+  clear: both;
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+
 #stripe-disclaimer {
   width: 500px;
   margin: 20px auto;

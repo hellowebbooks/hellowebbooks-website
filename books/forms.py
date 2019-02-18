@@ -77,6 +77,7 @@ class StripePaymentForm(CardForm):
     def clean_card_number(self):
         card_number = self.cleaned_data['card_number'].replace("-","").replace(" ","")
         if card_number and (len(card_number) < 13 or len(card_number) > 16):
+            print("valid no")
             raise forms.ValidationError("Please enter in a valid credit card number.")
         return card_number
 

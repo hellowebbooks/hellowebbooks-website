@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load divide %}
+
+{% block title %}Update your credit card - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("Update Credit Card");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="credit-update">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div id="charge-form" class="side-note col-md-6 col-md-offset-3">
+
+            {% for key, value in form.errors.items %}
+                <p>{{ value }}</p>
+            {% endfor %}
+            {% for key, value in form.non_field_errors.items %}
+                <p>{{ value }}</p>
+            {% endfor %}
+
+            <h1>Update credit card</h1>
+
+            <p>Current credit card:  <span class="highlight">xxxx-xxxx-xxxx-{{ last_4_digits }}</span>.</p>
+
+            <form action="" method="POST" id="update-payment-form" role="form" class="form">
+                {% csrf_token %}
+                <noscript>
+                    <p>This form requires Javascript to use.</p>
+                </noscript>
+                <div class="payment-errors"></div>
+                <input id="id_last_4_digits" name="last_4_digits" type="hidden" />
+                <input id="id_stripe_token" name="stripe_token" type="hidden" />
+
+                <div class="form-group {% if form.card_number.errors %}has-error{% endif %}">
+                    <label class="control-label" for="id_card_number">
+                        New card number
+                    </label>
+
+                    <div class="controls">
+                        {{ form.card_number }}
+                        {% if form.card_number.errors %}
+                            {% for error in form.card_number.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if form.card_number.help_text %}
+                            <div class="help-text">
+                                <p>{{ form.card_number.help_text }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.card_expiry_month.errors %}has-error{% endif %}" id="expiration-fields">
+                    <label class="control-label" for="id_card_expiry_month">
+                        Expiration
+                    </label>
+
+                    <div class="controls">
+                        {{ form.card_expiry_month }}
+                        / {{ form.card_expiry_year }}
+                        {% if form.card_expiry_month.errors %}
+                            {% for error in form.card_expiry_month.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.card_expiry_year.errors %}
+                            {% for error in form.card_expiry_year.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group {% if form.card_cvc.errors %}has-error{% endif %}" id="cvc-field">
+                    <label class="control-label" for="id_card_cvc">
+                        Security Code
+                    </label>
+
+                    <div class="controls">
+                        {{ form.card_cvc }}
+                        {% if form.card_cvc.errors %}
+                            {% for error in form.card_cvc.errors %}
+                                <span class="help-inline">{{ error|escape }}</span>
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="help-text">
+                            <p>3 digits on the back of your card. <br/>Amex: 4 digits on front.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="clear:both;"><button type="submit" class="btn btn-primary btn-lg">Update credit card</button></div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+    <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
+
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+    Stripe.setPublishableKey('{{ publishable_key }}');
+
+    function stripeResponseHandler(status, response) {
+        if (response.error) {
+            $(".payment-errors").html(response.error.message);
+            $('.submit-button').removeAttr('disabled') // re-enable form so people can fix errors
+        } else {
+            var form$ = $("#update-payment-form");
+            $("#id_stripe_token").val(response.id);
+            $("#id_last_4_digits").val(response.card.last4);
+            $("#id_coupon").val($('.coupon-code').val());
+            form$.get(0).submit();
+        }
+    }
+
+    $(document).ready(function() {
+        $("#update-payment-form").submit(function(event) {
+            // disable the submit button to prevent repeated clicks
+            $('.submit-button').attr("disabled", "disabled");
+
+            print("in create token")
+
+            Stripe.createToken({
+                number: $('.card-number').val(),
+                cvc: $('.card-cvc').val(),
+                exp_month: $('.card-expiry-month').val(),
+                exp_year: $('.card-expiry-year').val(),
+                address_zip: $('.card-address-zip').val()
+            }, stripeResponseHandler);
+
+            return false;
+        });
+    });
+</script>
+{% endblock scripts %}

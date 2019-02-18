@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, mail_admins
 from django.http import Http404, JsonResponse
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 
 from books import forms, options, coupon_codes
 from books.models import Product, Membership, Customer
@@ -476,9 +476,9 @@ def charge_update(request):
     else:
         form = forms.StripePaymentForm()
 
-    return render(request, "dashboard/charge_update.html", {
+    return render(request, "order/charge_update.html", {
         'customer': customer,
-        'last_4_digits': account.last_4_digits,
+        'last_4_digits': last_4_digits,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
         'form': form,
     })
