@@ -190,6 +190,7 @@ def charge(request, product=None):
     can_postage = 0
     aus_postage = 0
     else_postage = 0
+    paperback_price = 0
 
     # check whether we're going to this page with a coupon specified
     coupon_supplied = request.GET.get("coupon", None)
@@ -210,14 +211,18 @@ def charge(request, product=None):
     # TODO: This is probably a bad way of doing this. Look into something
     # more future-proof.
     split_product = product.split("-")
-    if split_product[0] == "hwa":
+    short_name = split_product[0]
+    if short_name == "hwa":
         product = Product.objects.get(name="Hello Web App")
-    elif split_product[0] == "hwd":
+        paperback_price = 2000
+    elif short_name == "hwd":
         product = Product.objects.get(name="Hello Web Design")
-    elif split_product[0] == "hwb":
+        paperback_price = 1000
+    elif short_name == "hwb":
         hwb_bundle = True
         product = Product.objects.get(name="Hello Web App")
         product2 = Product.objects.get(name="Hello Web Design")
+        paperback_price = 3000
 
     if split_product[1] == "pb":
         paperback = True
@@ -412,7 +417,9 @@ def charge(request, product=None):
         'form': form,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
         'product': product,
+        'short_name': short_name,
         'paperback': paperback,
+        'paperback_price': paperback_price,
         'amount': amount,
         'product_name': product_name,
         'us_postage': us_postage,

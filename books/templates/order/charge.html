@@ -31,7 +31,7 @@ analytics.page("Add Credit Card Details");
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="1" id="addPaperback">
                   <label class="form-check-label" for="addPaperback">
-                      <em>Add the paperback book for $30 + shipping?</em>
+                      <em>Add the paperback book for ${{ paperback_price|cents_to_dollars }} + shipping?</em>
                   </label>
                 </div>
             </form>
@@ -190,7 +190,7 @@ analytics.page("Add Credit Card Details");
     $('#addPaperback').change(function() {
         if($(this).is(":checked")) {
             hasPaperback = true
-            paperbackAddl = 3000
+            paperbackAddl = {{ paperback_price }}
             $('#shippingForm').show('fast');
             document.getElementById("customButton").disabled = true;
         } else {
