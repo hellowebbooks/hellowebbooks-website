@@ -101,10 +101,10 @@ analytics.page("Add Credit Card Details");
     let base_price = Number({{ amount }})
     let discount = 1
     let shipping = 0
-    let hasPaperback = false
     let paperbackAddl = 0
-    document.getElementById('shippingForm').style.display = 'none';
 
+    let hasPaperback = false
+    document.getElementById('shippingForm').style.display = 'none';
     {% if paperback %}
     hasPaperback = true
     document.getElementById('shippingForm').style.display = 'block';
@@ -145,24 +145,6 @@ analytics.page("Add Credit Card Details");
       handler.close();
     });
 
-    /*
-    Stripe.setPublishableKey('{{ publishable_key }}');
-
-    function stripeResponseHandler(status, response) {
-        if (response.error) {
-            $(".payment-errors").html(response.error.message);
-            $('button').removeAttr('disabled') // re-enable form so people can fix errors
-        } else {
-            var form$ = $("#payment-form");
-
-            $("#id_stripe_token").val(response.id);
-            $("#id_last_4_digits").val(response.card.last4);
-            $("#id_coupon").val($('.coupon-code').val());
-            form$.get(0).submit();
-        }
-    }
-    */
-
     function calculateFinalPrice() {
         let before_coupon = Number(base_price) + Number(shipping) + Number(paperbackAddl)
         pay_amount = before_coupon * discount
@@ -194,7 +176,6 @@ analytics.page("Add Credit Card Details");
     }
 
     $(".coupon-input").click(function() {
-        //$(this).attr("disabled", "disabled"); // disable the submit button to prevent repeated clicks
         let coupon = $(".coupon-code").val()
         checkCoupon(coupon)
         return false;
@@ -221,7 +202,6 @@ analytics.page("Add Credit Card Details");
         calculateFinalPrice()
     });
 
-
     $(document).ready(function() {
         {% if paperback %}
         document.getElementById("customButton").disabled = true;
@@ -239,23 +219,6 @@ analytics.page("Add Credit Card Details");
             checkCoupon(coupon)
             document.getElementById("id_coupon_code").value = coupon
         {% endif %}
-
-        /*$("#payment-form").submit(function(event) {
-            var $form = $(this);
-            $form.find('button').prop('disabled', true);
-
-            // var amount = 1000; //amount you want to charge in cents - disabled since it's set later?
-            Stripe.createToken({
-                number: $('.card-number').val(),
-                cvc: $('.card-cvc').val(),
-                exp_month: $('.card-expiry-month').val(),
-                exp_year: $('.card-expiry-year').val(),
-                address_zip: $('.card-address-zip').val()
-            }, stripeResponseHandler);
-            // }, amount, stripeResponseHandler);
-
-            return false; // prevent the form from submitting with the default action
-        });*/
     });
 
 </script>
