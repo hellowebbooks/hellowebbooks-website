@@ -25,7 +25,7 @@ analytics.page("Add Credit Card Details");
             <!-- FIXME: Add the image of the order here? -->
 
             <!-- XXX: Update the pricing area to show full price and discounted price. -->
-            <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">${{ amount|cents_to_dollars }}</span></strong>. After purchase, you will have access to a product dashboard to download your DRM-free files.</p>
+            <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">$<span class="price">{{ amount|cents_to_dollars }}</span></span></strong>. After purchase, you will have access to a product dashboard to download your DRM-free files.</p>
 
             {% if not paperback %}
             <form id="addPaperbackForm" style="margin-bottom:1em;">
@@ -60,7 +60,7 @@ analytics.page("Add Credit Card Details");
                 <input type="hidden" id="stripeArgs" name="stripeArgs" />
                 <input type="hidden" id="paymentAmount" name="paymentAmount" />
                 <input type="hidden" id="stripeCoupon" name="stripeCoupon" />
-                <button id="customButton" class="btn btn-primary">Pay <span id="pay_amount"></span></button>
+                <button id="customButton" class="btn btn-primary">Pay <span class="price"></span></button>
             </form>
 
             <p><small><a id="coupon-code-prompt" href="#">Got a coupon code?</a></small></p>
@@ -72,7 +72,7 @@ analytics.page("Add Credit Card Details");
 
                 <div class="form-group row">
                     <div class="col-sm-10">
-                        <input type="text" maxlength="20" class="form-control form-control-sm coupon-code" id="id_coupon_code">
+                        <input type="text" maxlength="20" class="form-control form-control-sm coupon-code price" id="id_coupon_code">
                     </div>
 
                     <div class="col-sm-2">
@@ -110,7 +110,7 @@ analytics.page("Add Credit Card Details");
     document.getElementById('shippingForm').style.display = 'block';
     {% endif %}
 
-    document.getElementById('pay_amount').innerHTML = "$" + pay_amount/100;
+    $(".price").html(pay_amount/100);
 
     var handler = StripeCheckout.configure({
       key: 'pk_test_jiLBGxG4cd2MTORmantWx7PH',
@@ -148,7 +148,9 @@ analytics.page("Add Credit Card Details");
     function calculateFinalPrice() {
         let before_coupon = Number(base_price) + Number(shipping) + Number(paperbackAddl)
         pay_amount = before_coupon * discount
-        document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
+        //document.getElementById('pay_amount').innerHTML = "$" + (pay_amount/100).toFixed(2);
+        $(".price").html((pay_amount/100).toFixed(2));
+        $('.orginalAmount').show()
     };
 
     function checkCoupon(coupon) {
