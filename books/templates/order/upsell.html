@@ -21,14 +21,24 @@ analytics.page("Confirm Email");
 
             <h1>Create an account or login</h1>
             <p>You'll get access to a dashboard with your eBook files and video files if applicable.</p>
-            {% comment %}
-            <button class="btn btn-secondary btn-sm">Click here if buying as a gift</button>
-            <p><small>After buying, you'll be prompted to enter the email address of the giftee so they can create an account.</small></p>
-            {% endcomment %}
             <form action="" method="POST">
                 {% csrf_token %}
                 {% include 'includes/form.html' with form=form %}
                 <input type="submit" value="Continue to credit card payment" class="btn btn-primary"/>
+            </form>
+
+            <hr class="super-vertical-margin"/>
+
+            <h4 style="margin-bottom:0.5em;">Buying as a gift?</h4>
+            <p style="margin-bottom:0.5em;"><small>Fill out this form and after submitting your credit card details, the giftee will receive an email with details on how to log in to access their files.</small></p>
+            <p><small>Want to buy a gift but not send it immediately? Email me at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and I'll set up something custom for you.</small></p>
+            <form action="{% url 'gift' product=product %}" method="POST" class="vertical-margin">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="gifteeEmail" class="sr-only">Enter the giftee's email address here</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Enter the giftee's email address here" name="gifteeEmail">
+                </div>
+                <input type="submit" value="Continue to credit card payment" class="btn btn-secondary btn-sm"/>
             </form>
         </div>
     </div>

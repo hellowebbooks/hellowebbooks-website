@@ -125,8 +125,6 @@ def edit_email(request):
 
 
 def upsell(request, product):
-    # XXX: Need a flow for if someone is buying as a gift :O
-
     # User is logged in, go straight to buy page
     if request.user.is_authenticated:
         return redirect('/charge/%s' % product + '?coupon=customerfriend')
@@ -136,6 +134,7 @@ def upsell(request, product):
     form_class = forms.AddEmailForm
 
     if request.method == 'POST':
+        request.session.pop('brand_new_user', None)
         form = form_class(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
@@ -176,7 +175,27 @@ def upsell(request, product):
 
     return render(request, 'order/upsell.html', {
         'form': form,
+        'product': product,
     })
+
+
+def gift(request, product):
+    if request.method == 'POST':
+        email = request.POST['gifteeEmail']
+        username = email.replace("@", "").replace(".", "")
+        password = User.objects.make_random_password()
+
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password,
+        )
+        request.session['giftee_user'] = True
+        login(request, user)
+        return redirect('charge', product=product)
+
+    messages.error(request, "How'd you get here?")
+    return redirect('order')
 
 
 @login_required
@@ -235,6 +254,9 @@ def charge(request, product=None):
         print(coupon)
         print("args?")
         print(request.POST['stripeArgs'])
+
+        # XXX: For gifting, we need to NOT go to dashboard after AND send a
+        # custom email to the giftee to let them know that this was done.
 
         # XXX: Still need to figure out the system for fulfilling print orders
 
