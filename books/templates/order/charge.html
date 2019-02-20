@@ -60,6 +60,7 @@ analytics.page("Add Credit Card Details");
                 <input type="hidden" id="stripeArgs" name="stripeArgs" />
                 <input type="hidden" id="paymentAmount" name="paymentAmount" />
                 <input type="hidden" id="stripeCoupon" name="stripeCoupon" />
+                <input type="hidden" id="hasPaperback" name="hasPaperback" />
                 <button id="customButton" class="btn btn-primary">Pay $<span class="price"></span></button>
             </form>
 
@@ -120,8 +121,9 @@ analytics.page("Add Credit Card Details");
       token: function(token, args) {
           $("#stripeToken").val(token.id);
           $("#stripeEmail").val(token.email);
-          $("#stripeArgs").val(args);
+          $("#stripeArgs").val(JSON.stringify(args));
           $("#paymentAmount").val(pay_amount);
+          $("#hasPaperback").val(hasPaperback);
           $("#payment-form").submit();
       }
     });

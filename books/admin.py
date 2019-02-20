@@ -5,6 +5,7 @@ from books.models import Customer, Membership, Product
 
 class CustomerAdmin(admin.ModelAdmin):
     model = Customer
+    list_display = ('user', 'stripe_id', 'last_4_digits', 'coupon',)
 
 class MembershipAdmin(admin.ModelAdmin):
     model = Membership

@@ -1,3 +1,4 @@
+import json
 import os
 import stripe
 
@@ -5,6 +6,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, views as auth_views
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, mail_admins
@@ -126,7 +128,7 @@ def edit_email(request):
 
 def upsell(request, product):
     # User is logged in, go straight to buy page
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and 'giftee_user' not in request.session:
         return redirect('/charge/%s' % product + '?coupon=customerfriend')
         #return redirect('charge', product=product)
 
@@ -202,7 +204,6 @@ def gift(request, product):
 def charge(request, product=None):
     user = request.user
     hwb_bundle = False
-    paperback = False
     amount = 0
     product_name = ""
     us_postage = 0
@@ -240,195 +241,175 @@ def charge(request, product=None):
         product = Product.objects.get(name="Hello Web App")
         product2 = Product.objects.get(name="Hello Web Design")
 
+    paperback = False
     if split_product[1] == "pb":
         paperback = True
+        print("paperback?")
+        print(paperback)
+
+    video = False
+    if split_product[1] == "video":
+        video = True
+
+    supplement = False
+    if len(split_product) == 3:  # three arguments means it's an update to pkg
+        supplement = True
 
     if request.method == "POST":
-        print("in post")
         source = request.POST['stripeToken']
-        print(source)
-        print("payment?")
-        print(request.POST['paymentAmount'])
-        print("coupon?")
-        coupon = request.POST['stripeCoupon']
-        print(coupon)
-        print("args?")
-        print(request.POST['stripeArgs'])
+        amount = request.POST['paymentAmount']
+        coupon = request.POST['stripeCoupon'] or ""
+        has_paperback = False
+        if request.POST['hasPaperback'] == 'true':
+            has_paperback = True
+        args = json.loads(request.POST['stripeArgs'])
 
-        # XXX: For gifting, we need to NOT go to dashboard after AND send a
-        # custom email to the giftee to let them know that this was done.
+        # XXX: Omg Tracy write some tests
 
         # XXX: Still need to figure out the system for fulfilling print orders
+        shipping = {
+            'name': '',
+            'address': {
+                'line1': '',
+                'line2': '',
+                'city': '',
+                'country': '',
+                'postal_code': '',
+                'state': '',
+            }
+        }
+        for key, value in args.items():
+            if key == "shipping_address_line1":
+                shipping['address']['line1'] = value
+            elif key == 'shipping_address_line2':
+                shipping['address']['line2'] = value
+            elif key == 'shipping_address_city':
+                shipping['address']['city'] = value
+            elif key == 'shipping_address_country_code':
+                shipping['address']['country'] = value
+            elif key == 'shipping_address_zip':
+                shipping['address']['postal_code'] = value
+            elif key == 'shipping_address_state':
+                shipping['address']['state'] = value
+            elif key == 'shipping_name':
+                shipping['name'] = value
 
-        #form = forms.StripePaymentForm(request.POST)
-        #is_stripe_valid = True
-        coupon = ""
+        print(shipping)
 
-
-        stripe_customer = dict(
-            description=user,
-            email=user.email,
-            card=source,
-        )
-
-        if coupon:
-            stripe_customer['coupon'] = coupon
-
+        # See if they're already a customer
         try:
-            customer = stripe.Customer.create(**stripe_customer)
-            is_stripe_valid = True
-        except stripe.error.CardError as e:
-            body = e.json_body
-            err  = body.get('error', {})
-            messages.error(request, err.message)
-        except stripe.error.StripeError as e:
-            if e.param == 'coupon':
-                messages.error(request, 'Sorry, that coupon is invalid!')
-            else:
-                messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
-                mail_admins("Bad happenings on HWB", "Payment failure for [%s]" % (user.email))
+            customer = Customer.objects.get(user=request.user)
+            existing_customer = True
+        except Customer.DoesNotExist: # New customer
+            existing_customer = False
+            customer = None
+
+            stripe_customer = dict(
+                description=user,
+                email=user.email,
+                card=source,
+                shipping=shipping,
+            )
+
+            if coupon:
+                stripe_customer['coupon'] = coupon
+
+            try:
+                customer = stripe.Customer.create(**stripe_customer)
+            except stripe.error.CardError as e:
+                body = e.json_body
+                err  = body.get('error', {})
+                messages.error(request, err.message)
+                return redirect('charge', product=product)
+            except stripe.error.StripeError as e:
+                if e.param == 'coupon':
+                    messages.error(request, 'Sorry, that coupon is invalid!')
+                else:
+                    messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
+                    mail_admins("Bad happenings on HWB", "Payment failure for [%s] - [%s]" % (user.email, e))
+                return redirect('charge', product=product)
 
         # charge the customer!
         charge = stripe.Charge.create(
             customer=customer.id,
             amount=amount, # set above POST
             currency='usd',
-            description='My one-time charge',
+            description=product_name,
+            shipping=shipping,
         )
 
-        cus = Customer(
-            stripe_id = customer.id,
-            last_4_digits = charge.source.last4,
-            user = user,
-        )
-
-        if coupon:
-            cus.coupon = coupon
-
-        cus.save()
-
-        # XXX Deal with the paperback / video cases
-        membership = Membership(
-            customer = cus,
-            product = product,
-            paperback = True,
-            video = False,
-        )
-        membership.save()
-
-        if hwb_bundle:
-            membership2 = Membership(
-                customer = cus,
-                product = product2,
-                paperback = True,
-                video = False,
-            )
-            membership2.save()
-
-        # send email to admin
-        send_mail(
-            'New paying customer',
-            '%s bought a book. Woohoo!' % (user.email),
-            'noreply@hellowebbooks.com',
-            ['tracy@hellowebbooks.com'],
-        )
-
-        # log in customer, redirect to their dashboard
-        request.session.pop('brand_new_user', None)
-        return redirect('dashboard')
-
-
-
-
-        """
-        if form.is_valid(): # charges the card
-            # create the Stripe customer from the token submitted
-            is_stripe_valid = False
-            customer = None
-            sub = ""
-
-            stripe_customer = dict(
-                description=user,
-                email=user.email,
-                card=form.cleaned_data['stripe_token'],
-            )
-
-            if form.cleaned_data['coupon']:
-                coupon = form.cleaned_data['coupon']
-                stripe_customer['coupon'] = coupon
-
-            try:
-                customer = stripe.Customer.create(**stripe_customer)
-                is_stripe_valid = True
-            except stripe.error.CardError as e:
-                body = e.json_body
-                err  = body.get('error', {})
-                messages.error(request, err.message)
-            except stripe.error.StripeError as e:
-                if e.param == 'coupon':
-                    messages.error(request, 'Sorry, that coupon is invalid!')
-                else:
-                    messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
-                    mail_admins("Bad happenings on HWB", "Payment failure for [%s]" % (user.email))
-
-            # charge the customer!
-            charge = stripe.Charge.create(
-                customer=customer.id,
-                amount=amount, # set above POST
-                currency='usd',
-                description='My one-time charge',
-            )
-
-        # still valid? lol
-        if form.is_valid() and is_stripe_valid:
-            print("still valid")
+        if not existing_customer: # create the customer object
             cus = Customer(
                 stripe_id = customer.id,
-                last_4_digits = form.cleaned_data['last_4_digits'],
+                last_4_digits = charge.source.last4,
                 user = user,
             )
 
+            # XXX: This might not be saved in the database, check this
             if coupon:
                 cus.coupon = coupon
 
             cus.save()
+            customer = cus
 
-            # XXX Deal with the paperback / video cases
+        # XXX: If video supplement, need to grab existing membership and add
+        if supplement:
+            try:
+                membership = Membership.objects.get(customer=customer, product=product)
+                membership.video = True
+                membership.save()
+            except Membership.DoesNotExist:
+                # How'd this happen?
+                messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
+                mail_admins("Bad happenings on HWB", "Payment failure for [%s] - Buying supplement but membership doesn't exist" % (user.email))
+
+        else: # not supplement, make a whole new membership
+            print("making membership")
+            print("paperback?")
+            print(paperback)
             membership = Membership(
-                customer = cus,
+                customer = customer,
                 product = product,
-                paperback = True,
-                video = False,
+                paperback = has_paperback, # set from form after if statement
+                video = video, # set before POST if statement
             )
             membership.save()
 
             if hwb_bundle:
                 membership2 = Membership(
-                    customer = cus,
+                    customer = customer,
                     product = product2,
-                    paperback = True,
-                    video = False,
+                    paperback = has_paperback, # set from form after if statement
+                    video = video, # set before POST if statement
                 )
                 membership2.save()
 
-            # send email to admin
-            send_mail(
-                'New paying customer',
-                '%s bought a book. Woohoo!' % (user.email),
-                'noreply@hellowebbooks.com',
-                ['tracy@hellowebbooks.com'],
+        # send email to admin
+        # XXX: Need to pass along shipping details too
+        send_mail(
+            'New paying customer',
+            '%s bought %s. Supplement: %s. Woohoo!' % (user.email, product.name, supplement),
+            'noreply@hellowebbooks.com',
+            ['tracy@hellowebbooks.com'],
+        )
+
+        if 'giftee_user' in request.session:
+            form = PasswordResetForm({'email': user.email})
+            assert form.is_valid()
+            # XXX: Need to test this AND create a custom template
+            form.save(
+                request=request,
+                from_email="tracy@hellowebbooks.com",
+                email_template_name='registration/password_reset_email.txt',
             )
+            messages.success(request, "Success! We've sent an email to your giftee with how to access their files.")
+            return redirect('order')
 
-            # log in customer, redirect to their dashboard
-            return redirect('dashboard')
+        # log in customer, redirect to their dashboard
+        messages.success(request, "Success! You can access your product below.")
+        request.session.pop('brand_new_user', None)
+        return redirect('dashboard')
 
-        else:
-            return render(request, "order/charge.html", {
-                'form': form,
-                'publishable_key': settings.STRIPE_PUBLISHABLE,
-                'product': product
-            })
-            """
     else:
         form = forms.StripePaymentForm()
 
