@@ -75,6 +75,8 @@ urlpatterns = [
         {'template_name': 'registration/password_reset_done.html'}, name="password_reset_done"),
     path('accounts/password/reset/<uidb64>/<token>/', password_reset_confirm,
         {'template_name': 'registration/password_reset_confirm.html'}, name="password_reset_confirm"),
+    path('accounts/password/giftee/<uidb64>/<token>/', views.GifteePasswordResetConfirmView.as_view(),
+        name="giftee_password_reset_confirm"),
     path('accounts/password/done/', password_reset_complete,
         {'template_name': 'registration/password_reset_complete.html'},
         name="password_reset_complete"),

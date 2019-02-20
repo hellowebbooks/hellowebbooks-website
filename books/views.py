@@ -4,7 +4,7 @@ import stripe
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, views as auth_views
+from django.contrib.auth import login, logout, authenticate, views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
@@ -12,6 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, mail_admins
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.urls import reverse_lazy
 
 from books import forms, options, coupon_codes
 from books.models import Product, Membership, Customer
@@ -391,20 +392,28 @@ def charge(request, product=None):
         # XXX: Need to pass along shipping details too
         send_mail(
             'New paying customer',
-            '%s bought %s. Supplement: %s. Woohoo!' % (user.email, product.name, supplement),
+            '%s bought %s. Supplement: %s. Woohoo!' % (user.email, product_name, supplement),
             'noreply@hellowebbooks.com',
             ['tracy@hellowebbooks.com'],
         )
 
+        # XXX: Wait, the giftee should probably be notified
+        # who gifted the package
         if 'giftee_user' in request.session:
             form = PasswordResetForm({'email': user.email})
             assert form.is_valid()
             # XXX: Need to test this AND create a custom template
+            # XXX: Don't forget the email subject line
+            # XXX: Package name is incorrect
+            # XXX: Also we need to go to the correct page after confirmation. Or log in?
             form.save(
                 request=request,
                 from_email="tracy@hellowebbooks.com",
-                email_template_name='registration/password_reset_email.txt',
+                email_template_name='registration/giftee_password_reset_email.txt',
+                extra_email_context={ 'product': product.name },
+
             )
+            logout(request)
             messages.success(request, "Success! We've sent an email to your giftee with how to access their files.")
             return redirect('order')
 
@@ -492,3 +501,8 @@ def charge_update(request):
 
 class MyLoginView(auth_views.LoginView):
     form_class = forms.MyAuthenticationForm
+
+class GifteePasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = 'registration/giftee_password_reset_confirm.html'
+    success_url = reverse_lazy('dashboard')
+    post_reset_login = True

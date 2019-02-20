@@ -80,7 +80,6 @@ class StripePaymentForm(CardForm):
 
 
 class MyAuthenticationForm(auth_forms.AuthenticationForm):
-    # XXX: This needs to accept email address instead
     def __init__(self, request=None, *args, **kwargs):
         super(MyAuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = "Email"
@@ -90,3 +89,5 @@ class MyAuthenticationForm(auth_forms.AuthenticationForm):
         email = self.cleaned_data.get('username')
         username = email.replace("@", "").replace(".", "")
         return username
+
+#class GifteePasswordResetForm(auth_forms.PasswordResetForm):
