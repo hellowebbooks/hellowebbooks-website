@@ -294,12 +294,13 @@ def charge(request, product=None):
             elif key == 'shipping_name':
                 shipping['name'] = value
 
-        print(shipping)
+        #print(shipping)
 
         # See if they're already a customer
         try:
             customer = Customer.objects.get(user=request.user)
             existing_customer = True
+            id = customer.stripe_id
         except Customer.DoesNotExist: # New customer
             existing_customer = False
             customer = None
@@ -316,6 +317,7 @@ def charge(request, product=None):
 
             try:
                 customer = stripe.Customer.create(**stripe_customer)
+                id = customer.id
             except stripe.error.CardError as e:
                 body = e.json_body
                 err  = body.get('error', {})
@@ -330,8 +332,9 @@ def charge(request, product=None):
                 return redirect('charge', product=product)
 
         # charge the customer!
+        print(id)
         charge = stripe.Charge.create(
-            customer=customer.id,
+            customer=id,
             amount=amount, # set above POST
             currency='usd',
             description=product_name,
@@ -340,7 +343,7 @@ def charge(request, product=None):
 
         if not existing_customer: # create the customer object
             cus = Customer(
-                stripe_id = customer.id,
+                stripe_id = id,
                 last_4_digits = charge.source.last4,
                 user = user,
             )
