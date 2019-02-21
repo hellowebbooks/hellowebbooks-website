@@ -228,24 +228,31 @@ def charge(request, product=None):
     except KeyError:
         messages.error(request, "Product not found.")
         mail_admins("Bad happenings on HWB", "Product not found in order page: [%s]" % (product))
+        print(amount)
+        print(product_name)
+        print(us_postage)
+        print(can_postage)
+        print(aus_postage)
+        print(eur_postage)
+        print(else_postage)
+        print(paperback_price)
         return redirect('order')
 
     # TODO: This is probably a bad way of doing this. Look into something
     # more future-proof.
     split_product = product.split("-")
     if split_product[0] == "hwa":
-        product = Product.objects.get(name="Hello Web App")
+        product_obj = Product.objects.get(name="Hello Web App")
     elif split_product[0] == "hwd":
-        product = Product.objects.get(name="Hello Web Design")
+        product_obj = Product.objects.get(name="Hello Web Design")
     elif split_product[0] == "hwb":
         hwb_bundle = True
-        product = Product.objects.get(name="Hello Web App")
-        product2 = Product.objects.get(name="Hello Web Design")
+        product_obj = Product.objects.get(name="Hello Web App")
+        product_obj2 = Product.objects.get(name="Hello Web Design")
 
     paperback = False
     if split_product[1] == "pb":
         paperback = True
-        print("paperback?")
         print(paperback)
 
     video = False
@@ -258,7 +265,7 @@ def charge(request, product=None):
 
     if request.method == "POST":
         source = request.POST['stripeToken']
-        amount = request.POST['paymentAmount']
+        amount = int(float(request.POST['paymentAmount'])) # rounds down in case of half numbers
         coupon = request.POST['stripeCoupon'] or ""
         has_paperback = False
         if request.POST['hasPaperback'] == 'true':
@@ -359,7 +366,7 @@ def charge(request, product=None):
         # XXX: If video supplement, need to grab existing membership and add
         if supplement:
             try:
-                membership = Membership.objects.get(customer=customer, product=product)
+                membership = Membership.objects.get(customer=customer, product=product_obj)
                 membership.video = True
                 membership.save()
             except Membership.DoesNotExist:
@@ -373,7 +380,7 @@ def charge(request, product=None):
             print(paperback)
             membership = Membership(
                 customer = customer,
-                product = product,
+                product = product_obj,
                 paperback = has_paperback, # set from form after if statement
                 video = video, # set before POST if statement
             )
@@ -382,7 +389,7 @@ def charge(request, product=None):
             if hwb_bundle:
                 membership2 = Membership(
                     customer = customer,
-                    product = product2,
+                    product = product_obj2,
                     paperback = has_paperback, # set from form after if statement
                     video = video, # set before POST if statement
                 )
