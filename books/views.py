@@ -340,7 +340,6 @@ def charge(request, product=None):
                 return redirect('charge', product=product)
 
         # charge the customer!
-        print(id)
         charge = stripe.Charge.create(
             customer=id,
             amount=amount, # set above POST
@@ -350,20 +349,17 @@ def charge(request, product=None):
         )
 
         if not existing_customer: # create the customer object
-            cus = Customer(
+            customer = Customer(
                 stripe_id = id,
                 last_4_digits = charge.source.last4,
                 user = user,
             )
 
-            # XXX: This might not be saved in the database, check this
-            if coupon:
-                cus.coupon = coupon
+        # overwrite coupon if another is used
+        if coupon:
+            customer.coupon = coupon
+        customer.save()
 
-            cus.save()
-            customer = cus
-
-        # XXX: If video supplement, need to grab existing membership and add
         if supplement:
             try:
                 membership = Membership.objects.get(customer=customer, product=product_obj)
@@ -375,9 +371,6 @@ def charge(request, product=None):
                 mail_admins("Bad happenings on HWB", "Payment failure for [%s] - Buying supplement but membership doesn't exist" % (user.email))
 
         else: # not supplement, make a whole new membership
-            print("making membership")
-            print("paperback?")
-            print(paperback)
             membership = Membership(
                 customer = customer,
                 product = product_obj,
@@ -395,11 +388,17 @@ def charge(request, product=None):
                 )
                 membership2.save()
 
+        # FIXME: Need to pass along shipping details too
+        # This is a silly way to do things, make this better.
+        if has_paperback:
+            content = '%s bought %s. Supplement: %s. Shipping: YES, check in Stripe.' % (user.email, product_name, supplement)
+        else:
+            content = '%s bought %s. Supplement: %s. Woohoo!' % (user.email, product_name, supplement)
+
         # send email to admin
-        # XXX: Need to pass along shipping details too
         send_mail(
             'New paying customer',
-            '%s bought %s. Supplement: %s. Woohoo!' % (user.email, product_name, supplement),
+            '%s bought %s. Supplement: %s. shippWoohoo!' % (user.email, product_name, supplement),
             'noreply@hellowebbooks.com',
             ['tracy@hellowebbooks.com'],
         )
