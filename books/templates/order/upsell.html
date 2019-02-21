@@ -38,7 +38,12 @@ analytics.page("Confirm Email");
                     <label for="gifteeEmail" class="sr-only">Enter the giftee's email address here</label>
                     <input type="text" class="form-control form-control-sm" placeholder="Enter the giftee's email address here" name="gifteeEmail">
                 </div>
-                <input type="submit" value="Continue to credit card payment" class="btn btn-secondary btn-sm"/>
+                <div class="form-group">
+                    <label for="gifteeMessage" class="sr-only">A message (optional)</label>
+                    <textarea class="form-control form-control-sm" rows="3" placeholder="A message (optional)" name="gifteeMessage"></textarea>
+                </div>
+                <input type="submit" value="Enter credit card details" class="btn btn-secondary btn-sm"/>
+                <p class="text-muted"><small>An email will be sent to the giftee after payment with details on how to log in.</small></p>
             </form>
         </div>
     </div>

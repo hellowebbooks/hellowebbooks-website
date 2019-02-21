@@ -6,15 +6,15 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, views as auth_views
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, mail_admins
+from django.db import IntegrityError
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 
-from books import forms, options, coupon_codes
+from books import forms, options, helpers, coupon_codes
 from books.models import Product, Membership, Customer
 from blog.models import PostPage
 
@@ -185,159 +185,79 @@ def upsell(request, product):
 def gift(request, product):
     if request.method == 'POST':
         email = request.POST['gifteeEmail']
+        message = request.POST['gifteeMessage']
+        print(message)
         username = email.replace("@", "").replace(".", "")
         password = User.objects.make_random_password()
 
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password,
-        )
-        request.session['giftee_user'] = True
-        login(request, user)
-        return redirect('charge', product=product)
+        # FIXME: What should we do if someone *already* has an account?
+        # Need to create a backend so I can log into the user without a
+        # password re: https://stackoverflow.com/questions/6560182/django-authentication-without-a-password
+        # PUNTING for now
 
-    messages.error(request, "How'd you get here?")
-    return redirect('order')
+        # XXX: Oh snap, shouldn't make accounts until AFTER someone puts in credit card.
+        # Make sure there isn't a user account for this yet.
+        try:
+            User.objects.get(email=email)
+        except ObjectDoesNotExist:
+            request.session['giftee_user'] = username
+            request.session['giftee_email'] = email
+            request.session['giftee_message'] = message
+            return redirect('charge', product=product)
+
+        mail_admins("Bad happenings on HWB", "Attempting to gift a product to someone who already has an account.")
+        messages.error(request, "That person already has an account on Hello Web Books! This is a use-case that Tracy hasn't written the code for yet (whoops.) Please email tracy@hellowebbooks.com and she'll set it up manually with a discount for your trouble.")
+        return redirect('upsell', product=product)
+
+        """
+        try:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+            )
+        except IntegrityError as e:
+            mail_admins("Bad happenings on HWB", "Attempting to gift a product to someone who already has an account.")
+            messages.error(request, "That person already has an account on Hello Web Books! This is a use-case that Tracy hasn't written the code for yet (whoops.) Please email tracy@hellowebbooks.com and she'll set it up manually with a discount for your trouble.")
+            return redirect('order')
+        """
 
 
 @login_required
 def charge(request, product=None):
     user = request.user
     hwb_bundle = False
-    amount = 0
-    product_name = ""
-    us_postage = 0
-    can_postage = 0
-    aus_postage = 0
-    else_postage = 0
-    paperback_price = 0
 
-    # check whether we're going to this page with a coupon specified
+    # TODO: check whether we're going to this page with a coupon specified
     coupon_supplied = request.GET.get("coupon", None)
 
-    try:
-        amount = options.PRODUCT_LOOKUP[product].amount
-        product_name = options.PRODUCT_LOOKUP[product].description
-        us_postage = options.PRODUCT_LOOKUP[product].us_postage
-        can_postage = options.PRODUCT_LOOKUP[product].can_postage
-        aus_postage = options.PRODUCT_LOOKUP[product].aus_postage
-        eur_postage = options.PRODUCT_LOOKUP[product].eur_postage
-        else_postage = options.PRODUCT_LOOKUP[product].else_postage
-        paperback_price = options.PRODUCT_LOOKUP[product].paperback_addl
-    except KeyError:
-        messages.error(request, "Product not found.")
-        mail_admins("Bad happenings on HWB", "Product not found in order page: [%s]" % (product))
-        print(amount)
-        print(product_name)
-        print(us_postage)
-        print(can_postage)
-        print(aus_postage)
-        print(eur_postage)
-        print(else_postage)
-        print(paperback_price)
-        return redirect('order')
-
-    # TODO: This is probably a bad way of doing this. Look into something
-    # more future-proof.
-    split_product = product.split("-")
-    if split_product[0] == "hwa":
-        product_obj = Product.objects.get(name="Hello Web App")
-    elif split_product[0] == "hwd":
-        product_obj = Product.objects.get(name="Hello Web Design")
-    elif split_product[0] == "hwb":
-        hwb_bundle = True
-        product_obj = Product.objects.get(name="Hello Web App")
-        product_obj2 = Product.objects.get(name="Hello Web Design")
-
-    paperback = False
-    if split_product[1] == "pb":
-        paperback = True
-        print(paperback)
-
-    video = False
-    if split_product[1] == "video":
-        video = True
-
-    supplement = False
-    if len(split_product) == 3:  # three arguments means it's an update to pkg
-        supplement = True
+    amount, product_name, us_postage, can_postage, aus_postage, eur_postage, else_postage, paperback_price = helpers.product_details(product)
+    product_obj, product_obj2, paperback, video, supplement = helpers.split_product(product)
 
     if request.method == "POST":
+        print(request.session['giftee_user'])
+        print(request.session['giftee_email'])
+        print(request.session['giftee_message'])
+
         source = request.POST['stripeToken']
         amount = int(float(request.POST['paymentAmount'])) # rounds down in case of half numbers
         coupon = request.POST['stripeCoupon'] or ""
+
         has_paperback = False
         if request.POST['hasPaperback'] == 'true':
             has_paperback = True
+
         args = json.loads(request.POST['stripeArgs'])
-
-        # XXX: Omg Tracy write some tests
-
-        # XXX: Still need to figure out the system for fulfilling print orders
-        shipping = {
-            'name': '',
-            'address': {
-                'line1': '',
-                'line2': '',
-                'city': '',
-                'country': '',
-                'postal_code': '',
-                'state': '',
-            }
-        }
-        for key, value in args.items():
-            if key == "shipping_address_line1":
-                shipping['address']['line1'] = value
-            elif key == 'shipping_address_line2':
-                shipping['address']['line2'] = value
-            elif key == 'shipping_address_city':
-                shipping['address']['city'] = value
-            elif key == 'shipping_address_country_code':
-                shipping['address']['country'] = value
-            elif key == 'shipping_address_zip':
-                shipping['address']['postal_code'] = value
-            elif key == 'shipping_address_state':
-                shipping['address']['state'] = value
-            elif key == 'shipping_name':
-                shipping['name'] = value
-
-        #print(shipping)
+        shipping = helpers.shipping_details(args)
 
         # See if they're already a customer
         try:
-            customer = Customer.objects.get(user=request.user)
             existing_customer = True
+            customer = Customer.objects.get(user=request.user)
             id = customer.stripe_id
         except Customer.DoesNotExist: # New customer
             existing_customer = False
-            customer = None
-
-            stripe_customer = dict(
-                description=user,
-                email=user.email,
-                card=source,
-                shipping=shipping,
-            )
-
-            if coupon:
-                stripe_customer['coupon'] = coupon
-
-            try:
-                customer = stripe.Customer.create(**stripe_customer)
-                id = customer.id
-            except stripe.error.CardError as e:
-                body = e.json_body
-                err  = body.get('error', {})
-                messages.error(request, err.message)
-                return redirect('charge', product=product)
-            except stripe.error.StripeError as e:
-                if e.param == 'coupon':
-                    messages.error(request, 'Sorry, that coupon is invalid!')
-                else:
-                    messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
-                    mail_admins("Bad happenings on HWB", "Payment failure for [%s] - [%s]" % (user.email, e))
-                return redirect('charge', product=product)
+            customer, id = helpers.create_stripe_customer(product, user, source, shipping, coupon)
 
         # charge the customer!
         charge = stripe.Charge.create(
@@ -360,66 +280,16 @@ def charge(request, product=None):
             customer.coupon = coupon
         customer.save()
 
-        if supplement:
-            try:
-                membership = Membership.objects.get(customer=customer, product=product_obj)
-                membership.video = True
-                membership.save()
-            except Membership.DoesNotExist:
-                # How'd this happen?
-                messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
-                mail_admins("Bad happenings on HWB", "Payment failure for [%s] - Buying supplement but membership doesn't exist" % (user.email))
+        # save the memberships in the database
+        create_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2)
 
-        else: # not supplement, make a whole new membership
-            membership = Membership(
-                customer = customer,
-                product = product_obj,
-                paperback = has_paperback, # set from form after if statement
-                video = video, # set before POST if statement
-            )
-            membership.save()
-
-            if hwb_bundle:
-                membership2 = Membership(
-                    customer = customer,
-                    product = product_obj2,
-                    paperback = has_paperback, # set from form after if statement
-                    video = video, # set before POST if statement
-                )
-                membership2.save()
-
+        # send success email to admin
         # FIXME: Need to pass along shipping details too
-        # This is a silly way to do things, make this better.
-        if has_paperback:
-            content = '%s bought %s. Supplement: %s. Shipping: YES, check in Stripe.' % (user.email, product_name, supplement)
-        else:
-            content = '%s bought %s. Supplement: %s. Woohoo!' % (user.email, product_name, supplement)
+        send_admin_charge_success_email(user.email, product_name, has_paperback, supplement)
 
-        # send email to admin
-        send_mail(
-            'New paying customer',
-            '%s bought %s. Supplement: %s. shippWoohoo!' % (user.email, product_name, supplement),
-            'noreply@hellowebbooks.com',
-            ['tracy@hellowebbooks.com'],
-        )
-
-        # XXX: Wait, the giftee should probably be notified
-        # who gifted the package
+        # if this is a gifted product, send the person a gift email
         if 'giftee_user' in request.session:
-            form = PasswordResetForm({'email': user.email})
-            assert form.is_valid()
-            # XXX: Need to test this AND create a custom template
-            # XXX: Don't forget the email subject line
-            # XXX: Package name is incorrect
-            # XXX: Also we need to go to the correct page after confirmation. Or log in?
-            form.save(
-                request=request,
-                from_email="tracy@hellowebbooks.com",
-                email_template_name='registration/giftee_password_reset_email.txt',
-                extra_email_context={ 'product': product.name },
-
-            )
-            logout(request)
+            send_giftee_password_reset(request, user.email, product.name, request.session.get('giftee_message'))
             messages.success(request, "Success! We've sent an email to your giftee with how to access their files.")
             return redirect('order')
 
@@ -445,8 +315,6 @@ def charge(request, product=None):
         'aus_postage': aus_postage,
         'else_postage': else_postage,
         'coupon_supplied': coupon_supplied,
-
-        #'stripe_profile': stripe_profile,
     })
 
 
@@ -471,7 +339,6 @@ def check_coupon(request):
         'status': 'fail',
     }
     return JsonResponse(data)
-
 
 
 @login_required
