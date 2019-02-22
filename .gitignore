@@ -1,5 +1,6 @@
 /*.tgz
 db.sqlite3
+coupon_codes.py
 venv
 *.pyc
 staticfiles
