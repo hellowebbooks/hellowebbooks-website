@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 
 class Timestamp(models.Model):
@@ -24,12 +25,16 @@ class Customer(Timestamp):
         return self.user.email
 
 
+# FIXME: Hm, I may want a slugfield here
 class Product(models.Model):
     name = models.CharField(max_length=50)
     customers = models.ManyToManyField(Customer, through='Membership')
 
     def __str__(self):
         return self.name
+
+    def get_slug(self):
+        return slugify(self.name)
 
 
 class Membership(Timestamp):

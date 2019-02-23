@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ product.name }} Course Dashboard - {{ block.super }}{% endblock %}
+
+{% block analytics %}
+analytics.page("{{ product.name }} Course Dashboard");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="course-page">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!--<div class="col-sm-12 bottom-margin">
+            <h1 class="h2"><span class="highlight">{{ product.name }}</span> Course</h1>
+        </div>-->
+        <ul class="breadcrumb">
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li class="active">{{ product.name }} Course</li>
+        </ul>
+        <div class="col-sm-2 small">
+            <ul class="list-unstyled">
+                <li><b>Download Files</b></li>
+                <li>
+                    <a href="">PDF</a>
+                </li>
+                <li>
+                    <a href="">ePub</a>
+                </li>
+                <li>
+                    <a href="">.mobi/Kindle</a>
+                </li>
+            </ul>
+            <ul class="list-unstyled">
+                <li><b>Videos</b></li>
+                <li>Video</li>
+            </ul>
+        </div>
+        <div class="col-sm-10">
+            <h1 class="h3 bottom-margin">Specific course video</h1>
+            <div style="border:1px solid black; height: 500px;" class="bottom-margin">
+                <!-- Video goes here -->
+            </div>
+            <p>Video description goes here.</p>
+
+        </div>
+    </div>
+    <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
+</div>
+{% endblock content %}

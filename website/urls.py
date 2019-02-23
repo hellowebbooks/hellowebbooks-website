@@ -60,7 +60,12 @@ urlpatterns = [
     path('dashboard/hello-web-design/', views.hwd, name="hwd"),
     path('dashboard/<product_id>/', views.product_page, name="product_page"),
 
+    # course and video pages
+    path('course/<product_slug>/', views.course, name="course"),
+    path('course/', RedirectView.as_view(pattern_name='dashboard')),
+
     # payment views
+    # XXX: Check that the product slug, not product is being passed in here
     path('charge/update/', views.charge_update, name="charge_update"),
     path('charge/<product>/', views.charge, name='charge'),
     #path('charge/cancel/', views.charge_cancel, name="charge_cancel"),

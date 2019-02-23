@@ -2716,6 +2716,26 @@ input[type=button].btn-block {
   border-radius: 0;
 }
 
+.breadcrumb {
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: transparent;
+  border-radius: 7px;
+}
+.breadcrumb > li {
+  display: inline-block;
+}
+.breadcrumb > li + li:before {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: #818a91;
+  content: "/ ";
+}
+.breadcrumb > .active {
+  color: #818a91;
+}
+
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -5158,6 +5178,10 @@ hr {
 
 .super-vertical-top-margin {
   margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.bottom-margin {
   margin-bottom: 1em;
 }
 

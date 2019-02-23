@@ -20,6 +20,7 @@ from blog.models import PostPage
 
 stripe.api_key = os.environ['STRIPE_SECRET']
 
+# FIXME: refactor the views into their own specialized view areas
 
 def index(request):
     posts = PostPage.objects.select_related().all().order_by('-date')
@@ -66,6 +67,7 @@ def dashboard(request):
     })
 
 
+# FIXME: Are these needed anymore?
 @login_required
 def product_page(request, product_slug):
     if product_slug == "hello-web-app":
@@ -375,7 +377,18 @@ def charge_update(request):
 class MyLoginView(auth_views.LoginView):
     form_class = forms.MyAuthenticationForm
 
+
 class GifteePasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     template_name = 'registration/giftee_password_reset_confirm.html'
     success_url = reverse_lazy('dashboard')
     post_reset_login = True
+
+
+@login_required
+def course(request, product_slug):
+    product_name = product_slug.replace("-", " ")
+    product = Product.objects.get(name__iexact=product_name)
+
+    return render(request, "dashboard/course/course.html", {
+        'product': product,
+    })
