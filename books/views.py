@@ -385,16 +385,34 @@ class GifteePasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 
 
 @login_required
-def course(request, product_slug):
+def course(request, product_slug, link=None):
     product_name = product_slug.replace("-", " ")
     product = Product.objects.get(name__iexact=product_name)
-
     course = options.course_list[product.name]
-    print(course)
+
+    # if default page, then show the intro page
+    if not link:
+        link = 'intro'
+
+    video_url = ""
+    video_name = ""
+    video_template = ""
+
+    # FIXME: Set it up so we can use md files, not just html
+    for key, value in course.items():
+        for key, value in value.items():
+            if value['link'] == link:
+                video_url = value['video']
+                video_name = value['name']
+                video_template = "dashboard/" + value['template']
+                break
 
     return render(request, "dashboard/course/course.html", {
         'product': product,
         'course': course,
+        'video_template': video_template,
+        'video_name': video_name,
+        'video_url': video_url,
         # FIXME: Bad hack. Replace with temporary generated URLs on a private S3 file.
         'hwa_pdf': os.environ['HWA_PDF'],
         'hwa_epub': os.environ['HWA_EPUB'],

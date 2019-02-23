@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load markdown %}
 
 {% block title %}{{ product.name }} Course Dashboard - {{ block.super }}{% endblock %}
 
@@ -39,7 +40,7 @@ analytics.page("{{ product.name }} Course Dashboard");
             <ul class="list-unstyled">
                 {% for k, v in chapters.items %}
                 <li>
-                    <a href="" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
+                    <a href="{% url 'course_link' product_slug=product.get_slug link=v.link %}" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
                         {{ k }}. {{ v.name }}
                     </a>
                 </li>
@@ -48,12 +49,15 @@ analytics.page("{{ product.name }} Course Dashboard");
             {% endfor %}
         </div>
         <div class="col-md-10">
-            <h1 class="h3 m-b" id="course-name"><b>Introduction</b></h1>
+            <h1 class="h3 m-b" id="course-name"><b>{{ video_name }}</b></h1>
             <div style="border:1px solid #e1e1e1; height: 500px;" class="m-b">
-                <!-- Video goes here -->
+                <!-- Video goes here {{ video_url }}-->
             </div>
-            <p>Video description goes here.</p>
-
+            <div id="course-content">
+                {% filter markdown %}
+{% include video_template %}
+                {% endfilter %}
+            </div>
         </div>
     </div>
     <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
@@ -62,11 +66,13 @@ analytics.page("{{ product.name }} Course Dashboard");
 
 {% block scripts %}
 <script type="text/javascript">
+    /*
     $(".chapter-link").click(function() {
         const chapter = $(this).attr('data-chapter');
         const name = $(this).attr('data-name');
         document.getElementById("course-name").innerHTML = 'Chapter ' + chapter + ': <b>' + name + '</b>'
         return false;
     });
+    */
 </script>
 {% endblock %}

@@ -1,7 +1,5 @@
 /*.tgz
-coupon_codes.py
 db.sqlite3
-coupon_codes.py
 venv
 *.pyc
 staticfiles
@@ -13,6 +11,11 @@ staticfiles
 settings_local.py
 post-double.py
 labels
+
+# sensitive book info
+coupon_codes.py
+books/templates/dashboard/course/hwa
+books/templates/dashboard/course/hwd
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

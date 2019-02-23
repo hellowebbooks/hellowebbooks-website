@@ -62,6 +62,7 @@ urlpatterns = [
 
     # course and video pages
     path('course/<product_slug>/', views.course, name="course"),
+    path('course/<product_slug>/<link>/', views.course, name="course_link"),
     path('course/', RedirectView.as_view(pattern_name='dashboard')),
 
     # payment views
