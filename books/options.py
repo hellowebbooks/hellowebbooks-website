@@ -120,11 +120,77 @@ course_list = OrderedDict({
             # TODO: Add pages without a video here?
         },
         'Intermediate Concepts': {
-            '1': {
-                'name': 'Important Things to Know',
+            '0': {
+                'name': 'Introduction',
                 'video': 'https://vimeo.com/1',
-                'template': 'course/hwa/important-know.md',
+                'template': 'course/hwaic/introduction.md',
             },
+            '1': {
+                'name': 'Creating a Contact Form and Working with Custom Forms',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/contact-form.md',
+            },
+            '2': {
+                'name': 'Adding a New Model',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/new-model.md',
+            },
+            '3': {
+                'name': 'Adding Easy Admin Emails, Helpers, Sitemaps, and More',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/misc.md',
+            },
+            '4': {
+                'name': 'Adding User-Uploaded Images',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/user-uploaded-images.md',
+            },
+            '5': {
+                'name': 'Editing and Resizing Images',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/resizing-images.md',
+            },
+            '6': {
+                'name': 'ISetting Up Django Messages for Alerts',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/django-messages.md',
+            },
+            '7': {
+                'name': 'Front-End Fun: Adding Gulp, Sass, and Bootstrap',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/sass-bootstrap.md',
+            },
+            '8': {
+                'name': 'Reading Source Code And Setting Up a Form to Edit User Email Addresses',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/reading-source.md',
+            },
+            '9': {
+                'name': 'Adding Payments with Stripe',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/stripe.md',
+            },
+            '10': {
+                'name': 'Adding an API',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/api.md',
+            },
+            '11': {
+                'name': 'Working with Sessions',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/sessions.md',
+            },
+            '12': {
+                'name': 'Creating Your Own Scripts and a Bit About Cron Jobs',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/cronjobs.md',
+            },
+            '12': {
+                'name': 'Database Pitfalls',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwaic/database-pitfalls.md',
+            },
+            # TODO: Add pages without a video here?
         },
     },
     'Hello Web Design': {
