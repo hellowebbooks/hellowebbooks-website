@@ -132,31 +132,19 @@ hr {
     hr { margin: 2em 2em; }
 }
 
-.vertical-margin {
+.vertical-margin { // #m-y
     margin-top: 1em;
     margin-bottom: 1em;
 }
 
-.super-vertical-margin {
+.super-vertical-margin { // #m-y-md
     margin-top: 2em;
     margin-bottom: 2em;
 }
 
-.super-vertical-top-margin {
+.super-vertical-top-margin { // #m-t-md m-b
     margin-top: 2em;
     margin-bottom: 1em;
-}
-
-.bottom-margin {
-    margin-bottom: 1em;
-}
-
-.no-top-margin {
-    margin-top: 0;
-}
-
-.no-bottom-margin {
-    margin-bottom: 0;
 }
 
 .content-block {

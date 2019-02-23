@@ -5181,18 +5181,6 @@ hr {
   margin-bottom: 1em;
 }
 
-.bottom-margin {
-  margin-bottom: 1em;
-}
-
-.no-top-margin {
-  margin-top: 0;
-}
-
-.no-bottom-margin {
-  margin-bottom: 0;
-}
-
 .content-block {
   max-width: 800px;
   margin-left: auto !important;

@@ -10,11 +10,11 @@ analytics.page("Login");
 {% block content %}
 <div class="container">
     <h1 class="text-center">Login</h1>
-    <p class="text-center no-bottom-margin">Access your eBook and video files.</p>
+    <p class="text-center m-b-0">Access your eBook and video files.</p>
     <p class="text-center"><small>If you'd like to make an account, <a href="{% url 'order' %}">make a purchase</a>.</small></p>
 
     <div class="row">
-        <div class="col-md-4 col-md-offset-4 super-vertical-margin">
+        <div class="col-md-4 col-md-offset-4 m-y-md">
             <form method="post" role="form" action="" novalidate>
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ next }}" />

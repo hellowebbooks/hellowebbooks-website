@@ -31,7 +31,7 @@ analytics.page("Dashboard");
                         </h2>
                         <p class="boughton">Bought on {{ membership.created|date:"M. d, Y" }}</p>
                         <div style="margin-top: 1em; margin-bottom: 2em;">
-                            <p class="no-bottom-margin"><b>Download eBook files:</b></p>
+                            <p class="m-b-0"><b>Download eBook files:</b></p>
                             <!-- FIXME: This isn't the best solution but it's good enough for now -->
                             <!-- FIXME: If fixed, fix in course.html too -->
                             <ul>
@@ -45,7 +45,7 @@ analytics.page("Dashboard");
                                 {% endif %}
                             </ul>
                             {% if membership.video %}
-                            <p class="no-bottom-margin"><b>Watch videos</b></p>
+                            <p class="m-b-0"><b>Watch videos</b></p>
                             <ul>
                                 <!-- XXX: Finish videos link -->
                                 <li><a href="{% url 'course' product_slug=membership.product.get_slug %}">Play videos</a></li>
@@ -98,7 +98,7 @@ analytics.page("Dashboard");
                 {% endif %}
             </section>
             {% else %}
-            <p class="text-center super-vertical-margin">You have every book I offer! Thank you. 💕</p>
+            <p class="text-center m-y-md">You have every book I offer! Thank you. 💕</p>
             {% endif %}
         </div>
 
