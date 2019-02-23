@@ -47,7 +47,7 @@ analytics.page("Dashboard");
                             <p class="no-bottom-margin"><b>Watch videos</b></p>
                             <ul>
                                 <!-- XXX: Finish videos link -->
-                                <li><a href="{% url 'course' product=membership.product.get_slug %}">Play videos</a></li>
+                                <li><a href="{% url 'course' product_slug=membership.product.get_slug %}">Play videos</a></li>
                             </ul>
                             {% endif %}
                         </div>

@@ -39,7 +39,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                 {% for k, v in course.items %}
                 <li>
                     <a href="{{ v.video }}" data-video="{{ v.video }}" data-template="{{ v.template }}">
-                        {{ v.name }}
+                        {{ k }}. {{ v.name }}
                     </a>
                 </li>
                 {% endfor %}
