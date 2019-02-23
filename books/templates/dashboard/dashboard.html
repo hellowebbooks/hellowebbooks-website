@@ -33,6 +33,7 @@ analytics.page("Dashboard");
                         <div style="margin-top: 1em; margin-bottom: 2em;">
                             <p class="no-bottom-margin"><b>Download eBook files:</b></p>
                             <!-- FIXME: This isn't the best solution but it's good enough for now -->
+                            <!-- FIXME: If fixed, fix in course.html too -->
                             <ul>
                                 {% if membership.product.name == "Hello Web App" %}
                                 <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ membership.product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ membership.product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ membership.product.name }} Kindle/.mobi">.mobi/Kindle</a></li>
