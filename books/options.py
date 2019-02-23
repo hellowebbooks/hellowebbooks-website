@@ -31,189 +31,206 @@ PRODUCT_LOOKUP = {
 #    print key, value['name']
 course_list = OrderedDict({
     'Hello Web App': {
-         '0': {
-            'name': 'Introduction',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/intro.md',
-         },
-         '1': {
-            'name': "What We’re Building",
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/what-building.md',
-         },
-         '2': {
-            'name': 'Prerequisites',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/prerequisites.md',
-         },
-         '3': {
-            'name': 'Getting Started',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/getting-started.md',
-         },
-         '4': {
-            'name': 'Setting up your Templates',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/setting-templates.md',
-         },
-         '5': {
-            'name': 'Fun with Template Tags',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/template-tags.md',
-         },
-         '6': {
-            'name': 'Adding Dynamic Data',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/dynamic-data.md',
-         },
-         '7': {
-            'name': 'Displaying Dynamic Information in the Templates',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/dynamic-templates.md',
-         },
-         '8': {
-            'name': 'Setting up Individual Object Pages',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/indiv-object-pages.md',
-         },
-         '9': {
-            'name': 'Forms.py Funsies',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/forms.md',
-         },
-         '10': {
-            'name': 'Adding a Registration Page',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/reg-page.md',
-         },
-         '11': {
-            'name': 'Associating Users with Objects',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/user-objects.md',
-         },
-         '12': {
-            'name': 'Setting up Basic Browse Pages',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwa/browse-page.md',
-         },
-         '13': {
-            'name': 'Quick Hits: 404 Pages, requirements.txt, and Testing',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/quick-hits.md',
-         },
-         '14': {
-            'name': 'Deploying Your Web App',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/deploying.md',
-         },
-         '15': {
-            'name': 'What To Do If Your App is Broken',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/broken.md',
-         },
-         '16': {
-            'name': 'Important Things to Know',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwa/important-know.md',
-         },
-         # TODO: Add pages without a video here?
+        'Hello Web App': {
+            '0': {
+                'name': 'Introduction',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/intro.md',
+            },
+            '1': {
+                'name': "What We’re Building",
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/what-building.md',
+            },
+            '2': {
+                'name': 'Prerequisites',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/prerequisites.md',
+            },
+            '3': {
+                'name': 'Getting Started',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/getting-started.md',
+            },
+            '4': {
+                'name': 'Setting up your Templates',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/setting-templates.md',
+            },
+            '5': {
+                'name': 'Fun with Template Tags',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/template-tags.md',
+            },
+            '6': {
+                'name': 'Adding Dynamic Data',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/dynamic-data.md',
+            },
+            '7': {
+                'name': 'Displaying Dynamic Information in the Templates',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/dynamic-templates.md',
+            },
+            '8': {
+                'name': 'Setting up Individual Object Pages',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/indiv-object-pages.md',
+            },
+            '9': {
+                'name': 'Forms.py Funsies',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/forms.md',
+            },
+            '10': {
+                'name': 'Adding a Registration Page',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/reg-page.md',
+            },
+            '11': {
+                'name': 'Associating Users with Objects',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/user-objects.md',
+            },
+            '12': {
+                'name': 'Setting up Basic Browse Pages',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwa/browse-page.md',
+            },
+            '13': {
+                'name': 'Quick Hits: 404 Pages, requirements.txt, and Testing',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/quick-hits.md',
+            },
+            '14': {
+                'name': 'Deploying Your Web App',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/deploying.md',
+            },
+            '15': {
+                'name': 'What To Do If Your App is Broken',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/broken.md',
+            },
+            '16': {
+                'name': 'Important Things to Know',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/important-know.md',
+            },
+            # TODO: Add pages without a video here?
+        },
+        'Intermediate Concepts': {
+            '1': {
+                'name': 'Important Things to Know',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwa/important-know.md',
+            },
+        },
     },
     'Hello Web Design': {
-         '0.0': {
-            'name': 'Introduction',
-            'video': 'https://vimeo.com/1',
-            'template': 'course/hwd/intro.md',
-         },
-         '1.0': {
-            'name': 'If You Only Read One Chapter, Make It This One',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.0': {
-            'name': 'Theory and Design Principles',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.1': {
-            'name': 'Grid',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.2': {
-            'name': 'Color',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.3': {
-            'name': 'Typography',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.4': {
-            'name': 'White Space',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.5': {
-            'name': 'Layout and Hierarchy',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.6': {
-            'name': 'Content',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.7': {
-            'name': 'User Experience',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.8': {
-            'name': 'Images and Imagery',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '2.9': {
-            'name': 'Extra Tidbits',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '3.0': {
-            'name': 'The Process and Training Your Design Eye',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '3.1': {
-            'name': 'Finding Inspiration',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '3.2': {
-            'name': 'Planning',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '3.3': {
-            'name': 'Prototypes',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '3.4': {
-            'name': 'Getting Feedback',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '3.5': {
-            'name': 'Coding Your Design',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         '4.0': {
-            'name': 'Reassurances',
-            'video': 'https://vimeo.com/2',
-            'template': 'course/hwd/one-chapter.md',
-         },
-         # TODO: Add pages without a video here?
+        'Module 1': {
+            '0.0': {
+                'name': 'Introduction',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwd/intro.md',
+            },
+            '1.0': {
+                'name': 'If You Only Read One Chapter, Make It This One',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+        },
+        'Module 2': {
+            '2.0': {
+                'name': 'Theory and Design Principles',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.1': {
+                'name': 'Grid',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.2': {
+                'name': 'Color',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.3': {
+                'name': 'Typography',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.4': {
+                'name': 'White Space',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.5': {
+                'name': 'Layout and Hierarchy',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.6': {
+                'name': 'Content',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.7': {
+                'name': 'User Experience',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.8': {
+                'name': 'Images and Imagery',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '2.9': {
+                'name': 'Extra Tidbits',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+        },
+        'Module 3': {
+            '3.0': {
+                'name': 'The Process and Training Your Design Eye',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '3.1': {
+                'name': 'Finding Inspiration',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '3.2': {
+                'name': 'Planning',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '3.3': {
+                'name': 'Prototypes',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '3.4': {
+                'name': 'Getting Feedback',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+            '3.5': {
+                'name': 'Coding Your Design',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+        },
+        'Module 4': {
+            '4.0': {
+                'name': 'Reassurances',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/one-chapter.md',
+            },
+        },
+        # TODO: Add pages without a video here?
     },
 })

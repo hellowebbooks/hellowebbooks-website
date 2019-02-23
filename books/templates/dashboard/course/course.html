@@ -14,16 +14,13 @@ analytics.page("{{ product.name }} Course Dashboard");
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <!--<div class="col-sm-12 bottom-margin">
-            <h1 class="h2"><span class="highlight">{{ product.name }}</span> Course</h1>
-        </div>-->
         <ul class="breadcrumb">
             <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
             <li class="active">{{ product.name }} Course</li>
         </ul>
-        <div class="col-sm-2 small">
+        <div class="col-sm-2 small" style="border-right:1px solid #e1e1e1;">
+            <h4 class="no-top-margin">Download Files</h4>
             <ul class="list-unstyled">
-                <li><b>Download Files</b></li>
                 <li>
                     <a href="">PDF</a>
                 </li>
@@ -34,20 +31,23 @@ analytics.page("{{ product.name }} Course Dashboard");
                     <a href="">.mobi/Kindle</a>
                 </li>
             </ul>
+            <h4>Videos</h4>
+            {% for module, chapters in course.items %}
+            <b>{{ module }}</b>
             <ul class="list-unstyled">
-                <li><b>Videos</b></li>
-                {% for k, v in course.items %}
+                {% for k, v in chapters.items %}
                 <li>
-                    <a href="{{ v.video }}" data-video="{{ v.video }}" data-template="{{ v.template }}">
+                    <a href="" data-video="{{ v.video }}" data-template="{{ v.template }}" data-name="{{ k }}. {{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
                         {{ k }}. {{ v.name }}
                     </a>
                 </li>
                 {% endfor %}
             </ul>
+            {% endfor %}
         </div>
         <div class="col-sm-10">
-            <h1 class="h3 bottom-margin">Specific course video</h1>
-            <div style="border:1px solid black; height: 500px;" class="bottom-margin">
+            <h1 class="h3 bottom-margin" id="course-name">TODO: Course Video Name</h1>
+            <div style="border:1px solid #e1e1e1; height: 500px;" class="bottom-margin">
                 <!-- Video goes here -->
             </div>
             <p>Video description goes here.</p>
@@ -57,3 +57,13 @@ analytics.page("{{ product.name }} Course Dashboard");
     <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(".chapter-link").click(function() {
+        const name = $(this).attr('data-name');
+        document.getElementById("course-name").innerHTML = name
+        return false;
+    });
+</script>
+{% endblock %}
