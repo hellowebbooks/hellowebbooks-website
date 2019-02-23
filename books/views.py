@@ -389,6 +389,10 @@ def course(request, product_slug):
     product_name = product_slug.replace("-", " ")
     product = Product.objects.get(name__iexact=product_name)
 
+    course = options.course_list[product.name]
+    print(course)
+
     return render(request, "dashboard/course/course.html", {
         'product': product,
+        'course': course,
     })

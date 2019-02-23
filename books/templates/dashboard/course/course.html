@@ -36,7 +36,13 @@ analytics.page("{{ product.name }} Course Dashboard");
             </ul>
             <ul class="list-unstyled">
                 <li><b>Videos</b></li>
-                <li>Video</li>
+                {% for k, v in course.items %}
+                <li>
+                    <a href="{{ v.video }}" data-video="{{ v.video }}" data-template="{{ v.template }}">
+                        {{ v.name }}
+                    </a>
+                </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="col-sm-10">

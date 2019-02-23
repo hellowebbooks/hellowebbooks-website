@@ -1,4 +1,4 @@
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 
 
 _ProductType = namedtuple('ProductType', ['name', 'description', 'amount', 'paperback_addl', 'us_postage', 'can_postage', 'eur_postage', 'aus_postage', 'else_postage'])
@@ -24,3 +24,34 @@ PRODUCT_LOOKUP = {
     'hwd-ebooks': Product('hwd-ebooks', 'Hello Web Design eBook Package', 2495, 1000, 300, 800, 1300, 2000, 1500, ),
     'hwd-video-supplement': Product('hwd-video-supplement', 'Hello Web Design Video Supplement', 7405, 1000, 300, 800, 1300, 2000, 1500, ),
  }
+
+# XXX: The content files, if they're the content from the books, need to be
+# hidden from git and moved to server manually (or something)
+#for key, value in hwa_course.iteritems():
+#    print key, value['name']
+course_list = OrderedDict({
+    'Hello Web App': {
+         'intro': {
+            'name': 'Introduction',
+            'video': 'https://vimeo.com/1',
+            'template': 'course/hwa/intro.md',
+         },
+         'browse-page': {
+            'name': 'Setting Up Basic Browse Pages',
+            'video': 'https://vimeo.com/2',
+            'template': 'course/hwa/browse-page.md',
+         },
+    },
+    'Hello Web Design': {
+         'intro': {
+            'name': 'Introduction',
+            'video': 'https://vimeo.com/1',
+            'template': 'course/hwa/intro.md',
+         },
+         'browse-page': {
+            'name': 'Setting Up Basic Browse Pages',
+            'video': 'https://vimeo.com/2',
+            'template': 'course/hwa/browse-page.md',
+         },
+    },
+})
