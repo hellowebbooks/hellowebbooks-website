@@ -18,10 +18,11 @@ analytics.page("{{ product.name }} Course Dashboard");
             <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
             <li class="active">{{ product.name }} Course</li>
         </ul>
-        <div class="col-sm-2 small" style="border-right:1px solid #e1e1e1;">
+        <!-- FIXME: This probably should go under a popout menu -->
+        <div class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
             <h4 class="m-t-0">Download Files</h4>
             <!-- FIXME: This isn't the best solution but it's good enough for now -->
-            <!-- FIXME: If fixed, fix in course.html too -->
+            <!-- FIXME: If fixed, fix in dashboard.html too -->
             <ul class="list-unstyled">
                 {% if product.name == "Hello Web App" %}
                 <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ product.name }} Kindle/.mobi">.mobi/Kindle</a></li>
@@ -46,7 +47,7 @@ analytics.page("{{ product.name }} Course Dashboard");
             </ul>
             {% endfor %}
         </div>
-        <div class="col-sm-10">
+        <div class="col-md-10">
             <h1 class="h3 m-b" id="course-name"><b>Introduction</b></h1>
             <div style="border:1px solid #e1e1e1; height: 500px;" class="m-b">
                 <!-- Video goes here -->
