@@ -38,7 +38,7 @@ analytics.page("{{ product.name }} Course Dashboard");
             <ul class="list-unstyled">
                 {% for k, v in chapters.items %}
                 <li>
-                    <a href="" data-video="{{ v.video }}" data-template="{{ v.template }}" data-name="{{ k }}. {{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
+                    <a href="" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
                         {{ k }}. {{ v.name }}
                     </a>
                 </li>
@@ -62,8 +62,9 @@ analytics.page("{{ product.name }} Course Dashboard");
 {% block scripts %}
 <script type="text/javascript">
     $(".chapter-link").click(function() {
+        const chapter = $(this).attr('data-chapter');
         const name = $(this).attr('data-name');
-        document.getElementById("course-name").innerHTML = name
+        document.getElementById("course-name").innerHTML = 'Chapter ' + chapter + ': <b>' + name + '</b>'
         return false;
     });
 </script>
