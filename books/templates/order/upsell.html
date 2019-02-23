@@ -32,7 +32,7 @@ analytics.page("Confirm Email");
             <h4 style="margin-bottom:0.5em;">Buying as a gift?</h4>
             <p style="margin-bottom:0.5em;"><small>Fill out this form and after submitting your credit card details, the giftee will receive an email with details on how to log in to access their files.</small></p>
             <p><small>Want to buy a gift but not send it immediately? Email me at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and I'll set up something custom for you.</small></p>
-            <form action="{% url 'gift' product=product %}" method="POST" class="vertical-margin">
+            <form action="{% url 'gift' product=product %}" method="POST" class="m-y">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="gifteeEmail" class="sr-only">Enter the giftee's email address here</label>

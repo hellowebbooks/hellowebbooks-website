@@ -5171,24 +5171,10 @@ hr {
   margin-bottom: 1em;
 }
 
-.super-vertical-margin {
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
-
-.super-vertical-top-margin {
-  margin-top: 2em;
-  margin-bottom: 1em;
-}
-
 .content-block {
   max-width: 800px;
   margin-left: auto !important;
   margin-right: auto !important;
-}
-
-.clear {
-  clear: both;
 }
 
 .social-media a {

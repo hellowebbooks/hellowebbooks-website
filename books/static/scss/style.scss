@@ -137,23 +137,12 @@ hr {
     margin-bottom: 1em;
 }
 
-.super-vertical-margin { // #m-y-md
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
-
-.super-vertical-top-margin { // #m-t-md m-b
-    margin-top: 2em;
-    margin-bottom: 1em;
-}
-
 .content-block {
     max-width: 800px;
     margin-left: auto !important;
     margin-right: auto !important;
 }
 
-.clear { clear: both; }
 .social-media a {
   color: $body-color;
   &:hover {
