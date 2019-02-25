@@ -40,9 +40,13 @@ analytics.page("{{ product.name }} Course Dashboard");
             <ul class="list-unstyled">
                 {% for k, v in chapters.items %}
                 <li>
+                    {% if v.name == video_name %}
+                        {{ k }}. {{ v.name }}
+                    {% else %}
                     <a href="{% url 'course_link' product_slug=product.get_slug link=v.link %}" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
                         {{ k }}. {{ v.name }}
                     </a>
+                    {% endif %}
                 </li>
                 {% endfor %}
             </ul>
@@ -55,7 +59,7 @@ analytics.page("{{ product.name }} Course Dashboard");
             </div>
             <div id="course-content">
                 {% filter markdown %}
-{% include video_template %}
+{% include video_template %} <!-- if indented, markdown thinks its code. sigh -->
                 {% endfilter %}
             </div>
         </div>

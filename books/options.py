@@ -35,13 +35,13 @@ course_list = OrderedDict({
             '0': {
                 'name': 'Introduction',
                 'video': 'https://vimeo.com/1',
-                'template': 'course/hwa/intro.html',
+                'template': 'course/hwa/intro.md',
                 'link': 'intro',
             },
             '1': {
                 'name': "What We’re Building",
                 'video': 'https://vimeo.com/1',
-                'template': 'course/hwa/what-building.html',
+                'template': 'course/hwa/what-building.md',
                 'link': 'what-building',
             },
             '2': {
