@@ -16,6 +16,7 @@ labels
 coupon_codes.py
 books/templates/dashboard/course/hwa
 books/templates/dashboard/course/hwd
+books/static/images/course
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

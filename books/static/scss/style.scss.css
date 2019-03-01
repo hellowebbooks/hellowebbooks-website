@@ -5408,6 +5408,10 @@ figure.video iframe {
   text-decoration: none;
 }
 
+#course-content {
+  max-width: 600px;
+}
+
 .blog-home-header p {
   margin-bottom: 0.5em;
 }

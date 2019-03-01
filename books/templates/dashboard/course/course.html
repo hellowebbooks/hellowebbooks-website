@@ -58,6 +58,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                 <!-- Video goes here {{ video_url }}-->
             </div>
             <div id="course-content">
+                <!-- XXX: Get the captions working for the images -->
                 {% filter markdown %}
 {% include video_template %} <!-- if indented, markdown thinks its code. sigh -->
                 {% endfilter %}
