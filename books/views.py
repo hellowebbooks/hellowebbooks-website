@@ -398,7 +398,6 @@ def course(request, product_slug, link=None):
     video_name = ""
     video_template = ""
 
-    # FIXME: Set it up so we can use md files, not just html
     for key, value in course.items():
         for key, value in value.items():
             if value['link'] == link:
