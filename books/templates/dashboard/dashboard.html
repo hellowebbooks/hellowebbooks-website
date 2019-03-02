@@ -25,7 +25,8 @@ analytics.page("Dashboard");
                 <div class="box {{ membership.product.name|slugify }}">
                     <div class="content">
                         <h2>
-                            <a href="{% url 'product_page' product_id=membership.product.name|slugify %}">
+                            {% comment %}<a href="{% url 'product_page' product_id=membership.product.name|slugify %}">{% endcomment %}
+                            <a href="{% url 'course' product_slug=membership.product.get_slug %}">
                                 {{ membership.product.name }}
                             </a>
                         </h2>
@@ -44,15 +45,16 @@ analytics.page("Dashboard");
                                 <li><a href="{{ hwd_mobi }}" title="Download {{ membership.product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
                                 {% endif %}
                             </ul>
-                            {% if membership.video %}
-                            <p class="m-b-0"><b>Watch videos</b></p>
-                            <ul>
-                                <!-- XXX: Finish videos link -->
-                                <li><a href="{% url 'course' product_slug=membership.product.get_slug %}">Play videos</a></li>
-                            </ul>
-                            {% endif %}
                         </div>
+                        {% comment %}
                         <a href="" class="btn btn-primary btn-sm">Visit Slack channel</a>
+                        XXX: Fix this link
+                        {% endcomment %}
+                        {% if membership.video %}
+                        <a href="{% url 'course' product_slug=membership.product.get_slug %}" class="btn btn-primary">Access course videos</a>
+                        {% else %}
+                        <a href="{% url 'course' product_slug=membership.product.get_slug %}" class="btn btn-primary">Read online</a>
+                        {% endif %}
                         {% if membership.product.name == "Hello Web App" and not membership.video %}
                         <a href="{% url 'charge' product="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm">Upgrade: Buy video course for 20% off ($115.24)</a>
                         {% elif membership.product.name == "Hello Web Design" and not membership.video %}
