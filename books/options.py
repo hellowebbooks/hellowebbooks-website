@@ -58,13 +58,13 @@ course_list = OrderedDict({
             },
             '4': {
                 'name': 'Setting up your Templates',
-                'video': 'https://vimeo.com/1',
+                'video': 'https://player.vimeo.com/video/147791632',
                 'template': 'course/hwa/setting-templates.md',
                 'link': 'setting-templates',
             },
             '5': {
                 'name': 'Fun with Template Tags',
-                'video': 'https://vimeo.com/1',
+                'video': 'https://player.vimeo.com/video/150559647',
                 'template': 'course/hwa/template-tags.md',
                 'link': 'template-tags',
             },

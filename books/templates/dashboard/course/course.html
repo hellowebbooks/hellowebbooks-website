@@ -54,11 +54,16 @@ analytics.page("{{ product.name }} Course Dashboard");
         </div>
         <div class="col-md-10">
             <h1 class="h3 m-b" id="course-name"><b>{{ video_name }}</b></h1>
-            <div style="border:1px solid #e1e1e1; height: 500px;" class="m-b">
-                <!-- Video goes here {{ video_url }}-->
+            <div class="m-b course-video">
+                <figure class="caption video" style="padding-bottom: 50%;">
+                    <iframe width="560" height="315" src="{{ video_url }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen='allowfullscreen'></iframe>
+                    <!--<figcaption>Video/vlog version of this post. Experimenting with formats!</figcaption>-->
+                </figure>
+
             </div>
             <div id="course-content">
                 <!-- XXX: Get the captions working for the images -->
+                <!-- XXX: Also bolding for inserts/etc in code blocks -->
                 {% filter markdown %}
 {% include video_template %} <!-- if indented, markdown thinks its code. sigh -->
                 {% endfilter %}
@@ -72,6 +77,9 @@ analytics.page("{{ product.name }} Course Dashboard");
 {% endblock content %}
 
 {% block scripts %}
+<link rel="stylesheet" href="{% static '/css/tomorrow.css' %}">
+<script src="{% static '/js/highlight.pack.js' %}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 <script type="text/javascript">
     /*
     $(".chapter-link").click(function() {

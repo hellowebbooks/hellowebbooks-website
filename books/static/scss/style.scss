@@ -391,7 +391,20 @@ figure.video {
 }
 
 #course-content {
-    max-width: 600px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    img {
+        box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+}
+
+.course-video {
+    figure {
+        border:1px solid #e1e1e1;
+        background-color: #000;
+    }
 }
 
 // all posts page
