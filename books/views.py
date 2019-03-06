@@ -400,8 +400,6 @@ def course(request, product_slug, link=None):
 
     # loop through options to get details for this course
     video_url, video_name, video_template, prev_link, next_link = helpers.get_video_info_from_course(course, link)
-    print(prev_link)
-    print(next_link)
 
     return render(request, "dashboard/course/course.html", {
         'product': product,
@@ -410,6 +408,8 @@ def course(request, product_slug, link=None):
         'video_template': video_template,
         'video_name': video_name,
         'video_url': video_url,
+        'prev_link': prev_link,
+        'next_link': next_link,
         # FIXME: Bad hack. Replace with temporary generated URLs on a private S3 file.
         'hwa_pdf': os.environ['HWA_PDF'],
         'hwa_epub': os.environ['HWA_EPUB'],

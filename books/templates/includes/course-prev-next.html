@@ -1,0 +1,10 @@
+<div class="col-md-6">
+    {% if prev_link %}
+    <a href="{% url 'course_link' product_slug=product.get_slug link=prev_link %}" class="btn btn-sm btn-secondary m-l">← Prev</a>
+    {% endif %}
+</div>
+<div class="col-md-6 text-right">
+    {% if next_link %}
+    <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary m-r">Next →</a>
+    {% endif %}
+</div>
