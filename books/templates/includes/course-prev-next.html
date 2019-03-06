@@ -1,10 +1,12 @@
-<div class="col-md-6">
+<div class="col-xs-6">
     {% if prev_link %}
-    <a href="{% url 'course_link' product_slug=product.get_slug link=prev_link %}" class="btn btn-sm btn-secondary m-l">← Prev</a>
+    <a href="{% url 'course_link' product_slug=product.get_slug link=prev_link %}" class="btn btn-sm btn-secondary m-l hidden-sm-down">← {{ prev_name }}</a>
+    <a href="{% url 'course_link' product_slug=product.get_slug link=prev_link %}" class="btn btn-sm btn-secondary hidden-md-up">← Prev</a>
     {% endif %}
 </div>
-<div class="col-md-6 text-right">
+<div class="col-xs-6 text-right">
     {% if next_link %}
-    <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary m-r">Next →</a>
+    <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary m-r hidden-sm-down">{{ next_name }} →</a>
+    <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary hidden-md-up">Next →</a>
     {% endif %}
 </div>

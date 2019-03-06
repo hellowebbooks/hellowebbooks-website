@@ -53,13 +53,14 @@ analytics.page("{{ product.name }} Course Dashboard");
             </ul>
         </div>
         <div class="col-md-10">
-            <div class="row">
-                <div class="col-md-10">
+            <div class="row m-b">
+                <div class="col-xs-8">
                     <h1 class="h3 m-b" id="course-name"><b>{{ video_name }}</b></h1>
                 </div>
-                <div class="col-md-2 text-right">
+                <div class="col-xs-4 text-right">
                     {% if next_link %}
-                    <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary">Next →</a>
+                    <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary m-r hidden-md-down" style="white-space: normal;">{{ next_name }} →</a>
+                    <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary hidden-lg-up">Next →</a>
                     {% endif %}
                 </div>
             </div>
@@ -75,7 +76,6 @@ analytics.page("{{ product.name }} Course Dashboard");
             {% endif %}
             <!-- content area -->
             <div id="course-content">
-                <!-- XXX: Add next/back buttons -->
                 {% filter markdown %}
 {% include video_template %} <!-- if indented, markdown thinks its code. sigh -->
                 {% endfilter %}

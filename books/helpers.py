@@ -192,17 +192,21 @@ def get_video_info_from_course(course, link):
     video_name = ""
     video_template = ""
     prev_link = ""
+    prev_name = ""
     next_link = ""
+    next_name = ""
     info_hit = False
 
     for key, value in course.items():
         for key, value in value.items():
             if info_hit:
                 next_link = value['link']
-                return video_url, video_name, video_template, prev_link, next_link
+                next_name = value['name']
+                return video_url, video_name, video_template, prev_link, prev_name, next_link, next_name 
 
             if value['link'] != link:
                 prev_link = value['link']
+                prev_name = value['name']
                 continue
 
             video_url = value['video']
