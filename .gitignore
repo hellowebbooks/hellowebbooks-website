@@ -1,6 +1,7 @@
 /*.tgz
 db.sqlite3
 venv
+/static
 *.pyc
 staticfiles
 .DS_STORE

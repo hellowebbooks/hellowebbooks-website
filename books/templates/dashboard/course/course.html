@@ -21,20 +21,7 @@ analytics.page("{{ product.name }} Course Dashboard");
         </ul>
         <!-- FIXME: This probably should go under a popout menu -->
         <div class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
-            <h4 class="m-t-0">Download Files</h4>
-            <!-- FIXME: This isn't the best solution but it's good enough for now -->
-            <!-- FIXME: If fixed, fix in dashboard.html too -->
-            <ul class="list-unstyled">
-                {% if product.name == "Hello Web App" %}
-                <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ product.name }} Kindle/.mobi">.mobi/Kindle</a></li>
-                <li>Intermediate Concepts: <a href="{{ hwaic_pdf }}" title="Download {{ product.name }} Intermediate Concepts PDF">PDF</a>, <a href="{{ hwaic_epub }}" title="Download {{ product.name }} Intermediate Concepts ePub">ePub</a>, <a href="{{ hwaic_mobi }}" title="Download {{ product.name }} Intermediate Concepts Kindle/.mobi">.mobi/Kindle</a></li>
-                {% elif product.name == "Hello Web Design" %}
-                <li><a href="{{ hwd_pdf }}" title="Download {{ product.name }} PDF">PDF</a></li>
-                <li><a href="{{ hwd_epub }}" title="Download {{ product.name }} ePub">ePub</a></li>
-                <li><a href="{{ hwd_mobi }}" title="Download {{ product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
-                {% endif %}
-            </ul>
-            <h4>Videos</h4>
+            <h4 class="m-t-0">{% if membership.video %}Videos/{% endif %}Content</h4>
             {% for module, chapters in course.items %}
             <b>{{ module }}</b>
             <ul class="list-unstyled">
@@ -51,8 +38,30 @@ analytics.page("{{ product.name }} Course Dashboard");
                 {% endfor %}
             </ul>
             {% endfor %}
+            <h4>Download Files</h4>
+            <!-- FIXME: This isn't the best solution but it's good enough for now -->
+            <!-- FIXME: If fixed, fix in dashboard.html too -->
+            <ul class="list-unstyled">
+                {% if product.name == "Hello Web App" %}
+                <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ product.name }} Kindle/.mobi">.mobi/Kindle</a></li>
+                <li>Intermediate Concepts: <a href="{{ hwaic_pdf }}" title="Download {{ product.name }} Intermediate Concepts PDF">PDF</a>, <a href="{{ hwaic_epub }}" title="Download {{ product.name }} Intermediate Concepts ePub">ePub</a>, <a href="{{ hwaic_mobi }}" title="Download {{ product.name }} Intermediate Concepts Kindle/.mobi">.mobi/Kindle</a></li>
+                {% elif product.name == "Hello Web Design" %}
+                <li><a href="{{ hwd_pdf }}" title="Download {{ product.name }} PDF">PDF</a></li>
+                <li><a href="{{ hwd_epub }}" title="Download {{ product.name }} ePub">ePub</a></li>
+                <li><a href="{{ hwd_mobi }}" title="Download {{ product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
+                {% endif %}
+            </ul>
         </div>
         <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="" class="btn btn-secondary">← Prev</a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="" class="btn btn-secondary">Next →</a>
+                </div>
+            </div>
+
             <!-- video area -->
             <h1 class="h3 m-b" id="course-name"><b>{{ video_name }}</b></h1>
             {% if membership.video %}

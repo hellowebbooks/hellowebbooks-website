@@ -33,7 +33,7 @@ course_list = OrderedDict({
     'Hello Web App': {
         'Hello Web App': {
             '0': {
-                'name': 'Introduction',
+                'name': 'Hello Web App Introduction',
                 'video': 'https://vimeo.com/1',
                 'template': 'course/hwa/intro.md',
                 'link': 'intro',
@@ -138,7 +138,7 @@ course_list = OrderedDict({
         },
         'Intermediate Concepts': {
             '0': {
-                'name': 'Introduction',
+                'name': 'Intermediate Concepts Introduction',
                 'video': 'https://vimeo.com/1',
                 'template': 'course/hwaic/introduction.md',
                 'link': 'introduction',

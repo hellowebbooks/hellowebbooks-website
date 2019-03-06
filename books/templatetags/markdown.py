@@ -16,6 +16,4 @@ def markdown(value, arg=''):
         ast = parser.parse(value)
         renderer = commonmark.HtmlRenderer()
         html = renderer.render(ast)
-        print(html)
-
         return mark_safe(html)

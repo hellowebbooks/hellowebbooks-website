@@ -185,3 +185,27 @@ def send_giftee_password_reset(request, email, product_name, giftee_message):
     logout(request)
     request.session.pop('giftee_user', None)
     request.session.pop('giftee_message', None)
+
+
+def get_video_info_from_course(course, link):
+    video_url = ""
+    video_name = ""
+    video_template = ""
+    prev_link = ""
+    next_link = ""
+    info_hit = False
+
+    for key, value in course.items():
+        for key, value in value.items():
+            if info_hit:
+                next_link = value['link']
+                return video_url, video_name, video_template, prev_link, next_link
+
+            if value['link'] != link:
+                prev_link = value['link']
+                continue
+
+            video_url = value['video']
+            video_name = value['name']
+            video_template = "dashboard/" + value['template']
+            info_hit = True

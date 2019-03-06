@@ -398,17 +398,10 @@ def course(request, product_slug, link=None):
     if not link:
         link = 'intro'
 
-    video_url = ""
-    video_name = ""
-    video_template = ""
-
-    for key, value in course.items():
-        for key, value in value.items():
-            if value['link'] == link:
-                video_url = value['video']
-                video_name = value['name']
-                video_template = "dashboard/" + value['template']
-                break
+    # loop through options to get details for this course
+    video_url, video_name, video_template, prev_link, next_link = helpers.get_video_info_from_course(course, link)
+    print(prev_link)
+    print(next_link)
 
     return render(request, "dashboard/course/course.html", {
         'product': product,
