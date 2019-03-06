@@ -23,15 +23,15 @@ analytics.page("{{ product.name }} Course Dashboard");
         <div class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
             <h4 class="m-t-0">{% if membership.video %}Videos/{% endif %}Content</h4>
             {% for module, chapters in course.items %}
-            <b>{{ module }}</b>
-            <ul class="list-unstyled">
+            <p style="margin-bottom: 10px;"><b>{{ module }}</b></p>
+            <ul class="list-unstyled course-list">
                 {% for k, v in chapters.items %}
-                <li>
+                <li style="margin-bottom: 10px; line-height:1.2;"{% if v.name == video_name %} class="active"{% endif %}>
                     {% if v.name == video_name %}
-                        {{ k }}. {{ v.name }}
+                        <b>{{ v.name }}</b>
                     {% else %}
                     <a href="{% url 'course_link' product_slug=product.get_slug link=v.link %}" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
-                        {{ k }}. {{ v.name }}
+                        {{ v.name }}
                     </a>
                     {% endif %}
                 </li>

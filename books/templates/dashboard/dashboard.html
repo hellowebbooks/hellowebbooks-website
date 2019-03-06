@@ -56,9 +56,9 @@ analytics.page("Dashboard");
                         <a href="{% url 'course' product_slug=membership.product.get_slug %}" class="btn btn-primary">Read online</a>
                         {% endif %}
                         {% if membership.product.name == "Hello Web App" and not membership.video %}
-                        <a href="{% url 'charge' product="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm">Upgrade: Buy video course for 20% off ($115.24)</a>
+                        <a href="{% url 'charge' product="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t">Upgrade: Buy video course for 20% off ($115.24)</a>
                         {% elif membership.product.name == "Hello Web Design" and not membership.video %}
-                        <a href="{% url 'charge' product="hwd-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm">Upgrade: Buy video course for 20% off ($59.24)</a>
+                        <a href="{% url 'charge' product="hwd-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t">Upgrade: Buy video course for 20% off ($59.24)</a>
                         {% endif %}
                     </div>
                 </div>

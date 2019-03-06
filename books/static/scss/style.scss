@@ -390,6 +390,13 @@ figure.video {
     }
 }
 
+.course-list {
+    .active {
+        border-left: 5px solid $brand-primary;
+        padding-left: 10px;
+    }
+}
+
 #course-name {
     margin-left: 1rem;
     font-size: 2rem;

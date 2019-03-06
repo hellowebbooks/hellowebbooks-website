@@ -5420,6 +5420,11 @@ figure.video iframe {
   text-decoration: none;
 }
 
+.course-list .active {
+  border-left: 5px solid #e6c24d;
+  padding-left: 10px;
+}
+
 #course-name {
   margin-left: 1rem;
   font-size: 2rem;
