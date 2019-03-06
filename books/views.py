@@ -188,7 +188,6 @@ def gift(request, product):
     if request.method == 'POST':
         email = request.POST['gifteeEmail']
         message = request.POST['gifteeMessage']
-        print(message)
         username = email.replace("@", "").replace(".", "")
         password = User.objects.make_random_password()
 
@@ -390,6 +389,11 @@ def course(request, product_slug, link=None):
     product = Product.objects.get(name__iexact=product_name)
     course = options.course_list[product.name]
 
+    membership = Membership.objects.get(
+        customer__user=request.user,
+        product__name=product.name,
+    )
+
     # if default page, then show the intro page
     if not link:
         link = 'intro'
@@ -408,6 +412,7 @@ def course(request, product_slug, link=None):
 
     return render(request, "dashboard/course/course.html", {
         'product': product,
+        'membership': membership,
         'course': course,
         'video_template': video_template,
         'video_name': video_name,

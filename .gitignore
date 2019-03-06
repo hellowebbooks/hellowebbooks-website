@@ -15,6 +15,7 @@ labels
 # sensitive book info
 coupon_codes.py
 books/templates/dashboard/course/hwa
+books/templates/dashboard/course/hwaic
 books/templates/dashboard/course/hwd
 books/static/images/course
 

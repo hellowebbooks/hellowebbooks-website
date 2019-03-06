@@ -53,17 +53,19 @@ analytics.page("{{ product.name }} Course Dashboard");
             {% endfor %}
         </div>
         <div class="col-md-10">
+            <!-- video area -->
             <h1 class="h3 m-b" id="course-name"><b>{{ video_name }}</b></h1>
+            {% if membership.video %}
             <div class="m-b course-video">
                 <figure class="caption video" style="padding-bottom: 50%;">
-                    <iframe width="560" height="315" src="{{ video_url }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen='allowfullscreen'></iframe>
+                    <!--<iframe width="560" height="315" src="{{ video_url }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen='allowfullscreen'></iframe>-->
                     <!--<figcaption>Video/vlog version of this post. Experimenting with formats!</figcaption>-->
                 </figure>
-
             </div>
+            {% endif %}
+            <!-- content area -->
             <div id="course-content">
-                <!-- XXX: Get the captions working for the images -->
-                <!-- XXX: Also bolding for inserts/etc in code blocks -->
+                <!-- XXX: Add next/back buttons -->
                 {% filter markdown %}
 {% include video_template %} <!-- if indented, markdown thinks its code. sigh -->
                 {% endfilter %}

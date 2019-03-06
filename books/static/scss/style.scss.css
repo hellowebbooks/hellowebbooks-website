@@ -5420,19 +5420,72 @@ figure.video iframe {
   text-decoration: none;
 }
 
+#course-name {
+  margin-left: 1rem;
+  font-size: 2rem;
+}
+
 #course-content {
   max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 1rem;
+}
+#course-content h2 {
+  font-size: 1.8rem;
+  font-weight: 400;
 }
 #course-content img {
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
+#course-content img.no-shadow {
+  box-shadow: none;
+  border-radius: 0;
+}
+#course-content .hljs {
+  display: contents !important;
+}
+#course-content pre {
+  margin-top: 0;
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+}
+#course-content pre pre {
+  margin-bottom: 0;
+}
 
+@media (max-width: 47.9em) {
+  #course-content, #course-name {
+    margin-left: 0;
+  }
+}
 .course-video figure {
   border: 1px solid #e1e1e1;
   background-color: #000;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1em;
+  margin-bottom: 2rem;
+}
+.course-grid figure {
+  margin-bottom: 0 !important;
+}
+.course-grid figcaption {
+  font-size: 0.9rem !important;
+}
+
+.course-grid-large {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .blog-home-header p {
@@ -5587,10 +5640,10 @@ figure.video iframe {
     font-size: 2rem;
   }
 }
-#post figure, #tutorial figure {
+#post figure, #tutorial figure, #course-page figure {
   margin: 1em 0 2em 0;
 }
-#post figure figcaption, #tutorial figure figcaption {
+#post figure figcaption, #tutorial figure figcaption, #course-page figure figcaption {
   font-size: 1rem;
   color: #818a91;
   padding-top: 0.5em;

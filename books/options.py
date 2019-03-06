@@ -174,7 +174,7 @@ course_list = OrderedDict({
                 'link': 'resizing-images',
             },
             '6': {
-                'name': 'ISetting Up Django Messages for Alerts',
+                'name': 'Setting Up Django Messages for Alerts',
                 'video': 'https://vimeo.com/1',
                 'template': 'course/hwaic/django-messages.md',
                 'link': 'django-messages',

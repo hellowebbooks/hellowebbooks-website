@@ -390,14 +390,40 @@ figure.video {
     }
 }
 
+#course-name {
+    margin-left: 1rem;
+    font-size: 2rem;
+}
+
 #course-content {
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 1rem;
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 400;
+    }
     img {
         box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
+    img.no-shadow {
+        box-shadow: none;
+        border-radius: 0;
+    }
+    .hljs { display: contents !important; }
+    pre {
+        margin-top: 0;
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        pre { margin-bottom: 0; }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    #course-content, #course-name { margin-left: 0; }
 }
 
 .course-video {
@@ -405,6 +431,19 @@ figure.video {
         border:1px solid #e1e1e1;
         background-color: #000;
     }
+}
+
+.course-grid {
+    display: grid; // There Andrey, I did CSS Grid :P
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1em;
+    margin-bottom: 2rem;
+    figure { margin-bottom: 0 !important; }
+    figcaption { font-size: 0.9rem !important; }
+}
+
+.course-grid-large {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 // all posts page
@@ -573,7 +612,7 @@ figure.video {
     }
 }
 
-#post, #tutorial {
+#post, #tutorial, #course-page {
     figure {
         margin: 1em 0 2em 0;
         figcaption {
