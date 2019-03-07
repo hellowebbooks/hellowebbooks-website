@@ -134,7 +134,18 @@ course_list = OrderedDict({
                 'template': 'course/hwa/important-know.md',
                 'link': 'important-know',
             },
-            # TODO: Add pages without a video here?
+            '17': {
+                'name': 'Moving Forward',
+                'video': '',
+                'template': 'course/hwa/moving-forward.md',
+                'link': 'moving-forward',
+            },
+            '18': {
+                'name': 'Special Thanks',
+                'video': '',
+                'template': 'course/hwa/special-thanks.md',
+                'link': 'special-thanks',
+            },
         },
         'Intermediate Concepts': {
             '0': {
@@ -221,7 +232,18 @@ course_list = OrderedDict({
                 'template': 'course/hwaic/database-pitfalls.md',
                 'link': 'database-pitfalls',
             },
-            # TODO: Add pages without a video here?
+            '13': {
+                'name': 'Resources',
+                'video': '',
+                'template': 'course/hwaic/resources.md',
+                'link': 'resources',
+            },
+            '14': {
+                'name': 'Thanks',
+                'video': '',
+                'template': 'course/hwaic/thanks.md',
+                'link': 'thanks',
+            },
         },
     },
     'Hello Web Design': {
@@ -355,11 +377,28 @@ course_list = OrderedDict({
             },
             '5.0': {
                 'name': 'Additional Resources',
-                'video': 'https://vimeo.com/2',
+                'video': '',
                 'template': 'course/hwd/additional-resources.md',
                 'link': 'additional-resources',
             },
+            '5.1': {
+                'name': 'Final Thoughts',
+                'video': '',
+                'template': 'course/hwd/final-thoughts.md',
+                'link': 'final-thoughts',
+            },
+            '5.2': {
+                'name': 'Special Thanks',
+                'video': '',
+                'template': 'course/hwd/special-thanks.md',
+                'link': 'special-thanks',
+            },
+            '5.3': {
+                'name': 'About Author',
+                'video': '',
+                'template': 'course/hwd/about-author.md',
+                'link': 'about-author',
+            },
         },
-        # TODO: Add pages without a video here?
     },
 })
