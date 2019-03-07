@@ -23,7 +23,7 @@ analytics.page("{{ product.name }} Course Dashboard");
         <!-- FIXME: This probably should go under a popout menu -->
         <!-- TODO: Add in a page to track updates to the online content -->
         <div class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
-            <h4 class="m-t-0">{% if membership.video %}Videos/{% endif %}Content</h4>
+            <h4 class="m-t-0">{% if membership.video %}Videos / {% endif %}Content</h4>
             {% for module, chapters in course.items %}
             <p style="margin-bottom: 10px;"><b>{{ module }}</b></p>
             <ul class="list-unstyled course-list">
@@ -77,10 +77,12 @@ analytics.page("{{ product.name }} Course Dashboard");
             </div>
             {% endif %}
             <!-- content area -->
-            <div id="course-content">
+            <div id="course-content" class="row">
+                <div class="col-lg-10 col-xl-8 p-l-0">
                 {% filter markdown %}
 {% include video_template %} <!-- if indented, markdown thinks its code. sigh -->
                 {% endfilter %}
+                </div>
             </div>
             <div class="row m-t-lg">
                 {% include 'includes/course-prev-next.html' %}
