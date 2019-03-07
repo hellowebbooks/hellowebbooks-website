@@ -198,11 +198,14 @@ def get_video_info_from_course(course, link):
     info_hit = False
 
     for key, value in course.items():
+        total = len(value)
+        count = 0
         for key, value in value.items():
+            count += 1
             if info_hit:
                 next_link = value['link']
                 next_name = value['name']
-                return video_url, video_name, video_template, prev_link, prev_name, next_link, next_name 
+                return video_url, video_name, video_template, prev_link, prev_name, next_link, next_name
 
             if value['link'] != link:
                 prev_link = value['link']
@@ -213,3 +216,7 @@ def get_video_info_from_course(course, link):
             video_name = value['name']
             video_template = "dashboard/" + value['template']
             info_hit = True
+
+            # if we're at the end of the loop, return early without filling out next
+            if count == total and video_name:
+                return video_url, video_name, video_template, prev_link, prev_name, next_link, next_name

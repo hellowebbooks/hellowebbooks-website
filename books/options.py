@@ -226,6 +226,12 @@ course_list = OrderedDict({
     },
     'Hello Web Design': {
         'Module 1': {
+            '0.00': {
+                'name': 'Foreword',
+                'video': 'https://vimeo.com/1',
+                'template': 'course/hwd/foreword.md',
+                'link': 'foreword',
+            },
             '0.0': {
                 'name': 'Introduction',
                 'video': 'https://vimeo.com/1',
@@ -346,6 +352,12 @@ course_list = OrderedDict({
                 'video': 'https://vimeo.com/2',
                 'template': 'course/hwd/reassurances.md',
                 'link': 'reassurances',
+            },
+            '5.0': {
+                'name': 'Additional Resources',
+                'video': 'https://vimeo.com/2',
+                'template': 'course/hwd/additional-resources.md',
+                'link': 'additional-resources',
             },
         },
         # TODO: Add pages without a video here?
