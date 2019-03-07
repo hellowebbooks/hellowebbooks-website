@@ -12,7 +12,6 @@ staticfiles
 settings_local.py
 post-double.py
 labels
-books/static/scss/style.scss.css
 
 # sensitive book info
 coupon_codes.py

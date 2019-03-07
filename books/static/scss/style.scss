@@ -405,6 +405,10 @@ figure.video {
     }
 }
 
+@include media-breakpoint-down(sm) {
+    #course-sidebar { display: none; }
+}
+
 #course-name {
     margin-left: 1rem;
     font-size: 2rem;

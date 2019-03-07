@@ -22,7 +22,7 @@ analytics.page("{{ product.name }} Course Dashboard");
 
         <!-- FIXME: This probably should go under a popout menu -->
         <!-- TODO: Add in a page to track updates to the online content -->
-        <div class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
+        <div id="course-sidebar" class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
             <h4 class="m-t-0">{% if membership.video %}Videos / {% endif %}Content</h4>
             {% for module, chapters in course.items %}
             <p style="margin-bottom: 10px;"><b>{{ module }}</b></p>

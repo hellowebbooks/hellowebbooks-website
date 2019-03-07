@@ -5433,6 +5433,11 @@ figure.video iframe {
   padding-left: 10px;
 }
 
+@media (max-width: 47.9em) {
+  #course-sidebar {
+    display: none;
+  }
+}
 #course-name {
   margin-left: 1rem;
   font-size: 2rem;
