@@ -3801,6 +3801,26 @@ a.bg-danger:focus, a.bg-danger:hover {
   content: "";
 }
 
+.fa-arrow-circle-left:before {
+  content: "";
+}
+
+.fa-arrow-circle-right:before {
+  content: "";
+}
+
+.fa-arrow-circle-up:before {
+  content: "";
+}
+
+.fa-arrow-circle-down:before {
+  content: "";
+}
+
+.fa-play-circle-o:before {
+  content: "";
+}
+
 /*
 .fa-glass:before { content: $fa-var-glass; }
 .fa-music:before { content: $fa-var-music; }
@@ -3833,7 +3853,6 @@ a.bg-danger:focus, a.bg-danger:hover {
 .fa-arrow-circle-o-down:before { content: $fa-var-arrow-circle-o-down; }
 .fa-arrow-circle-o-up:before { content: $fa-var-arrow-circle-o-up; }
 .fa-inbox:before { content: $fa-var-inbox; }
-.fa-play-circle-o:before { content: $fa-var-play-circle-o; }
 .fa-rotate-right:before,
 .fa-repeat:before { content: $fa-var-repeat; }
 .fa-refresh:before { content: $fa-var-refresh; }
@@ -3974,10 +3993,6 @@ a.bg-danger:focus, a.bg-danger:hover {
 .fa-hand-o-left:before { content: $fa-var-hand-o-left; }
 .fa-hand-o-up:before { content: $fa-var-hand-o-up; }
 .fa-hand-o-down:before { content: $fa-var-hand-o-down; }
-.fa-arrow-circle-left:before { content: $fa-var-arrow-circle-left; }
-.fa-arrow-circle-right:before { content: $fa-var-arrow-circle-right; }
-.fa-arrow-circle-up:before { content: $fa-var-arrow-circle-up; }
-.fa-arrow-circle-down:before { content: $fa-var-arrow-circle-down; }
 .fa-globe:before { content: $fa-var-globe; }
 .fa-wrench:before { content: $fa-var-wrench; }
 .fa-tasks:before { content: $fa-var-tasks; }
