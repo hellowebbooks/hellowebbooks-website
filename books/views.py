@@ -105,11 +105,10 @@ def edit_email(request):
     })
 
 
-def upsell(request, product):
+def upsell(request, product_slug):
     # User is logged in, go straight to buy page
     if request.user.is_authenticated and 'giftee_user' not in request.session:
-        return redirect('/charge/%s' % product + '?coupon=customerfriend')
-        #return redirect('charge', product=product)
+        return redirect('/charge/%s' % product_slug + '?coupon=customerfriend')
 
     # Get someone to log in OR create an account
     form_class = forms.AddEmailForm
@@ -141,28 +140,28 @@ def upsell(request, product):
                     # XXX: Maybe don't log in the person? Because then
                     # if they return to the page, it gives them a discount
                     login(request, user)
-                    return redirect('charge', product=product)
+                    return redirect('charge', product_slug=product_slug)
 
                 # user wasn't found but the email exists in the system, so their
                 # password must be wrong (or something)
                 messages.error(request, 'Email address found in system but password did not match. Try again?')
-                return redirect('upsell', product=product)
+                return redirect('upsell', product_slug=product_slug)
 
             else:
                 # existing user was found and logged in
                 login(request, user)
-                return redirect('/charge/%s' % product + '?coupon=customerfriend')
+                return redirect('/charge/%s' % product_slug + '?coupon=customerfriend')
 
     else:
         form = form_class()
 
     return render(request, 'order/upsell.html', {
         'form': form,
-        'product': product,
+        'product': product_slug,
     })
 
 
-def gift(request, product):
+def gift(request, product_slug):
     if request.method == 'POST':
         email = request.POST['gifteeEmail']
         message = request.POST['gifteeMessage']
@@ -180,21 +179,21 @@ def gift(request, product):
             request.session['giftee_user'] = username
             request.session['giftee_email'] = email
             request.session['giftee_message'] = message
-            return redirect('charge', product=product)
+            return redirect('charge', product_slug=product_slug)
 
         mail_admins("Bad happenings on HWB", "Attempting to gift a product to someone who already has an account.")
         messages.error(request, "That person already has an account on Hello Web Books! This is a use-case that Tracy hasn't written the code for yet (whoops.) Please email tracy@hellowebbooks.com and she'll set it up manually with a discount for your trouble.")
-        return redirect('upsell', product=product)
+        return redirect('upsell', product_slug=product_slug)
 
 
-def charge(request, product=None):
+def charge(request, product_slug=None):
     user = request.user
 
     # TODO: check whether we're going to this page with a coupon specified
     coupon_supplied = request.GET.get("coupon", None)
 
-    amount, product_name, us_postage, can_postage, aus_postage, eur_postage, else_postage, paperback_price = helpers.product_details(product)
-    product_obj, product_obj2, paperback, video, supplement = helpers.product_split(product)
+    amount, product_name, us_postage, can_postage, aus_postage, eur_postage, else_postage, paperback_price = helpers.product_details(product_slug)
+    product_obj, product_obj2, paperback, video, supplement = helpers.product_split(product_slug)
 
     if request.method == "POST":
         gifted_product = False
@@ -250,7 +249,7 @@ def charge(request, product=None):
 
         # create the stripe customer for the gifted-user or the new-user
         if gifted_product or not existing_customer or gifted_customer:
-            id = helpers.create_stripe_customer(product, user, source, shipping, coupon)
+            id = helpers.create_stripe_customer(product_slug, user, source, shipping, coupon)
 
         # charge the customer
         charge = stripe.Charge.create(
@@ -307,7 +306,7 @@ def charge(request, product=None):
     return render(request, "order/charge.html", {
         'form': form,
         'publishable_key': settings.STRIPE_PUBLISHABLE,
-        'product': product,
+        'product': product_slug,
         'paperback': paperback,
         'paperback_price': paperback_price,
         'amount': amount,

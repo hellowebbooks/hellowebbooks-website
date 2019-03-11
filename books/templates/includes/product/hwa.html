@@ -23,7 +23,7 @@
                 <li>The gorgeously designed paperback books &#8212; Optional add-on for $20 USD + shipping.</li>
             </ul>
             <div class="m-t-md m-b">
-                <a href="{% url 'upsell' product='hwa-video' %}" class="btn btn-primary buy-button" data-title="Hello Web App Video Paperback package" data-price="179">Buy the full course for $179</a>
+                <a href="{% url 'upsell' product_slug='hwa-video' %}" class="btn btn-primary buy-button" data-title="Hello Web App Video Paperback package" data-price="179">Buy the full course for $179</a>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                 <p>Learn better with a physical book? I got you! <strong>This package contains the eBooks</strong> (in all three formats) <strong>plus the paperback books</strong>. Shipping extra.</p>
             </div>
             <div class="text-center">
-                <a class="btn btn-secondary buy-button" data-title="Hello Web App Paperback" data-category="Hello Web App" data-price="59.95" href="{% url 'upsell' product='hwa-pb' %}">Buy for $59.95</a>
+                <a class="btn btn-secondary buy-button" data-title="Hello Web App Paperback" data-category="Hello Web App" data-price="59.95" href="{% url 'upsell' product_slug='hwa-pb' %}">Buy for $59.95</a>
             </div>
         </div>
     </div>
@@ -56,6 +56,6 @@
     </div>
     <p><strong>The digital books</strong>, lovingly designed by Tracy herself. Comes in PDF, .mobi, and .ePub formats for each.</p>
     <div class="text-center">
-        <a class="btn btn-secondary buy-button" data-title="Hello Web App eBooks" data-category="Hello Web App" data-price="34.95" href="{% url 'upsell' product='hwa-ebooks' %}">Buy for $34.95</a>
+        <a class="btn btn-secondary buy-button" data-title="Hello Web App eBooks" data-category="Hello Web App" data-price="34.95" href="{% url 'upsell' product_slug='hwa-ebooks' %}">Buy for $34.95</a>
     </div>
 </div>

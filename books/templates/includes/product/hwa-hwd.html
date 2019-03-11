@@ -26,7 +26,7 @@
             </ul>
 
             <div class="m-t-md m-b">
-              <a class="btn btn-primary buy-button" data-title="Hello Web Books Videos" data-category="Hello Web Books Combo" data-price="199" href="{% url 'upsell' product='hwb-video' %}">Buy the full course for $199</a>
+              <a class="btn btn-primary buy-button" data-title="Hello Web Books Videos" data-category="Hello Web Books Combo" data-price="199" href="{% url 'upsell' product_slug='hwb-video' %}">Buy the full course for $199</a>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 <p>Learn better with a physical book? I got you! <strong>This package contains the three eBooks</strong> (in all three formats) <strong>plus the paperback books</strong>. Shipping extra.</p>
             </div>
             <div class="text-center">
-                <a class="btn btn-secondary buy-button" data-title="Hello Web Books Paperbacks" data-category="Hello Web Books Combo" data-price="79.95" href="{% url 'upsell' product='hwb-pb' %}">Buy for $79.95 + shipping</a>
+                <a class="btn btn-secondary buy-button" data-title="Hello Web Books Paperbacks" data-category="Hello Web Books Combo" data-price="79.95" href="{% url 'upsell' product_slug='hwb-pb' %}">Buy for $79.95 + shipping</a>
             </div>
         </div>
     </div>
@@ -59,6 +59,6 @@
     </div>
     <p><strong>The digital books</strong>, lovingly designed by Tracy herself. Each book comes in PDF, .mobi, and .ePub formats.</p>
     <div class="text-center">
-        <a class="btn btn-secondary buy-button" data-title="Hello Web Books eBooks" data-category="Hello Web Books Combo" data-price="49.95" href="{% url 'upsell' product='hwb-ebooks' %}">Buy for $49.95</a>
+        <a class="btn btn-secondary buy-button" data-title="Hello Web Books eBooks" data-category="Hello Web Books Combo" data-price="49.95" href="{% url 'upsell' product_slug='hwb-ebooks' %}">Buy for $49.95</a>
     </div>
 </div>

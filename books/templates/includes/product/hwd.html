@@ -26,7 +26,7 @@
             </ul>
 
             <div class="m-t-md m-b">
-              <a class="btn btn-primary buy-button" data-title="Hello Web Design Videos" data-category="Hello Web Design" data-price="99" href="{% url 'upsell' product='hwd-video' %}">Buy the full course for {% if request.user.is_authenticated %}<s>$99</s> $79.20{% else %}$99{% endif %}</a>
+              <a class="btn btn-primary buy-button" data-title="Hello Web Design Videos" data-category="Hello Web Design" data-price="99" href="{% url 'upsell' product_slug='hwd-video' %}">Buy the full course for {% if request.user.is_authenticated %}<s>$99</s> $79.20{% else %}$99{% endif %}</a>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
                 <p>Learn better with a physical book? I got you! <strong>This package contains the eBook</strong> (in all three formats) <strong>plus the paperback book</strong>. Shipping extra.</p>
             </div>
             <div class="text-center">
-                <a class="btn btn-secondary buy-button" data-title="Hello Web Design Paperback" data-category="Hello Web Design" data-price="39.95" href="{% url 'upsell' product='hwd-pb' %}">Buy for {% if request.user.is_authenticated %}<s>$39.95</s> $31.96{% else %}$39.95{% endif %}</a>
+                <a class="btn btn-secondary buy-button" data-title="Hello Web Design Paperback" data-category="Hello Web Design" data-price="39.95" href="{% url 'upsell' product_slug='hwd-pb' %}">Buy for {% if request.user.is_authenticated %}<s>$39.95</s> $31.96{% else %}$39.95{% endif %}</a>
             </div>
         </div>
     </div>
@@ -59,6 +59,6 @@
     </div>
     <p><strong>The digital book</strong>, lovingly designed by Tracy herself. Comes in PDF, .mobi, and .ePub formats.</p>
     <div class="text-center">
-        <a class="btn btn-secondary buy-button" data-title="Hello Web Design eBooks" data-category="Hello Web Design" data-price="24.95" href="{% url 'upsell' product='hwd-ebooks' %}">Buy for {% if request.user.is_authenticated %}<s>$24.95</s> $19.96{% else %}$24.95{% endif %}</a>
+        <a class="btn btn-secondary buy-button" data-title="Hello Web Design eBooks" data-category="Hello Web Design" data-price="24.95" href="{% url 'upsell' product_slug='hwd-ebooks' %}">Buy for {% if request.user.is_authenticated %}<s>$24.95</s> $19.96{% else %}$24.95{% endif %}</a>
     </div>
 </div>
