@@ -55,9 +55,9 @@ analytics.page("Dashboard");
                         <a href="{% url 'course' product_slug=membership.product.get_slug %}" class="btn btn-primary">Read online</a>
                         {% endif %}
                         {% if membership.product.name == "Hello Web App" and not membership.video %}
-                        <a href="{% url 'charge' product="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t">Upgrade: Buy video course for 20% off ($115.24)</a>
+                        <a href="{% url 'charge' product_slug="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t">Upgrade: Buy video course for 20% off ($115.24)</a>
                         {% elif membership.product.name == "Hello Web Design" and not membership.video %}
-                        <a href="{% url 'charge' product="hwd-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t">Upgrade: Buy video course for 20% off ($59.24)</a>
+                        <a href="{% url 'charge' product_slug="hwd-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t">Upgrade: Buy video course for 20% off ($59.24)</a>
                         {% endif %}
                     </div>
                 </div>
@@ -75,9 +75,9 @@ analytics.page("Dashboard");
                         <h5>Hello Web Design</h5>
                         <p>Learn web design fundamentals and shortcuts. Everything you need to learn just enough design for your projects.</p>
                         <ul>
-                            <li><a href="{% url 'charge' product="hwd-video" %}?coupon=customerfriend">Buy the video package</a> for <b>$79.20</b> (originally $99.00). Add the paperback for $30 + shipping.</li>
-                            <li><a href="{% url 'charge' product="hwd-pb" %}?coupon=customerfriend">Buy the paperback package</a> for <b>$31.96</b> + shipping (originally $39.95).</li>
-                            <li><a href="{% url 'charge' product="hwd-ebooks" %}?coupon=customerfriend">Buy the eBook package</a> for <b>$19.96</b> (originally $24.95).</li>
+                            <li><a href="{% url 'charge' product_slug="hwd-video" %}?coupon=customerfriend">Buy the video package</a> for <b>$79.20</b> (originally $99.00). Add the paperback for $30 + shipping.</li>
+                            <li><a href="{% url 'charge' product_slug="hwd-pb" %}?coupon=customerfriend">Buy the paperback package</a> for <b>$31.96</b> + shipping (originally $39.95).</li>
+                            <li><a href="{% url 'charge' product_slug="hwd-ebooks" %}?coupon=customerfriend">Buy the eBook package</a> for <b>$19.96</b> (originally $24.95).</li>
                         </ul>
                         <a href="{% url 'learn-design' %}" class="btn btn-secondary btn-sm">See product page</a>
                     </div>
@@ -89,9 +89,9 @@ analytics.page("Dashboard");
                         <h5>Hello Web App</h5>
                         <p>Create a unique web app using Python 3 and Django 2.0 and launch on Heroku. Two book set.</p>
                         <ul>
-                            <li><a href="{% url 'charge' product="hwa-video" %}?coupon=customerfriend">Buy the video package</a> for <b>$143.20</b> (originally $179.00). Add the paperback for $30 + shipping.</li>
-                            <li><a href="{% url 'charge' product="hwa-pb" %}?coupon=customerfriend">Buy the paperback package</a> for <b>$47.96</b> + shipping (originally $59.95).</li>
-                            <li><a href="{% url 'charge' product="hwa-ebooks" %}?coupon=customerfriend">Buy the eBook package</a> for <b>$27.96</b> (originally $34.95).</li>
+                            <li><a href="{% url 'charge' product_slug="hwa-video" %}?coupon=customerfriend">Buy the video package</a> for <b>$143.20</b> (originally $179.00). Add the paperback for $30 + shipping.</li>
+                            <li><a href="{% url 'charge' product_slug="hwa-pb" %}?coupon=customerfriend">Buy the paperback package</a> for <b>$47.96</b> + shipping (originally $59.95).</li>
+                            <li><a href="{% url 'charge' product_slug="hwa-ebooks" %}?coupon=customerfriend">Buy the eBook package</a> for <b>$27.96</b> (originally $34.95).</li>
                         </ul>
                         <a href="{% url 'learn-django' %}" class="btn btn-secondary btn-sm">See product page</a>
                     </div>

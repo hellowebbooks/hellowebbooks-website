@@ -44,6 +44,13 @@ def dashboard(request):
     has_hwd = False
 
     memberships = Membership.objects.filter(customer__user=request.user)
+
+    # if someone has no memberships, means they went through the create account
+    # page but didn't buy a product. Redirect to charge.
+    if len(memberships) == 0:
+        messages.info(request, 'You will get access to the dashboard after ordering a product. :)')
+        return redirect('order')
+
     for m in memberships:
         if m.product.name == "Hello Web App":
             has_hwa = True
@@ -105,10 +112,19 @@ def edit_email(request):
     })
 
 
+# TODO: Set up something so people who made accounts but haven't bought
+# anything are tracked.
+# TODO: This view should be renamed to log in or create account
 def upsell(request, product_slug):
-    # User is logged in, go straight to buy page
-    if request.user.is_authenticated and 'giftee_user' not in request.session:
+    # User is logged in, go straight to buy page (as long as they're not a
+    # gifted user or someone who made a log in but hasn't bought yet.)
+    if request.user.is_authenticated and 'giftee_user' not in request.session and 'brand_new_user' not in request.session:
         return redirect('/charge/%s' % product_slug + '?coupon=customerfriend')
+
+    # if they went through upsell page but haven't bought anything, go to charge
+    # page without the coupon
+    if request.user.is_authenticated and 'brand_new_user' in request.session:
+        return redirect('/charge/%s' % product_slug)
 
     # Get someone to log in OR create an account
     form_class = forms.AddEmailForm
