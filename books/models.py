@@ -17,6 +17,7 @@ class Customer(Timestamp):
     stripe_id = models.CharField(max_length=255, blank=True)
     last_4_digits = models.CharField(max_length=255, blank=True)
     coupon = models.CharField(max_length=255, blank=True)
+    gift = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created']

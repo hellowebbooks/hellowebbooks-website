@@ -2,6 +2,7 @@ import os
 import stripe
 
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordResetForm
 from django.core.mail import send_mail, mail_admins
 from django.shortcuts import redirect
@@ -120,7 +121,7 @@ def create_stripe_customer(product, user, source, shipping, coupon):
             mail_admins("Bad happenings on HWB", "Payment failure for [%s] - [%s]" % (user.email, e))
         return redirect('charge', product=product)
 
-    return customer, id
+    return id
 
 
 def create_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2):
@@ -143,7 +144,7 @@ def create_memberships(supplement, has_paperback, video, customer, product_obj, 
         )
         membership.save()
 
-        if hwb_bundle:
+        if product_obj2:
             membership2 = Membership(
                 customer = customer,
                 product = product_obj2,
@@ -153,12 +154,10 @@ def create_memberships(supplement, has_paperback, video, customer, product_obj, 
             membership2.save()
 
 
-def send_admin_charge_success_email(user_email, product_name, has_paperback, supplement):
-    # This is a silly way to do things, make this better.
-    if has_paperback:
-        content = '%s bought %s. Supplement: %s. Shipping: YES, check in Stripe.' % (user_email, product_name, supplement)
-    else:
-        content = '%s bought %s. Supplement: %s. Woohoo!' % (user_email, product_name, supplement)
+def send_admin_charge_success_email(user_email, product_name, has_paperback, supplement, gifted_product):
+    # FIXME: Need to pass along shipping details too
+    # TODO: This is a silly way to do things, make this better.
+    content = '%s bought %s. Supplement: %s. Shipping: %s. Gifted? %s' % (user_email, product_name, supplement, has_paperback, gifted_product)
 
     # send email to admin
     send_mail(
@@ -172,9 +171,7 @@ def send_admin_charge_success_email(user_email, product_name, has_paperback, sup
 def send_giftee_password_reset(request, email, product_name, giftee_message):
     form = PasswordResetForm({'email': email})
     assert form.is_valid()
-    # XXX: Package name is incorrect
     # XXX: Test that empty messages work
-    print(giftee_message)
     form.save(
         request=request,
         from_email="tracy@hellowebbooks.com",

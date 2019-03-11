@@ -8,7 +8,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from django.contrib.auth.views import password_change, password_change_done, password_reset, password_reset_done, password_reset_confirm, password_reset_complete
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 from books import views
 from books.sitemap import StaticSitemap, HomepageSitemap, PostPageSitemap
@@ -75,22 +75,27 @@ urlpatterns = [
     path('check_coupon/', views.check_coupon, name='check_coupon'),
 
     # registration
-    path('accounts/password/reset/', password_reset,
-        {'template_name': 'registration/password_reset_form.html'}, name="password_reset"),
-    path('accounts/password/reset/done/', password_reset_done,
-        {'template_name': 'registration/password_reset_done.html'}, name="password_reset_done"),
-    path('accounts/password/reset/<uidb64>/<token>/', password_reset_confirm,
-        {'template_name': 'registration/password_reset_confirm.html'}, name="password_reset_confirm"),
-    path('accounts/password/giftee/<uidb64>/<token>/', views.GifteePasswordResetConfirmView.as_view(),
+    # XXX: Check all these views
+    path('accounts/password/reset/',
+        PasswordResetView.as_view(template_name='registration/password_reset_form.html'),
+        name='password_reset'),
+    path('accounts/password/reset/done/',
+        PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
+        name='password_reset_done'),
+    path('accounts/password/reset/<uidb64>/<token>/',
+        PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),
+        name='password_reset_confirm'),
+    path('accounts/password/giftee/<uidb64>/<token>/',
+        views.GifteePasswordResetConfirmView.as_view(),
         name="giftee_password_reset_confirm"),
-    path('accounts/password/done/', password_reset_complete,
-        {'template_name': 'registration/password_reset_complete.html'},
-        name="password_reset_complete"),
-    path('accounts/password/change/', password_change, {
-        'template_name': 'registration/password_change_form.html'},
+    path('accounts/password/done/',
+        PasswordResetDoneView.as_view(template_name='registration/password_reset_complete.html'),
+        name='password_reset_complete'),
+    path('accounts/password/change/',
+        PasswordChangeView.as_view(template_name='registration/password_change_form.html'),
         name='password_change'),
-    path('accounts/password/change/done/', password_change_done,
-        {'template_name': 'registration/password_change_done.html'},
+    path('accounts/password/change/done/',
+        PasswordChangeDoneView.as_view(template_name='registration/password_change_done.html'),
         name='password_change_done'),
 
     path('login/', RedirectView.as_view(url='/accounts/login/')),

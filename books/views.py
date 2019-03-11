@@ -4,7 +4,7 @@ import stripe
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate, views as auth_views
+from django.contrib.auth import login, authenticate, views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -162,6 +162,8 @@ def upsell(request, product):
                         password=password,
                     )
                     request.session['brand_new_user'] = True
+                    # XXX: Maybe don't log in the person? Because then
+                    # if they return to the page, it gives them a discount
                     login(request, user)
                     return redirect('charge', product=product)
 
@@ -189,7 +191,6 @@ def gift(request, product):
         email = request.POST['gifteeEmail']
         message = request.POST['gifteeMessage']
         username = email.replace("@", "").replace(".", "")
-        password = User.objects.make_random_password()
 
         # FIXME: What should we do if someone *already* has an account?
         # Need to create a backend so I can log into the user without a
@@ -210,35 +211,18 @@ def gift(request, product):
         messages.error(request, "That person already has an account on Hello Web Books! This is a use-case that Tracy hasn't written the code for yet (whoops.) Please email tracy@hellowebbooks.com and she'll set it up manually with a discount for your trouble.")
         return redirect('upsell', product=product)
 
-        """
-        try:
-            user = User.objects.create_user(
-                username=username,
-                email=email,
-                password=password,
-            )
-        except IntegrityError as e:
-            mail_admins("Bad happenings on HWB", "Attempting to gift a product to someone who already has an account.")
-            messages.error(request, "That person already has an account on Hello Web Books! This is a use-case that Tracy hasn't written the code for yet (whoops.) Please email tracy@hellowebbooks.com and she'll set it up manually with a discount for your trouble.")
-            return redirect('order')
-        """
 
-
-@login_required
 def charge(request, product=None):
     user = request.user
-    hwb_bundle = False
 
     # TODO: check whether we're going to this page with a coupon specified
     coupon_supplied = request.GET.get("coupon", None)
 
     amount, product_name, us_postage, can_postage, aus_postage, eur_postage, else_postage, paperback_price = helpers.product_details(product)
-    product_obj, product_obj2, paperback, video, supplement = helpers.split_product(product)
+    product_obj, product_obj2, paperback, video, supplement = helpers.product_split(product)
 
     if request.method == "POST":
-        print(request.session['giftee_user'])
-        print(request.session['giftee_email'])
-        print(request.session['giftee_message'])
+        gifted_product = False
 
         source = request.POST['stripeToken']
         amount = int(float(request.POST['paymentAmount'])) # rounds down in case of half numbers
@@ -251,16 +235,46 @@ def charge(request, product=None):
         args = json.loads(request.POST['stripeArgs'])
         shipping = helpers.shipping_details(args)
 
-        # See if they're already a customer
-        try:
-            existing_customer = True
-            customer = Customer.objects.get(user=request.user)
-            id = customer.stripe_id
-        except Customer.DoesNotExist: # New customer
-            existing_customer = False
-            customer, id = helpers.create_stripe_customer(product, user, source, shipping, coupon)
+        # Check whether this is a gifted product
+        if 'giftee_user' in request.session:
+            try:
+                user = User.objects.create_user(
+                    username=request.session['giftee_user'],
+                    email=request.session['giftee_email'],
+                    password=User.objects.make_random_password(),
+                )
+                gifted_product = True
+            except IntegrityError as e:
+                mail_admins("Bad happenings on HWB", "Attempting to gift a product to someone who already has an account.")
+                messages.error(request, "That person already has an account on Hello Web Books! This is a use-case that Tracy hasn't written the code for yet (whoops.) Please email tracy@hellowebbooks.com and she'll set it up manually with a discount for your trouble.")
+                return redirect('order')
 
-        # charge the customer!
+        # See if they're already a customer if this is not a gift
+        existing_customer = False
+        if not gifted_product:
+            try:
+                customer = Customer.objects.get(user=request.user)
+                id = customer.stripe_id
+                existing_customer = True
+            except Customer.DoesNotExist: # New customer
+                pass
+
+        # if the customer is buying something and their account was gifted,
+        # the stripe customer needs to be wiped and replaced with a new customer
+        if customer.gift:
+            # retrieve listing from stripe, delete
+            cu = stripe.Customer.retrieve(customer.stripe_id)
+            try:
+                cu.delete()
+            except stripe.error.InvalidRequestError:
+                # customer not found on Stripe's end, might have already been deleted
+                pass
+
+        # create the stripe customer for the gifted-user or the new-user
+        if gifted_product or not existing_customer or customer.gift:
+            id = helpers.create_stripe_customer(product, user, source, shipping, coupon)
+
+        # charge the customer
         charge = stripe.Charge.create(
             customer=id,
             amount=amount, # set above POST
@@ -269,12 +283,20 @@ def charge(request, product=None):
             shipping=shipping,
         )
 
-        if not existing_customer: # create the customer object
+        if not existing_customer:
             customer = Customer(
                 stripe_id = id,
                 last_4_digits = charge.source.last4,
                 user = user,
+                gift = gifted_product, # if this is a gifted product, then this'll be set to true
             )
+
+        # gifted customer should have added their credit card by now, so we can
+        # update their Customer object
+        if customer.gift:
+            customer.stripe_id = id
+            customer.last_4_digits = charge.source.last4,
+            customer.gift = False
 
         # overwrite coupon if another is used
         if coupon:
@@ -282,15 +304,14 @@ def charge(request, product=None):
         customer.save()
 
         # save the memberships in the database
-        create_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2)
+        helpers.create_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2)
 
         # send success email to admin
-        # FIXME: Need to pass along shipping details too
-        send_admin_charge_success_email(user.email, product_name, has_paperback, supplement)
+        helpers.send_admin_charge_success_email(user.email, product_name, has_paperback, supplement, gifted_product)
 
         # if this is a gifted product, send the person a gift email
         if 'giftee_user' in request.session:
-            send_giftee_password_reset(request, user.email, product.name, request.session.get('giftee_message'))
+            helpers.send_giftee_password_reset(request, user.email, product_name, request.session.get('giftee_message'))
             messages.success(request, "Success! We've sent an email to your giftee with how to access their files.")
             return redirect('order')
 
