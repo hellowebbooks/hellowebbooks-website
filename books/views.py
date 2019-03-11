@@ -197,7 +197,6 @@ def gift(request, product):
         # password re: https://stackoverflow.com/questions/6560182/django-authentication-without-a-password
         # PUNTING for now
 
-        # XXX: Oh snap, shouldn't make accounts until AFTER someone puts in credit card.
         # Make sure there isn't a user account for this yet.
         try:
             User.objects.get(email=email)
@@ -251,17 +250,20 @@ def charge(request, product=None):
 
         # See if they're already a customer if this is not a gift
         existing_customer = False
+        gifted_customer = False
         if not gifted_product:
             try:
                 customer = Customer.objects.get(user=request.user)
                 id = customer.stripe_id
                 existing_customer = True
+                if customer.gift:
+                    gifted_customer = True
             except Customer.DoesNotExist: # New customer
                 pass
 
         # if the customer is buying something and their account was gifted,
         # the stripe customer needs to be wiped and replaced with a new customer
-        if customer.gift:
+        if gifted_customer:
             # retrieve listing from stripe, delete
             cu = stripe.Customer.retrieve(customer.stripe_id)
             try:
@@ -271,7 +273,7 @@ def charge(request, product=None):
                 pass
 
         # create the stripe customer for the gifted-user or the new-user
-        if gifted_product or not existing_customer or customer.gift:
+        if gifted_product or not existing_customer or gifted_customer:
             id = helpers.create_stripe_customer(product, user, source, shipping, coupon)
 
         # charge the customer
@@ -293,7 +295,7 @@ def charge(request, product=None):
 
         # gifted customer should have added their credit card by now, so we can
         # update their Customer object
-        if customer.gift:
+        if gifted_customer:
             customer.stripe_id = id
             customer.last_4_digits = charge.source.last4,
             customer.gift = False
@@ -322,6 +324,9 @@ def charge(request, product=None):
 
     else:
         form = forms.StripePaymentForm()
+
+    # XXX: Also, we need to sign people up for our email newsleter correctly
+    # after buying
 
     return render(request, "order/charge.html", {
         'form': form,

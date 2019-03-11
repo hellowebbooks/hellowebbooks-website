@@ -156,6 +156,7 @@ def create_memberships(supplement, has_paperback, video, customer, product_obj, 
 
 def send_admin_charge_success_email(user_email, product_name, has_paperback, supplement, gifted_product):
     # FIXME: Need to pass along shipping details too
+    # FIXME: Price would be nice here too
     # TODO: This is a silly way to do things, make this better.
     content = '%s bought %s. Supplement: %s. Shipping: %s. Gifted? %s' % (user_email, product_name, supplement, has_paperback, gifted_product)
 
