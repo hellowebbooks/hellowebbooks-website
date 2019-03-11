@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 from books.widgets import NoNameTextInput
 
-
+# TODO: Might be good to update this later to update the username too so we aren't doing two database saves
 class EditEmailForm(forms.ModelForm):
     class Meta:
         model = User

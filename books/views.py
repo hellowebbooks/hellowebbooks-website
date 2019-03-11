@@ -67,7 +67,7 @@ def dashboard(request):
     })
 
 
-# FIXME: Are these needed anymore?
+# XXX: Are these needed anymore?
 @login_required
 def product_page(request, product_slug):
     if product_slug == "hello-web-app":
@@ -78,6 +78,7 @@ def product_page(request, product_slug):
     return redirect('dashboard')
 
 
+# XXX: Remove me
 @login_required
 def hwa(request):
     product_name = "Hello Web App"
@@ -93,6 +94,7 @@ def hwa(request):
     })
 
 
+# XXX: Remove me
 @login_required
 def hwd(request):
     product_name = "Hello Web Design"
@@ -118,6 +120,23 @@ def edit_email(request):
         form = form_class(data=request.POST, instance=user)
         if form.is_valid():
             form.save()
+            # TODO: Might be good to update this later to update the username
+            # too so we aren't doing two database saves
+
+            # update their "username" accordingly
+            email = user.email
+            username = email.replace("@", "").replace(".", "")
+            user.username = username
+            user.save()
+
+            # update their email address in stripe too
+            customer = Customer.objects.get(user=user)
+            stripe.Customer.modify(
+                customer.stripe_id,
+                email=user.email,
+                description=user.username,
+            )
+
             messages.success(request, 'Your email address has been updated!')
             return redirect('dashboard')
 
