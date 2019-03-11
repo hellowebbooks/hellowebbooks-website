@@ -25,8 +25,6 @@ PRODUCT_LOOKUP = {
     'hwd-video-supplement': Product('hwd-video-supplement', 'Hello Web Design Video Supplement', 7405, 1000, 300, 800, 1300, 2000, 1500, ),
  }
 
-# XXX: The content files, if they're the content from the books, need to be
-# hidden from git and moved to server manually (or something)
 #for key, value in hwa_course.iteritems():
 #    print key, value['name']
 course_list = OrderedDict({

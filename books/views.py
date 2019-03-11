@@ -153,7 +153,7 @@ def upsell(request, product_slug):
                         password=password,
                     )
                     request.session['brand_new_user'] = True
-                    # XXX: Maybe don't log in the person? Because then
+                    # FIXME: Maybe don't log in the person? Because then
                     # if they return to the page, it gives them a discount
                     login(request, user)
                     return redirect('charge', product_slug=product_slug)

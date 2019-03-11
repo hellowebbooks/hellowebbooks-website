@@ -172,7 +172,6 @@ def send_admin_charge_success_email(user_email, product_name, has_paperback, sup
 def send_giftee_password_reset(request, email, product_name, giftee_message):
     form = PasswordResetForm({'email': email})
     assert form.is_valid()
-    # XXX: Test that empty messages work
     form.save(
         request=request,
         from_email="tracy@hellowebbooks.com",

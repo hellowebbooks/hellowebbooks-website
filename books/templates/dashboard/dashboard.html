@@ -20,7 +20,7 @@ analytics.page("Dashboard");
         <div class="col-md-9">
             <h2>Your products:</h2>
             <section id="memberships">
-                <!-- XXX: This needs to be updated so if only one book, it doesn't go gigantic -->
+                <!-- FIXME: This needs to be updated so if only one book, it doesn't go gigantic -->
                 {% for membership in memberships %}
                 <div class="box {{ membership.product.name|slugify }}">
                     <div class="content">
