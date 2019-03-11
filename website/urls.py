@@ -56,9 +56,6 @@ urlpatterns = [
     # dashboard and logged in views
     path('dashboard/', views.dashboard, name="dashboard"),
     path('dashboard/edit-email/', views.edit_email, name="edit_email"),
-    path('dashboard/hello-web-app/', views.hwa, name="hwa"),
-    path('dashboard/hello-web-design/', views.hwd, name="hwd"),
-    path('dashboard/<product_id>/', views.product_page, name="product_page"),
 
     # course and video pages
     path('course/<product_slug>/', views.course, name="course"),

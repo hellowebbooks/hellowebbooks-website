@@ -67,49 +67,6 @@ def dashboard(request):
     })
 
 
-# XXX: Are these needed anymore?
-@login_required
-def product_page(request, product_slug):
-    if product_slug == "hello-web-app":
-        return redirect('hwa')
-    elif product_slug == "hello-web-design":
-        return redirect('hwd')
-
-    return redirect('dashboard')
-
-
-# XXX: Remove me
-@login_required
-def hwa(request):
-    product_name = "Hello Web App"
-
-    membership = Membership.objects.get(
-        customer__user=request.user,
-        product__name=product_name,
-    )
-
-    return render(request, 'dashboard/product/hello-web-app.html', {
-        'membership': membership,
-        'product_name': product_name,
-    })
-
-
-# XXX: Remove me
-@login_required
-def hwd(request):
-    product_name = "Hello Web Design"
-
-    membership = Membership.objects.get(
-        customer__user=request.user,
-        product__name=product_name,
-    )
-
-    return render(request, 'dashboard/product/hello-web-design.html', {
-        'membership': membership,
-        'product_name': product_name,
-    })
-
-
 @login_required
 def edit_email(request):
     user = request.user
