@@ -406,7 +406,15 @@ figure.video {
 }
 
 @include media-breakpoint-down(sm) {
-    #course-sidebar { display: none; }
+    #course-sidebar {
+        padding-top: 1.3em;
+        display: none;
+        background-color: #f7f7f9;
+        animation: animateleft 0.2s;
+    }
+    @keyframes animateleft{
+        from { left:-300px; } to { left:0; }
+    }
 }
 
 #course-name {

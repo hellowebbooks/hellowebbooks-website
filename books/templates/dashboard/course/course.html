@@ -22,6 +22,15 @@ analytics.page("{{ product.name }} Course Dashboard");
 
         <!-- FIXME: This probably should go under a popout menu -->
         <!-- TODO: Add in a page to track updates to the online content -->
+        <div class="col-xs-2 hidden-md-up">
+            <button class="h4 m-b-md" onclick="w3_toggle()" style="color:#498D90; padding:0">&#9776;</button>
+        </div>
+        <div class="col-xs-10 text-right hidden-md-up">
+            {% if next_link %}
+            <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary m-b" style="white-space: normal;">{{ next_name }} →</a>
+            {% endif %}
+        </div>
+        <div class="clearfix hidden-md-up"></div>
         <div id="course-sidebar" class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
             <h4 class="m-t-0">{% if membership.video %}Videos / {% endif %}Content</h4>
             {% for module, chapters in course.items %}
@@ -59,7 +68,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                 <div class="col-xs-8">
                     <h1 class="h3 m-b" id="course-name"><b>{{ video_name }}</b></h1>
                 </div>
-                <div class="col-xs-4 text-right">
+                <div class="col-xs-4 text-right hidden-md-down">
                     {% if next_link %}
                     <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary m-r hidden-md-down" style="white-space: normal;">{{ next_name }} →</a>
                     <a href="{% url 'course_link' product_slug=product.get_slug link=next_link %}" class="btn btn-sm btn-secondary hidden-lg-up">Next →</a>
@@ -99,13 +108,9 @@ analytics.page("{{ product.name }} Course Dashboard");
 <script src="{% static '/js/highlight.pack.js' %}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 <script type="text/javascript">
-    /*
-    $(".chapter-link").click(function() {
-        const chapter = $(this).attr('data-chapter');
-        const name = $(this).attr('data-name');
-        document.getElementById("course-name").innerHTML = 'Chapter ' + chapter + ': <b>' + name + '</b>'
-        return false;
-    });
-    */
+    function w3_toggle() {
+        const div = document.getElementById("course-sidebar");
+        div.style.display = div.style.display == "none" ? "block" : "none";
+    }
 </script>
 {% endblock %}

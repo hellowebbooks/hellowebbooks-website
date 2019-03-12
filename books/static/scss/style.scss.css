@@ -5458,7 +5458,19 @@ figure.video iframe {
 
 @media (max-width: 47.9em) {
   #course-sidebar {
+    padding-top: 1.3em;
     display: none;
+    background-color: #f7f7f9;
+    animation: animateleft 0.2s;
+  }
+
+  @keyframes animateleft {
+    from {
+      left: -300px;
+    }
+    to {
+      left: 0;
+    }
   }
 }
 #course-name {
