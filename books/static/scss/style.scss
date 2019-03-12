@@ -236,7 +236,7 @@ figure.video {
     }
 }
 
-#login-nav, #main-nav {
+#login-nav, #main-nav nav {
     text-align: right;
     li {
         padding-right: 0;
@@ -253,6 +253,10 @@ figure.video {
             text-decoration: none;
         }
     }
+}
+
+@include media-breakpoint-down(lg) {
+    #main-nav .logo p { margin-left: 0; }
 }
 
 @include media-breakpoint-down(md) {

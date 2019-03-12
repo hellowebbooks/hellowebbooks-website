@@ -5298,25 +5298,30 @@ figure.video iframe {
   color: #666;
 }
 
-#login-nav, #main-nav {
+#login-nav, #main-nav nav {
   text-align: right;
 }
-#login-nav li, #main-nav li {
+#login-nav li, #main-nav nav li {
   padding-right: 0;
   padding-left: 1.5em;
 }
-#login-nav a, #main-nav a {
+#login-nav a, #main-nav nav a {
   font-weight: bold;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   color: #111;
   text-transform: uppercase;
 }
-#login-nav a:hover, #main-nav a:hover {
+#login-nav a:hover, #main-nav nav a:hover {
   color: #498D90;
   text-decoration: none;
 }
 
+@media (max-width: 74.9em) {
+  #main-nav .logo p {
+    margin-left: 0;
+  }
+}
 @media (max-width: 61.9em) {
   #main-nav {
     margin-bottom: 1em;
