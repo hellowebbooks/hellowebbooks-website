@@ -418,8 +418,6 @@ def course(request, product_slug, link=None):
     # loop through options to get details for this course
     video_url, course_name, course_template, prev_link, prev_name, next_link, next_name = helpers.get_course_info(course, link)
 
-    print(next_name)
-
     return render(request, "dashboard/course/course.html", {
         'product': product,
         'membership': membership,

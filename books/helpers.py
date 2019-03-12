@@ -194,11 +194,18 @@ def get_course_info(course, link):
     next_link = ""
     next_name = ""
     info_hit = False
+    stop_loop = False
+    once_more = False
 
-    for key, value in course.items():
-        total = len(value)
+    # loop through course
+    module_count = 0
+    module_total = len(course)
+    for k, v in course.items():
+        total = len(v)
+        module_count +=1
         count = 0
-        for key, value in value.items():
+        # loop through module
+        for key, value in v.items():
             count += 1
             if info_hit:
                 next_link = value['link']
@@ -217,7 +224,18 @@ def get_course_info(course, link):
 
             # if we're at the end of the loop, return early without filling out next
             if count == total and course_name:
+                stop_loop = True
+                break
+
+        # we should only get here if we returned early in the inner loop
+        if stop_loop and not once_more:
+            if module_count == module_total:
                 return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+            once_more = True
+            continue
+
+        if stop_loop and once_more:
+            return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
 
 
 def subscribe_to_newsletter(email, product_slug, has_paperback):

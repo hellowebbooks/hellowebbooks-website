@@ -408,6 +408,8 @@ figure.video {
 @include media-breakpoint-down(sm) {
     #course-sidebar {
         padding-top: 1.3em;
+        padding-bottom: 0.5em;
+        margin-bottom: 1.5em;
         display: none;
         background-color: #f7f7f9;
         animation: animateleft 0.2s;
@@ -448,6 +450,7 @@ figure.video {
         background-color: #f7f7f9 !important;
         padding: 1em 1em 1.1em 1em;
         margin-left: -1em;
+        margin-right: -0.9em;
         pre { margin-bottom: 0; }
     }
     p + pre {
@@ -457,6 +460,11 @@ figure.video {
 
 @include media-breakpoint-down(sm) {
     #course-content, #course-name { margin-left: 0; }
+    #course-content {
+        font-size: 90%;
+        p code { font-size: 90%; }
+        pre code { font-size: 70%; }
+    }
 }
 
 .course-video {

@@ -5459,6 +5459,8 @@ figure.video iframe {
 @media (max-width: 47.9em) {
   #course-sidebar {
     padding-top: 1.3em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1.5em;
     display: none;
     background-color: #f7f7f9;
     animation: animateleft 0.2s;
@@ -5511,6 +5513,7 @@ figure.video iframe {
   background-color: #f7f7f9 !important;
   padding: 1em 1em 1.1em 1em;
   margin-left: -1em;
+  margin-right: -0.9em;
 }
 #course-content pre pre {
   margin-bottom: 0;
@@ -5522,6 +5525,16 @@ figure.video iframe {
 @media (max-width: 47.9em) {
   #course-content, #course-name {
     margin-left: 0;
+  }
+
+  #course-content {
+    font-size: 90%;
+  }
+  #course-content p code {
+    font-size: 90%;
+  }
+  #course-content pre code {
+    font-size: 70%;
   }
 }
 .course-video figure {
