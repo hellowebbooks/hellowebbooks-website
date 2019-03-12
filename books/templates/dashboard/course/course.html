@@ -37,8 +37,8 @@ analytics.page("{{ product.name }} Course Dashboard");
             <p style="margin-bottom: 10px;"><b>{{ module }}</b></p>
             <ul class="list-unstyled course-list">
                 {% for k, v in chapters.items %}
-                <li style="margin-bottom: 10px; line-height:1.2;"{% if v.name == video_name %} class="active"{% endif %}>
-                    {% if v.name == video_name %}
+                <li style="margin-bottom: 10px; line-height:1.2;"{% if v.name == course_name %} class="active"{% endif %}>
+                    {% if v.name == course_name %}
                         <b>{{ v.name }}</b>
                     {% else %}
                     <a href="{% url 'course_link' product_slug=product.get_slug link=v.link %}" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
@@ -66,7 +66,7 @@ analytics.page("{{ product.name }} Course Dashboard");
         <div class="col-md-10">
             <div class="row m-b">
                 <div class="col-xs-8">
-                    <h1 class="h3 m-b" id="course-name"><b>{{ video_name }}</b></h1>
+                    <h1 class="h3 m-b" id="course-name"><b>{{ course_name }}</b></h1>
                 </div>
                 <div class="col-xs-4 text-right hidden-md-down">
                     {% if next_link %}
@@ -88,7 +88,7 @@ analytics.page("{{ product.name }} Course Dashboard");
             <div id="course-content" class="row">
                 <div class="col-lg-10 col-xl-8 p-l-0">
                 {% filter markdown %}
-{% include video_template %} <!-- if indented, markdown thinks its code. sigh -->
+{% include course_template %} <!-- if indented, markdown thinks its code. sigh -->
                 {% endfilter %}
                 </div>
             </div>

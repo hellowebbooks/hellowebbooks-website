@@ -416,7 +416,7 @@ def course(request, product_slug, link=None):
         link = 'intro'
 
     # loop through options to get details for this course
-    video_url, video_name, video_template, prev_link, prev_name, next_link, next_name = helpers.get_video_info_from_course(course, link)
+    video_url, course_name, course_template, prev_link, prev_name, next_link, next_name = helpers.get_course_info(course, link)
 
     print(next_name)
 
@@ -424,8 +424,8 @@ def course(request, product_slug, link=None):
         'product': product,
         'membership': membership,
         'course': course,
-        'video_template': video_template,
-        'video_name': video_name,
+        'course_template': course_template,
+        'course_name': course_name,
         'video_url': video_url,
         'prev_link': prev_link,
         'prev_name': prev_name,

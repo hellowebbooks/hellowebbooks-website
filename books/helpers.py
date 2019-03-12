@@ -185,10 +185,10 @@ def send_giftee_password_reset(request, email, product_name, giftee_message):
     request.session.pop('giftee_message', None)
 
 
-def get_video_info_from_course(course, link):
+def get_course_info(course, link):
     video_url = ""
-    video_name = ""
-    video_template = ""
+    course_name = ""
+    course_template = ""
     prev_link = ""
     prev_name = ""
     next_link = ""
@@ -203,7 +203,7 @@ def get_video_info_from_course(course, link):
             if info_hit:
                 next_link = value['link']
                 next_name = value['name']
-                return video_url, video_name, video_template, prev_link, prev_name, next_link, next_name
+                return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
 
             if value['link'] != link:
                 prev_link = value['link']
@@ -211,13 +211,13 @@ def get_video_info_from_course(course, link):
                 continue
 
             video_url = value['video']
-            video_name = value['name']
-            video_template = "dashboard/" + value['template']
+            course_name = value['name']
+            course_template = "dashboard/" + value['template']
             info_hit = True
 
             # if we're at the end of the loop, return early without filling out next
-            if count == total and video_name:
-                return video_url, video_name, video_template, prev_link, prev_name, next_link, next_name
+            if count == total and course_name:
+                return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
 
 
 def subscribe_to_newsletter(email, product_slug, has_paperback):
