@@ -302,6 +302,9 @@ def charge(request, product_slug=None):
         # send success email to admin
         helpers.send_admin_charge_success_email(user.email, product_name, has_paperback, supplement, gifted_product)
 
+        # subscribe the person to convertkit
+        helpers.subscribe_to_newsletter(user.email, product_slug, has_paperback)
+
         # if this is a gifted product, send the person a gift email
         if 'giftee_user' in request.session:
             helpers.send_giftee_password_reset(request, user.email, product_name, request.session.get('giftee_message'))
@@ -315,9 +318,6 @@ def charge(request, product_slug=None):
 
     else:
         form = forms.StripePaymentForm()
-
-    # XXX: Also, we need to sign people up for our email newsleter correctly
-    # after buying
 
     return render(request, "order/charge.html", {
         'form': form,

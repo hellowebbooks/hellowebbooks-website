@@ -1,5 +1,6 @@
 import os
 import stripe
+import requests
 
 from django.contrib import messages
 from django.contrib.auth import logout
@@ -217,3 +218,133 @@ def get_video_info_from_course(course, link):
             # if we're at the end of the loop, return early without filling out next
             if count == total and video_name:
                 return video_url, video_name, video_template, prev_link, prev_name, next_link, next_name
+
+
+def subscribe_to_newsletter(email, product_slug, has_paperback):
+    convertkit_secret = os.environ['CONVERTKIT_SECRET']
+    convertkit_public = os.environ['CONVERTKIT_PUBLIC']
+    convertkit_form_id = 874212 # the dummy form we're subscribing them to in convertkit
+
+    # this isn't used, it's for reference for the redonkulous if/else statement
+    CONVERTKIT_TAG_LOOKUP = {
+        'From: Website': '824915',
+        'Own: HWA': '330744',
+        'Own: HWA eBook': '330767',
+        'Own: HWA Paperback': '330768',
+        'Own: HWA Videos': '330769',
+        'Own: HWAIC': '330745',
+        'Own: HWAIC eBook': '330770',
+        'Own: HWAIC Paperback': '330776',
+        'Own: HWAIC Videos': '330771',
+        'Own: HWD': '330747',
+        'Own: HWD eBook': '330764',
+        'Own: HWD Paperback': '330765',
+        'Own: HWD Videos': '330766',
+    }
+
+    # by default, adding the "From: Website" tag
+    tags = ['824915',]
+
+    # FIXME: There *must* be a better way to do this. Fix me later.
+    if product_slug == 'hwb-video' and has_paperback:
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330747') # Own: HWD
+        tags.append('330769') # Own: HWA Videos
+        tags.append('330771') # Own: HWAIC Videos
+        tags.append('330766') # Own: HWD Videos
+        tags.append('330768') # Own: HWA Paperback
+        tags.append('330776') # Own: HWAIC Paperback
+        tags.append('330765') # Own: HWD Paperback
+    elif product_slug == 'hwb-video':
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330747') # Own: HWD
+        tags.append('330769') # Own: HWA Videos
+        tags.append('330771') # Own: HWAIC Videos
+        tags.append('330766') # Own: HWD Videos
+    elif product_slug == 'hwb-pb':
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330747') # Own: HWD
+        tags.append('330768') # Own: HWA Paperback
+        tags.append('330776') # Own: HWAIC Paperback
+        tags.append('330765') # Own: HWD Paperback
+    elif product_slug == 'hwb-ebooks' and has_paperback:
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330747') # Own: HWD
+        tags.append('330767') # Own: HWA eBook
+        tags.append('330770') # Own: HWAIC eBook
+        tags.append('330764') # Own: HWD eBook
+        tags.append('330768') # Own: HWA Paperback
+        tags.append('330776') # Own: HWAIC Paperback
+        tags.append('330765') # Own: HWD Paperback
+    elif product_slug == 'hwb-ebooks':
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330747') # Own: HWD
+        tags.append('330767') # Own: HWA eBook
+        tags.append('330770') # Own: HWAIC eBook
+        tags.append('330764') # Own: HWD eBook
+    elif product_slug == 'hwa-video' and has_paperback:
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330769') # Own: HWA Videos
+        tags.append('330771') # Own: HWAIC Videos
+        tags.append('330768') # Own: HWA Paperback
+        tags.append('330776') # Own: HWAIC Paperback
+    elif product_slug == 'hwa-video':
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330769') # Own: HWA Videos
+        tags.append('330771') # Own: HWAIC Videos
+    elif product_slug == 'hwa-pb':
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330768') # Own: HWA Paperback
+        tags.append('330776') # Own: HWAIC Paperback
+    elif product_slug == 'hwa-ebooks' and has_paperback:
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330767') # Own: HWA eBook
+        tags.append('330770') # Own: HWAIC eBook
+        tags.append('330768') # Own: HWA Paperback
+        tags.append('330776') # Own: HWAIC Paperback
+    elif product_slug == 'hwa-ebooks':
+        tags.append('330744') # Own: HWA
+        tags.append('330745') # Own: HWAIC
+        tags.append('330767') # Own: HWA eBook
+        tags.append('330770') # Own: HWAIC eBook
+    elif product_slug == 'hwd-video' and has_paperback:
+        tags.append('330747') # Own: HWD
+        tags.append('330766') # Own: HWD Videos
+        tags.append('330765') # Own: HWD Paperback
+    elif product_slug == 'hwd-video':
+        tags.append('330747') # Own: HWD
+        tags.append('330766') # Own: HWD Videos
+    elif product_slug == 'hwd-pb':
+        tags.append('330747') # Own: HWD
+        tags.append('330765') # Own: HWD Paperback
+    elif product_slug == 'hwd-ebooks' and has_paperback:
+        tags.append('330747') # Own: HWD
+        tags.append('330764') # Own: HWD eBook
+        tags.append('330765') # Own: HWD Paperback
+    elif product_slug == 'hwd-ebooks':
+        tags.append('330747') # Own: HWD
+        tags.append('330764') # Own: HWD eBook
+    elif product_slug == 'hwa-video-supplement':
+        tags.append('330769') # Own: HWA Videos
+    elif product_slug == 'hwd-video-supplement':
+        tags.append('330766') # Own: HWD Videos
+
+    # convert to comma delimited string for convertkit
+    tag_string = ','.join(map(str, tags))
+
+    # make api call
+    url = 'https://api.convertkit.com/v3/forms/%d/subscribe' % convertkit_form_id
+    payload = {'api_key': convertkit_public, 'email': email, 'tags': tag_string}
+    r = requests.post(url, params=payload)
+    if r.status_code != 200:
+        mail_admins("Subscribe to Convertkit failed (%d)" % r.status_code, "Subscribe failure for [%s], product: [%s]" % (email, product_slug))
+    return

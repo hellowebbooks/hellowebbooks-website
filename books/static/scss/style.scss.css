@@ -3276,6 +3276,10 @@ a.bg-danger:focus, a.bg-danger:hover {
   margin-bottom: 1rem !important;
 }
 
+.m-t-sm {
+  margin-top: 0.5rem !important;
+}
+
 .m-x-auto {
   margin-right: auto !important;
   margin-left: auto !important;
@@ -3819,6 +3823,10 @@ a.bg-danger:focus, a.bg-danger:hover {
 
 .fa-play-circle-o:before {
   content: "";
+}
+
+.fa-slack:before {
+  content: "";
 }
 
 /*
@@ -5488,9 +5496,15 @@ figure.video iframe {
   /* Opera 7 */
   word-wrap: break-word;
   /* Internet Explorer 5.5+ */
+  background-color: #f7f7f9 !important;
+  padding: 1em 1em 1.1em 1em;
+  margin-left: -1em;
 }
 #course-content pre pre {
   margin-bottom: 0;
+}
+#course-content p + pre {
+  margin-top: -1em;
 }
 
 @media (max-width: 47.9em) {
@@ -6056,15 +6070,16 @@ figure.video iframe {
 }
 .box .content .btn-sm {
   font-size: 0.7rem;
+  white-space: normal;
 }
 
 .box.hello-web-design {
-  background: url(../images/hwd/2.jpg) 0 -100px no-repeat;
+  background: url(../images/hwd/1.jpg) 0 -20px no-repeat;
   background-size: cover;
 }
 
 .box.hello-web-app {
-  background: url(../images/original/1.jpg) 0 -100px no-repeat;
+  background: url(../images/both/1.jpg) 0 -220px no-repeat;
   background-size: cover;
 }
 
@@ -6084,18 +6099,15 @@ figure.video iframe {
   font-size: 1rem;
 }
 
-.sidebar {
-  padding-left: 30px;
+@media (min-width: 62em) {
+  .sidebar {
+    padding-left: 30px;
+  }
 }
 .sidebar li {
   font-size: 1rem;
 }
 
-@media (max-width: 74.9em) {
-  .sidebar {
-    padding-left: 0px;
-  }
-}
 /* CHARGE PAGE */
 #update-payment-form .control-group {
   margin-top: 0;

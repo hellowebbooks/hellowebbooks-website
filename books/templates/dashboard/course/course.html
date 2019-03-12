@@ -15,7 +15,7 @@ analytics.page("{{ product.name }} Course Dashboard");
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-        <ul class="breadcrumb">
+        <ul class="breadcrumb hidden-sm-down">
             <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
             <li class="active">{{ product.name }} Course</li>
         </ul>
@@ -33,7 +33,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                         <b>{{ v.name }}</b>
                     {% else %}
                     <a href="{% url 'course_link' product_slug=product.get_slug link=v.link %}" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
-                        {% if v.video %}<i class="fa fa-play-circle-o"></i> {% endif %}{{ v.name }}
+                        {% if v.video and membership.video %}<i class="fa fa-play-circle-o"></i> {% endif %}{{ v.name }}
                     </a>
                     {% endif %}
                 </li>

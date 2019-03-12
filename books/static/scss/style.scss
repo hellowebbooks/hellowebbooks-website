@@ -437,7 +437,13 @@ figure.video {
         white-space: -pre-wrap;      /* Opera 4-6 */
         white-space: -o-pre-wrap;    /* Opera 7 */
         word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        background-color: #f7f7f9 !important;
+        padding: 1em 1em 1.1em 1em;
+        margin-left: -1em;
         pre { margin-bottom: 0; }
+    }
+    p + pre {
+        margin-top: -1em;
     }
 }
 
@@ -1045,15 +1051,16 @@ figure.video {
         }
         .btn-sm {
             font-size: 0.7rem;
+            white-space: normal;
         }
     }
 }
 .box.hello-web-design {
-    background: url(../images/hwd/2.jpg) 0 -100px no-repeat;
+    background: url(../images/hwd/1.jpg) 0 -20px no-repeat;
     background-size: cover;
 }
 .box.hello-web-app {
-    background: url(../images/original/1.jpg) 0 -100px no-repeat;
+    background: url(../images/both/1.jpg) 0 -220px no-repeat;
     background-size: cover;
 }
 
@@ -1079,21 +1086,15 @@ figure.video {
 }
 
 .sidebar {
-    padding-left: 30px;
+    @include media-breakpoint-up(lg) {
+        padding-left: 30px;
+    }
     li {
         font-size: 1rem;
     }
 }
 
-@include media-breakpoint-down(lg) {
-    .sidebar {
-        padding-left: 0px;
-    }
-}
-
 /* CHARGE PAGE */
-#charge-form {
-}
 #update-payment-form {
     .control-group { margin-top: 0; }
     input {
