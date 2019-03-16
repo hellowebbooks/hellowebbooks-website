@@ -71,7 +71,6 @@ urlpatterns = [
     path('check_coupon/', views.check_coupon, name='check_coupon'),
 
     # registration
-    # XXX: Check all these views
     path('accounts/password/reset/',
         PasswordResetView.as_view(template_name='registration/password_reset_form.html'),
         name='password_reset'),
@@ -138,7 +137,7 @@ urlpatterns = [
     path('tutorial/what-building/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
 
     # admin
-    #path('accounts/', include('django.contrib.auth.urls')),
+    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('admin/', admin.site.urls),
 
     # rss
