@@ -95,6 +95,7 @@ urlpatterns = [
 
     # rss
     path('rss.xml', PostFeed(), name='rss-feed'),
+    path('rss/', PostFeed(), name='rss-feed'),
 
     # sitemap
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

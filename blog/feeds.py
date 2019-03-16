@@ -10,10 +10,10 @@ class PostFeed(Feed):
     description = 'News, articles, and tutorials from Hello Web Books'
 
     def items(self):
-        return PostPage.objects.all()[:5]
+        return PostPage.objects.all()[:20]
 
     def item_title(self, item):
         return item.title
 
     def item_description(self, item):
-        return truncatewords(item.body, 20)
+        return item.body
