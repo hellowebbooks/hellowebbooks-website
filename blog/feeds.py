@@ -10,7 +10,7 @@ class PostFeed(Feed):
     description = 'News, articles, and tutorials from Hello Web Books'
 
     def items(self):
-        return PostPage.objects.all()[:20]
+        return PostPage.objects.all().order_by('-date')[:20]
 
     def item_title(self, item):
         return item.title
