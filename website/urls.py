@@ -8,6 +8,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from blog.feeds import PostFeed
 from books import views
 from books.sitemap import StaticSitemap, HomepageSitemap, PostPageSitemap
 
@@ -92,6 +93,10 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 
+    # rss
+    path('rss.xml', PostFeed(), name='rss-feed'),
+
+    # sitemap
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
