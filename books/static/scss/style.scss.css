@@ -5333,6 +5333,10 @@ figure.video iframe {
   line-height: 1.3;
 }
 
+.sub-categories li {
+  margin-bottom: 0.5em;
+}
+
 #post header h1 {
   margin-top: 1.5em;
 }
