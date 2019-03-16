@@ -20,14 +20,16 @@ analytics.page("Samples");
         </div>
     </div>
 
+    <div class="row"><div class="col-md-8 col-md-offset-2">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h2>Hello Web App</h2>
-            <img src="{% static 'images/original/1.jpg' %}" alt="Hello Web App book" style="margin-bottom: 10px" />
+            <img src="{% static 'images/both/1.jpg' %}" alt="Hello Web App book" style="margin-bottom: 10px" />
             <p><strong>Learn web app development</strong> using Python and Django with this step-by-step tutorial, from ideation to launching on Heroku.</p>
             <a href="http://hellobks.com/sample" class="btn btn-primary btn-sm">Get the sample</a>
-            <a href="{% url 'order' %}" class="btn btn-secondary btn-sm">Buy the book</a>
+            <a href="{% url 'learn-django' %}#hwa-packages" class="btn btn-secondary btn-sm">Buy the book</a>
         </div>
+        {% comment %}
         <div class="col-md-4">
             <h2 style="line-height:0.6;">Hello Web App: <br/><span style="font-size: 14px">Intermediate Concepts</span></h2>
             <img src="{% static 'images/ic/1.jpg' %}" alt="Hello Web App: Intermediate Concepts book" style="margin-bottom: 10px" />
@@ -35,7 +37,8 @@ analytics.page("Samples");
             <a href="http://hellobks.com/ic-sample" class="btn btn-primary btn-sm">Get the sample</a>
             <a href="{% url 'order' %}" class="btn btn-secondary btn-sm">Buy the book</a>
         </div>
-        <div class="col-md-4">
+        {% endcomment %}
+        <div class="col-md-6">
             <h2>Hello Web Design</h2>
             <img src="{% static 'images/hwd/1.jpg' %}" alt="Hello Web Design book" style="margin-bottom: 10px" />
             <p><strong>Learn web design.</strong> Covers visual, UX, and UI design principles and shortcuts, aimed at programmers, developers, and non-designers.</p>
@@ -43,6 +46,8 @@ analytics.page("Samples");
             <a href="{% url 'learn-design' %}#hwd-packages" class="btn btn-secondary btn-sm">Buy the book</a>
         </div>
     </div>
+    </div></div>
+    <hr style="margin:6em 0 0 0; border-color:#f7f7f7;"/>
 </div>
 
 {% endblock content %}
