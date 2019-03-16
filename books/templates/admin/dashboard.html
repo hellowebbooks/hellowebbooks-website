@@ -5,7 +5,18 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="text-center"><span class="highlight">Admin Dashboard</span></h1>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h1 class="text-center m-b-lg"><span class="highlight">Admin Dashboard</span></h1>
+            <div class="box text-center p-a-md" style="max-width: 200px;">
+                <b class="h3">Total number of customers:</b>
+                <div class="p-b-md p-l-lg p-r-lg p-t-md">
+                    <span class="highlight">{{ customer_count }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
 </div>
 {% endblock content %}
