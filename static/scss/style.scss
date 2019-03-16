@@ -128,27 +128,28 @@ hr {
   margin: 5em 5em;
 }
 
+#course-content hr { margin: 3em 5em; }
+
 @include media-breakpoint-down(sm) {
     hr { margin: 2em 2em; }
 }
 
-.vertical-margin {
-    margin-top: 1em;
-    margin-bottom: 1em;
+.breadcrumb {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 3em;
+    margin-top: 0;
 }
 
-.super-vertical-margin {
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
-
-.super-vertical-top-margin {
-    margin-top: 2em;
-    margin-bottom: 1em;
-}
-
-.no-bottom-margin {
-    margin-bottom: 0;
+#post-body, #course-content {
+    blockquote {
+        margin: 0 0 1rem;
+        border-left: 5px solid $hwd;
+        padding-left: 15px;
+        margin-left: -20px;
+        font-style: italic;
+    }
 }
 
 .content-block {
@@ -157,7 +158,6 @@ hr {
     margin-right: auto !important;
 }
 
-.clear { clear: both; }
 .social-media a {
   color: $body-color;
   &:hover {
@@ -236,7 +236,7 @@ figure.video {
     }
 }
 
-#login-nav, #main-nav {
+#login-nav, #main-nav nav {
     text-align: right;
     li {
         padding-right: 0;
@@ -253,6 +253,10 @@ figure.video {
             text-decoration: none;
         }
     }
+}
+
+@include media-breakpoint-down(lg) {
+    #main-nav .logo p { margin-left: 0; }
 }
 
 @include media-breakpoint-down(md) {
@@ -396,6 +400,95 @@ figure.video {
             text-decoration: none;
         }
     }
+}
+
+.course-list {
+    .active {
+        border-left: 5px solid $brand-primary;
+        padding-left: 10px;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    #course-sidebar {
+        padding-top: 1.3em;
+        padding-bottom: 0.5em;
+        margin-bottom: 1.5em;
+        display: none;
+        background-color: #f7f7f9;
+        animation: animateleft 0.2s;
+    }
+    @keyframes animateleft{
+        from { left:-300px; } to { left:0; }
+    }
+}
+
+#course-name {
+    margin-left: 1rem;
+    font-size: 2rem;
+}
+
+#course-content {
+    //max-width: 800px;
+    margin-left: 1rem;
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 400;
+    }
+    img {
+        box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+    img.no-shadow {
+        box-shadow: none;
+        border-radius: 0;
+    }
+    .hljs { display: contents !important; }
+    pre {
+        margin-top: 0;
+        white-space: pre-wrap;       /* css-3 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        background-color: #f7f7f9 !important;
+        padding: 1em 1em 1.1em 1em;
+        margin-left: -1em;
+        margin-right: -0.9em;
+        pre { margin-bottom: 0; }
+    }
+    p + pre {
+        margin-top: -1em;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    #course-content, #course-name { margin-left: 0; }
+    #course-content {
+        font-size: 90%;
+        p code { font-size: 90%; }
+        pre code { font-size: 70%; }
+    }
+}
+
+.course-video {
+    figure {
+        border:1px solid #e1e1e1;
+        background-color: #000;
+    }
+}
+
+.course-grid {
+    display: grid; // There Andrey, I did CSS Grid :P
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 1em;
+    margin-bottom: 2rem;
+    figure { margin-bottom: 0 !important; }
+    figcaption { font-size: 0.9rem !important; }
+}
+
+.course-grid-large {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 // all posts page
@@ -564,7 +657,7 @@ figure.video {
     }
 }
 
-#post, #tutorial {
+#post, #tutorial, #course-page {
     figure {
         margin: 1em 0 2em 0;
         figcaption {
@@ -953,11 +1046,6 @@ figure.video {
 }
 
 /* DASHBOARD */
-#membership-page #footer {
-    border-top: 5px solid #f7f7f7;
-    padding-top: 2em;
-}
-
 #memberships {
     display: grid; // There Andrey, I did CSS Grid :P
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -972,7 +1060,7 @@ figure.video {
         background-color: white;
         border-radius: 0 0 10px 10px;
         margin-top: 200px;
-        padding: 30px 20px;
+        padding: 30px 20px 25px 20px;
         h2 {
             margin: 0 0 5px 0;
             font-weight: 400;
@@ -983,15 +1071,16 @@ figure.video {
         }
         .btn-sm {
             font-size: 0.7rem;
+            white-space: normal;
         }
     }
 }
 .box.hello-web-design {
-    background: url(../images/hwd/2.jpg) 0 -100px no-repeat;
+    background: url(../images/hwd/1.jpg) 0 -20px no-repeat;
     background-size: cover;
 }
 .box.hello-web-app {
-    background: url(../images/original/1.jpg) 0 -100px no-repeat;
+    background: url(../images/both/1.jpg) 0 -220px no-repeat;
     background-size: cover;
 }
 
@@ -1010,30 +1099,23 @@ figure.video {
             font-weight: 400;
             font-size: 1.5rem;
         }
-        p {
+        p, li {
             font-size: 1rem;
         }
     }
 }
 
 .sidebar {
-    padding-left: 30px;
+    @include media-breakpoint-up(lg) {
+        padding-left: 30px;
+    }
     li {
         font-size: 1rem;
     }
 }
 
-@include media-breakpoint-down(lg) {
-    .sidebar {
-        padding-left: 0px;
-    }
-}
-
 /* CHARGE PAGE */
-#charge-form {
-}
-/*
-#payment-form {
+#update-payment-form {
     .control-group { margin-top: 0; }
     input {
         font-size: 20px;
@@ -1062,7 +1144,6 @@ figure.video {
         margin-top: 10px;
     }
 }
-*/
 #stripe-disclaimer {
     width: 500px;
     margin: 20px auto;

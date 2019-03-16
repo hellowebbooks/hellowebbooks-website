@@ -2,7 +2,7 @@
 // Textual form controls
 //
 
-.form-control {
+.form-control, input[type="text"], select, input[type="password"], input[type="email"], textarea  {
   display: block;
   width: 100%;
   // // Make inputs at least the height of their button counterpart (base line-height + padding + border)
@@ -145,18 +145,18 @@
 
 .form-control-sm {
   // height: $input-height-sm;
-  padding: $input-padding-y-sm $input-padding-x-sm;
-  font-size: $font-size-sm;
-  line-height: $line-height-sm;
-  border-radius: $input-border-radius-sm;
+  padding: $input-padding-y-sm $input-padding-x-sm !important;
+  font-size: $font-size-sm !important;
+  line-height: $line-height-sm !important;
+  border-radius: $input-border-radius-sm !important;
 }
 
 .form-control-lg {
   // height: $input-height-lg;
-  padding: $input-padding-y-lg $input-padding-x-lg;
-  font-size: $font-size-lg;
-  line-height: $line-height-lg;
-  border-radius: $input-border-radius-lg;
+  padding: $input-padding-y-lg $input-padding-x-lg !important;
+  font-size: $font-size-lg !important;
+  line-height: $line-height-lg !important;
+  border-radius: $input-border-radius-lg !important;
 }
 
 

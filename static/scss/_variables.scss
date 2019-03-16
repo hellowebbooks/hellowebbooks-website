@@ -220,9 +220,9 @@ $btn-primary-color:              #fff !default;
 $btn-primary-bg:                 $button-color !default;
 $btn-primary-border:             $btn-primary-bg !default;
 
-$btn-secondary-color:            #b5891b !default;
-$btn-secondary-bg:               #fafad2 !default;
-$btn-secondary-border:           lighten(#b5891b, 40%) !default;
+$btn-secondary-color:            #666666 !default;
+$btn-secondary-bg:               $gray-lighter !default;
+$btn-secondary-border:           $gray-lighter !default;
 
 $btn-info-color:                 #fff !default;
 $btn-info-bg:                    $brand-info !default;
@@ -243,15 +243,15 @@ $btn-danger-border:              $btn-danger-bg !default;
 $btn-link-disabled-color:        $gray-light !default;
 
 $btn-padding-x-sm:               .75rem !default;
-$btn-padding-y-sm:               .25rem !default;
+$btn-padding-y-sm:               .45rem !default;
 
 $btn-padding-x-lg:               1.25rem !default;
 $btn-padding-y-lg:               .75rem !default;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius:              $border-radius;
+$btn-border-radius:              10px;
 $btn-border-radius-lg:           $border-radius-lg;
-$btn-border-radius-sm:           $border-radius-sm;
+$btn-border-radius-sm:           7px;
 
 
 // Forms
@@ -575,10 +575,10 @@ $thumbnail-border-radius:     $border-radius !default;
 
 // Breadcrumbs
 
-$breadcrumb-padding-vertical:   .75rem !default;
+$breadcrumb-padding-vertical:   1rem !default;
 $breadcrumb-padding-horizontal: 1rem !default;
 
-$breadcrumb-bg:                 $gray-lighter !default;
+$breadcrumb-bg:                 transparent !default;
 $breadcrumb-divider-color:      $gray-light !default;
 $breadcrumb-active-color:       $gray-light !default;
 $breadcrumb-divider:            "/" !default;

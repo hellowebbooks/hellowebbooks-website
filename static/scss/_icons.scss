@@ -718,6 +718,12 @@ $fa-var-youtube-square: "\f166";
 .fa-envelope-o:before { content: "\f003"; }
 .fa-envelope:before { content: "\f0e0"; }
 .fa-rss:before { content: $fa-var-rss; }
+.fa-arrow-circle-left:before { content: $fa-var-arrow-circle-left; }
+.fa-arrow-circle-right:before { content: $fa-var-arrow-circle-right; }
+.fa-arrow-circle-up:before { content: $fa-var-arrow-circle-up; }
+.fa-arrow-circle-down:before { content: $fa-var-arrow-circle-down; }
+.fa-play-circle-o:before { content: $fa-var-play-circle-o; }
+.fa-slack:before { content: $fa-var-slack; }
 
 /*
 .fa-glass:before { content: $fa-var-glass; }
@@ -751,7 +757,6 @@ $fa-var-youtube-square: "\f166";
 .fa-arrow-circle-o-down:before { content: $fa-var-arrow-circle-o-down; }
 .fa-arrow-circle-o-up:before { content: $fa-var-arrow-circle-o-up; }
 .fa-inbox:before { content: $fa-var-inbox; }
-.fa-play-circle-o:before { content: $fa-var-play-circle-o; }
 .fa-rotate-right:before,
 .fa-repeat:before { content: $fa-var-repeat; }
 .fa-refresh:before { content: $fa-var-refresh; }
@@ -892,10 +897,6 @@ $fa-var-youtube-square: "\f166";
 .fa-hand-o-left:before { content: $fa-var-hand-o-left; }
 .fa-hand-o-up:before { content: $fa-var-hand-o-up; }
 .fa-hand-o-down:before { content: $fa-var-hand-o-down; }
-.fa-arrow-circle-left:before { content: $fa-var-arrow-circle-left; }
-.fa-arrow-circle-right:before { content: $fa-var-arrow-circle-right; }
-.fa-arrow-circle-up:before { content: $fa-var-arrow-circle-up; }
-.fa-arrow-circle-down:before { content: $fa-var-arrow-circle-down; }
 .fa-globe:before { content: $fa-var-globe; }
 .fa-wrench:before { content: $fa-var-wrench; }
 .fa-tasks:before { content: $fa-var-tasks; }
