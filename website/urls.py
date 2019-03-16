@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from django.views.generic import TemplateView, RedirectView
@@ -8,8 +9,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
-
+from blog.feeds import PostFeed
 from books import views
 from books.sitemap import StaticSitemap, HomepageSitemap, PostPageSitemap
 
@@ -141,6 +141,11 @@ urlpatterns = [
     #path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 
+    # rss
+    path('rss.xml', PostFeed(), name='rss-feed'),
+    path('rss/', PostFeed(), name='rss-feed'),
+
+    # sitemap
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
