@@ -181,6 +181,8 @@ span.highlight { background-color: $highlight; }
     color: #666;
 }
 
+.wrap-button { white-space: normal; }
+
 figure.video {
     position: relative;
     padding-bottom: 50%; /* to fit original ks video */
@@ -698,6 +700,7 @@ figure.video {
 
 // Product pages
 .product-page {
+    scroll-behavior: smooth;
     #main-nav {
         margin-bottom: 1em;
     }

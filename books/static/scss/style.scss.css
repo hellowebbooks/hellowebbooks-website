@@ -5241,6 +5241,10 @@ span.highlight {
   color: #666;
 }
 
+.wrap-button {
+  white-space: normal;
+}
+
 figure.video {
   position: relative;
   padding-bottom: 50%;
@@ -5757,6 +5761,9 @@ figure.video iframe {
   font-size: 80%;
 }
 
+.product-page {
+  scroll-behavior: smooth;
+}
 .product-page #main-nav {
   margin-bottom: 1em;
 }

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+
+{% block htmlclass %}<html style="scroll-behavior: smooth;">{% endblock %}
 {% block title %}Learn How to Build a Web App with Django - {{ block.super }}{% endblock %}
 
 {% block header %}
@@ -20,7 +22,7 @@ analytics.page("Original book landing page");
 {% endblock %}
 
 {% block bodyclass %}
-<body id="original"  class="product-page">
+<body id="original" class="product-page">
 {% endblock %}
 
 {% block content %}
