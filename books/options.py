@@ -350,7 +350,7 @@ course_list = OrderedDict({
             },
             '3.3': {
                 'name': 'Prototypes',
-                'video': '',
+                'video': 'https://player.vimeo.com/video/324816425',
                 'template': 'course/hwd/prototypes.md',
                 'link': 'prototypes',
             },
@@ -362,7 +362,7 @@ course_list = OrderedDict({
             },
             '3.5': {
                 'name': 'Coding Your Design',
-                'video': '',
+                'video': 'https://player.vimeo.com/video/324816579',
                 'template': 'course/hwd/coding.md',
                 'link': 'coding',
             },
@@ -370,7 +370,7 @@ course_list = OrderedDict({
         'Module 4': {
             '4.0': {
                 'name': 'Reassurances',
-                'video': '',
+                'video': 'https://player.vimeo.com/video/324816712',
                 'template': 'course/hwd/reassurances.md',
                 'link': 'reassurances',
             },
