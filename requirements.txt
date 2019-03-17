@@ -13,3 +13,4 @@ gunicorn
 stripe==2.17.0
 django-wagtail-feeds
 commonmark
+django-registration-redux==2.5
