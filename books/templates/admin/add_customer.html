@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admin Add Customer - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <ul class="breadcrumb p-l-0">
+                <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                <li class="active">Admin Add Customer</li>
+            </ul>
+
+            <h1>Add Customer</h1>
+            <form action="" method="post" class="form">
+                {% csrf_token %}
+                {% include 'includes/form.html' with form=form %}
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+            </form>
+        </div>
+    </div>
+
+    <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
+</div>
+{% endblock content %}

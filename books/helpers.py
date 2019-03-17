@@ -180,7 +180,6 @@ def send_giftee_password_reset(request, email, product_name, giftee_message):
         email_template_name='registration/giftee_password_reset_email.txt',
         extra_email_context={ 'product': product_name, 'message': giftee_message },
     )
-    logout(request)
     request.session.pop('giftee_user', None)
     request.session.pop('giftee_message', None)
 

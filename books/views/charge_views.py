@@ -171,7 +171,9 @@ def charge(request, product_slug=None):
                 pass
 
         # create the stripe customer for the gifted-user or the new-user
-        if gifted_product or not existing_customer or gifted_customer:
+        if gifted_product or not existing_customer or gifted_customer or not id:
+            # XXX: confirm that the customer object of gifter is overridden by
+            # the new customer object in Stripe
             id = helpers.create_stripe_customer(product_slug, user, source, shipping, coupon)
 
         # charge the customer
@@ -193,7 +195,7 @@ def charge(request, product_slug=None):
 
         # gifted customer should have added their credit card by now, so we can
         # update their Customer object
-        if gifted_customer:
+        if gifted_customer or not customer.stripe_id:
             customer.stripe_id = id
             customer.last_4_digits = charge.source.last4,
             customer.gift = False
@@ -215,6 +217,7 @@ def charge(request, product_slug=None):
         # if this is a gifted product, send the person a gift email
         if 'giftee_user' in request.session:
             helpers.send_giftee_password_reset(request, user.email, product_name, request.session.get('giftee_message'))
+            logout(request)
             messages.success(request, "Success! We've sent an email to your giftee with how to access their files.")
             return redirect('order')
 

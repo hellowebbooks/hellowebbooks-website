@@ -75,6 +75,7 @@ def admin_add_customer(request):
                 )
 
             # send User an email with how to access and reset the password
+            helpers.send_giftee_password_reset(request, user.email, "Hello Web Books", "Not a gift - you've been added by Tracy manually into the system!")
 
             # refresh page with success
             messages.success(request, 'Customer has been added!')
