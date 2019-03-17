@@ -10,8 +10,13 @@ analytics.page("500 Error");
 {% block content %}
 
 <div class="container">
-    <h1 class="text-center">Oops, 500 Server Error. :(</h1>
-      <p>This shouldn't happen and yet, here we are. Check back in the few minutes! Feel free to email me at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and let me know about the error.</p>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 m-y-md" >
+            <h1 class="text-center">Oops, 500 Server Error. :(</h1>
+            <p>This shouldn't happen and yet, here we are. Check back in the few minutes! Feel free to email me at <a href="mailto:tracy@hellowebbooks.com">tracy@hellowebbooks.com</a> and let me know about the error.</p>
+        </div>
+    </div>
+    <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
 </div>
 
 {% endblock content %}
