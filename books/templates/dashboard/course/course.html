@@ -34,6 +34,9 @@ analytics.page("{{ product.name }} Course Dashboard");
         <div id="course-sidebar" class="col-md-2 small" style="border-right:1px solid #e1e1e1;">
             <h4 class="m-t-0">{% if membership.video %}Videos / {% endif %}Content</h4>
             {% for module, chapters in course.items %}
+            {% if module == "Video Extras" and not membership.video %}
+            <!-- Hide extras from people who don't have videos on their membership -->
+            {% else %}
             <p style="margin-bottom: 10px;"><b>{{ module }}</b></p>
             <ul class="list-unstyled course-list">
                 {% for k, v in chapters.items %}
@@ -48,6 +51,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                 </li>
                 {% endfor %}
             </ul>
+            {% endif %}
             {% endfor %}
             <h4>Download Files</h4>
             <!-- FIXME: This isn't the best solution but it's good enough for now -->

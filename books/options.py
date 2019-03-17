@@ -144,7 +144,32 @@ course_list = OrderedDict({
                 'template': 'course/hwa/special-thanks.md',
                 'link': 'special-thanks',
             },
-            # TODO: Add in the "extra" videos here as well
+        },
+        'Video Extras': {
+            '0': {
+                'name': 'Example: Real Life Code',
+                'video': 'https://player.vimeo.com/video/124584929',
+                'template': 'course/empty.md',
+                'link': 'real-life-code',
+            },
+            '1': {
+                'name': 'Example: Adding A New Feature',
+                'video': 'https://player.vimeo.com/video/124593641',
+                'template': 'course/empty.md',
+                'link': 'extra-new-feature',
+            },
+            '2': {
+                'name': 'Example: Using Git',
+                'video': 'https://player.vimeo.com/video/124581543',
+                'template': 'course/empty.md',
+                'link': 'using-git',
+            },
+            '3': {
+                'name': 'Example: Using the Command Line',
+                'video': 'https://player.vimeo.com/video/124364480',
+                'template': 'course/empty.md',
+                'link': 'using-command-line',
+            },
         },
         'Intermediate Concepts': {
             '0': {
