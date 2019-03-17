@@ -25,6 +25,9 @@ class Customer(Timestamp):
     def __str__(self):
         return self.user.email
 
+    def user_email(self):
+        return self.user.email
+
 
 # FIXME: Hm, I may want a slugfield here
 class Product(models.Model):

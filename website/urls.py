@@ -137,6 +137,7 @@ urlpatterns = [
     path('tutorial/what-building/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
 
     # admin
+    path('admin/dashboard/add-customer/', views.admin_add_customer, name='admin_add_customer'),
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('admin/', admin.site.urls),
 

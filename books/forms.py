@@ -90,4 +90,13 @@ class MyAuthenticationForm(auth_forms.AuthenticationForm):
         username = email.replace("@", "").replace(".", "")
         return username
 
-#class GifteePasswordResetForm(auth_forms.PasswordResetForm):
+
+class AdminAddCustomerForm(forms.Form):
+    PRODUCTS = [
+        ('ebook', 'eBook Only'),
+        ('paperback', 'Video'),
+        ('video', 'Paperback'),
+    ]
+    email = forms.EmailField()
+    hello_web_app = forms.MultipleChoiceField(choices=PRODUCTS, widget=forms.CheckboxSelectMultiple(), required=False)
+    hello_web_design = forms.MultipleChoiceField(choices=PRODUCTS, widget=forms.CheckboxSelectMultiple(), required=False)
