@@ -29,16 +29,18 @@ def admin_add_customer(request):
             hello_web_design = form.cleaned_data['hello_web_design']
 
             # create user
+            """
             try:
                 User.objects.get(email=email)
                 messages.error(request, 'Email address found in system')
                 return redirect('admin_add_customer')
             except ObjectDoesNotExist:
-                user = User.objects.create_user(
-                    username=email.replace("@", "").replace(".", ""),
-                    email=email,
-                    password=User.objects.make_random_password(),
-                )
+            """
+            user = User.objects.create_user(
+                username=email.replace("@", "").replace(".", ""),
+                email=email,
+                password=User.objects.make_random_password(),
+            )
 
             # create Customer from user
             customer = Customer.objects.create(user=user)
