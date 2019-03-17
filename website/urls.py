@@ -37,7 +37,7 @@ urlpatterns = [
     path('privacy-policy/', TemplateView.as_view(template_name='privacy-policy.html'), name='privacy-policy'),
     path('samples/', TemplateView.as_view(template_name='samples.html'), name='samples'),
     path('setup/', TemplateView.as_view(template_name='setup.html'), name='setup'),
-    path('start/', TemplateView.as_view(template_name='start.html'), name='start'),
+    path('start/', RedirectView.as_view(url='/accounts/login/')),
     path('unsubscribe/', TemplateView.as_view(template_name='unsubscribe.html'), name='unsubscribe'),
     path('workshops/', TemplateView.as_view(template_name='workshops.html'), name='workshops'),
     path('write/', TemplateView.as_view(template_name='write.html'), name='write'),
