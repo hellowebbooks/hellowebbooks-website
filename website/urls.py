@@ -105,6 +105,7 @@ urlpatterns = [
     path('cmd-line-pdf/', RedirectView.as_view(url='https://goo.gl/LLGswY')),
     path('cmd-line-printable/', RedirectView.as_view(url='https://goo.gl/B38FeX')),
 
+    # blog categories redirects
     path('category/casestudy/', RedirectView.as_view(url='/news/category/casestudy/')),
     path('category/tutorial/', RedirectView.as_view(url='/news/category/tutorial/')),
     path('category/interviews/', RedirectView.as_view(url='/news/category/interviews/')),
@@ -112,6 +113,7 @@ urlpatterns = [
     path('category/design/', RedirectView.as_view(url='/news/category/design/')),
     path('category/development/', RedirectView.as_view(url='/news/category/development/')),
 
+    # old tutorial redirects
     path('tutorial/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
     path('tutorial/about-author/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),
     path('tutorial/broken/', RedirectView.as_view(pattern_name='learn-django', permanent=True)),

@@ -24,7 +24,7 @@ class StaticSitemap(Sitemap):
     protocol = "https"
 
     def items(self):
-        return ['about', 'contact', 'courses', 'donate', 'faq', 'migrate', 'order', 'press', 'privacy-policy', 'setup', 'start', 'workshops', 'write', 'django-intermediate-concepts', 'learn-command-line', 'learn-django', 'learn-design',]
+        return ['about', 'contact', 'courses', 'donate', 'faq', 'migrate', 'order', 'press', 'privacy-policy', 'setup', 'workshops', 'write', 'learn-command-line', 'learn-django', 'learn-design',]
 
     def location(self, item):
         return reverse(item)
