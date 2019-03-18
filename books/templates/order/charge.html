@@ -115,7 +115,7 @@ analytics.page("Add Credit Card Details");
     $(".price").html(pay_amount/100);
 
     var handler = StripeCheckout.configure({
-      key: 'pk_test_jiLBGxG4cd2MTORmantWx7PH',
+      key: '{{ publishable_key }}',
       image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
       locale: 'auto',
       image: "{% static '/images/icons/icon3.png' %}",
