@@ -177,13 +177,27 @@ def charge(request, product_slug=None):
             id = helpers.create_stripe_customer(request, product_slug, user, source, shipping, coupon)
 
         # charge the customer
-        charge = stripe.Charge.create(
-            customer=id,
-            amount=amount, # set above POST
-            currency='usd',
-            description=product_name,
-            shipping=shipping,
-        )
+        try:
+            charge = stripe.Charge.create(
+                customer=id,
+                amount=amount, # set above POST
+                currency='usd',
+                description=product_name,
+                shipping=shipping,
+            )
+        except stripe.error.CardError as e:
+            body = e.json_body
+            err  = body.get('error', {})
+            messages.error(request, err.message)
+            return redirect('charge', product_slug=product_slug)
+        except stripe.error.InvalidRequestError as e:
+            messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
+            mail_admins("Stripe Invalid Request Errror on HWB", "Payment failure for [%s] - [%s]" % (user.email, e))
+            return redirect('charge', product_slug=product_slug)
+        except stripe.error.StripeError as e:
+            messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
+            mail_admins("Bad happenings on HWB", "Payment failure for [%s] - [%s]" % (user.email, e))
+            return redirect('charge', product_slug=product_slug)
 
         if not existing_customer:
             customer = Customer(
