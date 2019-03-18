@@ -174,7 +174,7 @@ def charge(request, product_slug=None):
         if gifted_product or not existing_customer or gifted_customer or not id:
             # XXX: confirm that the customer object of gifter is overridden by
             # the new customer object in Stripe
-            id = helpers.create_stripe_customer(product_slug, user, source, shipping, coupon)
+            id = helpers.create_stripe_customer(request, product_slug, user, source, shipping, coupon)
 
         # charge the customer
         charge = stripe.Charge.create(

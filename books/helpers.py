@@ -93,7 +93,7 @@ def shipping_details(args):
     return shipping
 
 
-def create_stripe_customer(product, user, source, shipping, coupon):
+def create_stripe_customer(request, product, user, source, shipping, coupon):
     customer = None
 
     stripe_customer = dict(
