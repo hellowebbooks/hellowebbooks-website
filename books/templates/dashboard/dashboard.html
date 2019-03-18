@@ -52,9 +52,9 @@ analytics.page("Dashboard");
                         {% endif %}
                         <a href="https://hellowebbooks.slack.com/messages/{{ membership.product.get_slug }}/" class="btn btn-secondary btn-sm m-t-sm" style="vertical-align: bottom; margin-left:0.3em;" target="_blank"><i class="fa fa-slack"></i> Slack channel</a>
                         {% if membership.product.name == "Hello Web App" and not membership.video %}
-                        <a href="{% url 'charge' product_slug="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t-sm"><strong>Upgrade:</strong> Buy video course for 20% off ($115.24)</a>
+                        <a href="{% url 'charge' product_slug="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t-sm" style="vertical-align: bottom"><strong>Upgrade:</strong> Buy video course for 20% off ($115.24)</a>
                         {% elif membership.product.name == "Hello Web Design" and not membership.video %}
-                        <a href="{% url 'charge' product_slug="hwd-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t-sm"><strong>Upgrade:</strong> Buy video course for 20% off ($59.24)</a>
+                        <a href="{% url 'charge' product_slug="hwd-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t-sm" style="vertical-align: bottom"><strong>Upgrade:</strong> Buy video course for 20% off ($59.24)</a>
                         {% endif %}
                     </div>
                 </div>
