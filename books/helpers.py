@@ -115,7 +115,9 @@ def create_stripe_customer(request, product_slug, user, source, shipping, coupon
         messages.error(request, err.message)
         return redirect('charge', product_slug=product_slug)
     except stripe.error.StripeError as e:
-        if e.param == 'coupon':
+        body = e.json_body
+        err  = body.get('error', {})
+        if err.get('param') == 'coupon':
             messages.error(request, 'Sorry, that coupon is invalid!')
         else:
             messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
