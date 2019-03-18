@@ -93,7 +93,7 @@ def shipping_details(args):
     return shipping
 
 
-def create_stripe_customer(request, product, user, source, shipping, coupon):
+def create_stripe_customer(request, product_slug, user, source, shipping, coupon):
     customer = None
 
     stripe_customer = dict(
@@ -113,14 +113,14 @@ def create_stripe_customer(request, product, user, source, shipping, coupon):
         body = e.json_body
         err  = body.get('error', {})
         messages.error(request, err.message)
-        return redirect('charge', product=product)
+        return redirect('charge', product_slug=product_slug)
     except stripe.error.StripeError as e:
         if e.param == 'coupon':
             messages.error(request, 'Sorry, that coupon is invalid!')
         else:
             messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
             mail_admins("Bad happenings on HWB", "Payment failure for [%s] - [%s]" % (user.email, e))
-        return redirect('charge', product=product)
+        return redirect('charge', product_slug=product_slug)
 
     return id
 
