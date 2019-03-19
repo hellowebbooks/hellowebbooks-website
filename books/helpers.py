@@ -3,7 +3,6 @@ import stripe
 import requests
 
 from django.contrib import messages
-from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordResetForm
 from django.core.mail import send_mail, mail_admins
 from django.shortcuts import redirect
@@ -172,14 +171,14 @@ def send_admin_charge_success_email(user_email, product_name, has_paperback, sup
     )
 
 
-def send_giftee_password_reset(request, email, product_name, giftee_message):
+def send_giftee_password_reset(request, email, product_name, subject_template_name, email_template_name, giftee_message=None):
     form = PasswordResetForm({'email': email})
     assert form.is_valid()
     form.save(
         request=request,
         from_email="tracy@hellowebbooks.com",
-        subject_template_name='registration/giftee_password_reset_subject.txt',
-        email_template_name='registration/giftee_password_reset_email.txt',
+        subject_template_name=subject_template_name,
+        email_template_name=email_template_name,
         extra_email_context={ 'product': product_name, 'message': giftee_message },
     )
     request.session.pop('giftee_user', None)

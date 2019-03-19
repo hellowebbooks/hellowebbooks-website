@@ -4,7 +4,7 @@ import stripe
 
 from django.contrib import messages
 from django.conf import settings
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -230,7 +230,14 @@ def charge(request, product_slug=None):
 
         # if this is a gifted product, send the person a gift email
         if 'giftee_user' in request.session:
-            helpers.send_giftee_password_reset(request, user.email, product_name, request.session.get('giftee_message'))
+            helpers.send_giftee_password_reset(
+                request,
+                user.email,
+                product_name,
+                'registration/giftee_password_reset_subject.txt',
+                'registration/giftee_password_reset_email.txt',
+                request.session.get('giftee_message'),
+            )
             logout(request)
             messages.success(request, "Success! We've sent an email to your giftee with how to access their files.")
             return redirect('order')

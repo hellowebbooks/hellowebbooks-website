@@ -28,14 +28,12 @@ def admin_add_customer(request):
             hello_web_app = form.cleaned_data['hello_web_app']
             hello_web_design = form.cleaned_data['hello_web_design']
 
-            # create user
-            """
-            try:
-                User.objects.get(email=email)
+            # check to make sure they're not already in system
+            if User.objects.filter(email=email).exists():
                 messages.error(request, 'Email address found in system')
                 return redirect('admin_add_customer')
-            except ObjectDoesNotExist:
-            """
+
+            # create user
             user = User.objects.create_user(
                 username=email.replace("@", "").replace(".", ""),
                 email=email,
@@ -77,7 +75,13 @@ def admin_add_customer(request):
                 )
 
             # send User an email with how to access and reset the password
-            helpers.send_giftee_password_reset(request, user.email, "Hello Web Books", "Not a gift - you've been added by Tracy manually into the system!")
+            helpers.send_giftee_password_reset(
+                request,
+                user.email,
+                "Admin Add",
+                'registration/admin_add_password_reset_subject.txt',
+                'registration/admin_add_password_reset_email.txt',
+            )
 
             # refresh page with success
             messages.success(request, 'Customer has been added!')
