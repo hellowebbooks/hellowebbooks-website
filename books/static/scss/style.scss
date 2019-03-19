@@ -209,12 +209,13 @@ figure.video {
 #login-nav {
     background-color: $brand-secondary;
     ul {
-        margin-bottom: 2px;
-        margin-top: -5px;
-        li { font-size: 80%; }
+        margin: 0;
         a {
             color: #fff;
-            font-size: 0.6rem;
+            font-size: 0.7rem;
+            padding-bottom: 7px;
+            padding-top: 1px;
+            display: inline-block;
             &:hover { color: darken($highlight, 10%); }
         }
 

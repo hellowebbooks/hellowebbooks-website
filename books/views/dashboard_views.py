@@ -32,6 +32,7 @@ def dashboard(request):
         'memberships': memberships,
         'has_hwa': has_hwa,
         'has_hwd': has_hwd,
+        'dashboard_area': True,
         # FIXME: Bad hack. Replace with temporary generated URLs on a private S3 file.
         'hwa_pdf': os.environ['HWA_PDF'],
         'hwa_epub': os.environ['HWA_EPUB'],
@@ -74,6 +75,7 @@ def course(request, product_slug, link=None):
         'prev_name': prev_name,
         'next_link': next_link,
         'next_name': next_name,
+        'dashboard_area': True,
         # FIXME: Bad hack. Replace with temporary generated URLs on a private S3 file.
         'hwa_pdf': os.environ['HWA_PDF'],
         'hwa_epub': os.environ['HWA_EPUB'],
@@ -122,5 +124,5 @@ def edit_email(request):
 
     return render(request, 'dashboard/edit_email.html', {
         'form': form,
+        'dashboard_area': True,
     })
-

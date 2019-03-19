@@ -73,10 +73,9 @@
                 <p>Really friendly beginner web books by Tracy Osborn</p>
             </div>
             <nav class="col-md-6">
-                <ul class="list-inline">
+                <ul class="list-inline{% if dashboard_area %} hidden-xs-down{% endif %}">
                     <li><a href="{% url 'courses' %}">Books<span class="hidden-md-down"> + Courses<span></a></li>
                     <li><a href="/news">Articles<span class="hidden-md-down"> + Tutorials</span></a></li>
-                    {# <li><a href="{% url 'faq' %}">FAQ</a></li> #}
                     <li><a href="{% url 'order' %}"><span class="highlight">Buy</span></a></li>
                 </ul>
             </nav>

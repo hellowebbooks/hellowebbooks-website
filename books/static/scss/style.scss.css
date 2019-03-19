@@ -5273,15 +5273,14 @@ figure.video iframe {
   background-color: #498D90;
 }
 #login-nav ul {
-  margin-bottom: 2px;
-  margin-top: -5px;
-}
-#login-nav ul li {
-  font-size: 80%;
+  margin: 0;
 }
 #login-nav ul a {
   color: #fff;
-  font-size: 0.6rem;
+  font-size: 0.7rem;
+  padding-bottom: 7px;
+  padding-top: 1px;
+  display: inline-block;
 }
 #login-nav ul a:hover {
   color: #fff797;
