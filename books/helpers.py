@@ -176,7 +176,7 @@ def send_giftee_password_reset(request, email, product_name, subject_template_na
     assert form.is_valid()
     form.save(
         request=request,
-        from_email="tracy@hellowebbooks.com",
+        from_email="Tracy Osborn <tracy@hellowebbooks.com>",
         subject_template_name=subject_template_name,
         email_template_name=email_template_name,
         extra_email_context={ 'product': product_name, 'message': giftee_message },
