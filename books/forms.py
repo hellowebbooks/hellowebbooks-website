@@ -13,7 +13,7 @@ class EditEmailForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EditEmailForm, self).__init__(*args, **kwargs)
-        self.fields['email'].label = "Update your email address:"
+        self.fields['email'].label = "Update your email address"
 
 
 class AddEmailForm(forms.Form):
