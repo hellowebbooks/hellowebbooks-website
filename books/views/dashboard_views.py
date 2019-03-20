@@ -110,11 +110,13 @@ def edit_email(request):
 
             # update their email address in stripe too
             customer = Customer.objects.get(user=user)
-            stripe.Customer.modify(
-                customer.stripe_id,
-                email=user.email,
-                description=user.username,
-            )
+
+            if customer.stripe_id: # so this doesn't include gifted/imported folks
+                stripe.Customer.modify(
+                    customer.stripe_id,
+                    email=user.email,
+                    description=user.username,
+                )
 
             messages.success(request, 'Your email address has been updated!')
             return redirect('dashboard')
