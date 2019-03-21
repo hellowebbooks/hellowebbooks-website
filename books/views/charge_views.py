@@ -188,7 +188,7 @@ def charge(request, product_slug=None):
         except stripe.error.CardError as e:
             body = e.json_body
             err  = body.get('error', {})
-            messages.error(request, err.message)
+            messages.error(request, err.get('message'))
             return redirect('charge', product_slug=product_slug)
         except stripe.error.InvalidRequestError as e:
             messages.error(request, "Sorry, an error has occured! We've been emailed this issue and will be on it within 24 hours. If you'd like to know when we've fixed it, email tracy@hellowebbooks.com. Our sincere apologies.")
