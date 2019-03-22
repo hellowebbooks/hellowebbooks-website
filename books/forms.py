@@ -94,8 +94,8 @@ class MyAuthenticationForm(auth_forms.AuthenticationForm):
 class AdminAddCustomerForm(forms.Form):
     PRODUCTS = [
         ('ebook', 'eBook Only'),
-        ('paperback', 'Video'),
-        ('video', 'Paperback'),
+        ('paperback', 'Paperback'),
+        ('video', 'Video'),
     ]
     email = forms.EmailField()
     hello_web_app = forms.MultipleChoiceField(choices=PRODUCTS, widget=forms.CheckboxSelectMultiple(), required=False)
