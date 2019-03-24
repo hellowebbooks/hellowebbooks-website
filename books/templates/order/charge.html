@@ -25,7 +25,7 @@ analytics.page("Add Credit Card Details");
             <!-- FIXME: Add the image of the order here? -->
 
             <!-- TODO: Update the pricing area to show full price and discounted price. -->
-            <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">$<span class="price">{{ amount|cents_to_dollars }}</span></span></strong>. After purchase, {% if request.session.giftee_user %}the person you are gifting this to{% else %}you{% endif %} will have access to a product dashboard to download {% if request.session.giftee_user %}the{% else %}your{% endif %} DRM-free files.</p>
+            <p>You are ordering the <strong><span class="highlight">{{ product_name }}</span></strong> for <strong><span class="highlight">$<span class="price">{{ amount|cents_to_dollars }}</span></span></strong> USD. After purchase, {% if request.session.giftee_user %}the person you are gifting this to{% else %}you{% endif %} will have access to a product dashboard to download {% if request.session.giftee_user %}the{% else %}your{% endif %} DRM-free files.</p>
 
             {% if not paperback %}
             <form id="addPaperbackForm" style="margin-bottom:1em;">
