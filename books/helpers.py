@@ -366,3 +366,23 @@ def subscribe_to_newsletter(email, product_slug, has_paperback):
     if r.status_code != 200:
         mail_admins("Subscribe to Convertkit failed (%d)" % r.status_code, "Subscribe failure for [%s], product: [%s]" % (email, product_slug))
     return
+
+
+def invite_to_slack(email, product_name):
+    token = os.environ['SLACK_LEGACY_TOKEN']
+    channels = ['C787P0PK8', 'C77F3724V',]
+
+    if "Hello Web App" in product_name:
+        channels.append('CH2HWQXM5')
+    if "Hello Web Design" in product_name:
+        channels.append('CH1RHM0DB')
+    if "Hello Web Books" in product_name:
+        channels.append('CH1RHM0DB')
+        channels.append('CH2HWQXM5')
+
+    channel_string = ','.join(map(str, channels))
+
+    url = 'https://slack.com/api/users.admin.invite'
+    payload = {'token': token, 'email': email, 'channels': channel_string}
+    r = requests.post(url, params=payload)
+    return
