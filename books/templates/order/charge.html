@@ -32,8 +32,7 @@ analytics.page("Add Credit Card Details");
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="1" id="addPaperback">
                   <label class="form-check-label" for="addPaperback">
-                      <!-- XXX: Fix this to be plural for packages with mo books -->
-                      <em>Add the paperback book for ${{ paperback_price|cents_to_dollars }} + shipping?</em>
+                      <em>Add the paperback book{% if "Hello Web Design" not in product_name %}s{% endif %} for ${{ paperback_price|cents_to_dollars }} + shipping?</em>
                   </label>
                 </div>
             </form>
