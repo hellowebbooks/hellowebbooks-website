@@ -114,6 +114,17 @@ analytics.page("Dashboard");
                 <li><a href="{% url 'edit_email' %}">Update email</a></li>
                 <li><a href="{% url 'auth_logout' %}">Logout</a></li>
             </ul>
+
+            <h4 class="m-t-lg">Want to help out?</h4>
+            <p>Amazon reviews are hugely important to me. Even if you didn't buy on Amazon, it would be a great help if you could leave a review for me (good or bad!)</p>
+            <ul class="list-unstyled">
+            {% if has_hwa %}
+            <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365912" target="_blank" class="btn btn-sm btn-secondary">Leave a review for Hello Web App</a></li>
+            {% endif %}
+            {% if has_hwd %}
+            <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365947" class="btn btn-sm btn-secondary m-t">Leave a review for Hello Web Design</a></li>
+            {% endif %}
+            <ul>
         </div>
     </div>
     <hr style="margin:4em 0 2em 0; border-color:#f7f7f7;"/>
