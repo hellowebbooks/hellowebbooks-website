@@ -2958,6 +2958,37 @@ input[type=button].btn-block {
   animation: progress-bar-stripes 1s linear infinite;
 }
 
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: text-top;
+  background-color: #e6c24d;
+  margin-right: 0.5em;
+  border-radius: 7px;
+}
+.badge:empty {
+  display: none;
+}
+
+.badge-content {
+  background-color: #5cb85c;
+}
+
+.badge-fix {
+  background-color: #d9534f;
+}
+
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+
 .clearfix:before, .clearfix:after {
   content: " ";
   display: table;

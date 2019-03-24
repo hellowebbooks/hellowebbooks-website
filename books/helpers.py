@@ -198,6 +198,17 @@ def get_course_info(course, link):
     stop_loop = False
     once_more = False
 
+    # if this is going to the updates page, go to that instead
+    if link == "updates":
+        if "Hello Web App" in course:
+            course_template = "dashboard/course/hwa/hwa-updates.md"
+            course_name = "Hello Web App and Website Updates"
+            return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+        elif "Module 1" in course:
+            course_template = "dashboard/course/hwd/hwd-updates.md"
+            course_name = "Hello Web Design and Website Updates"
+            return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+
     # loop through course
     module_count = 0
     module_total = len(course)

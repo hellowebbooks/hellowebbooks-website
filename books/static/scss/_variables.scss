@@ -618,3 +618,12 @@ $pre-bg:                      #f7f7f9 !default;
 $pre-color:                   $gray-dark !default;
 $pre-border-color:            #ccc !default;
 $pre-scrollable-max-height:   340px !default;
+
+// Badge
+
+$badge-font-size:                   75% !default;
+$badge-color:                       #fff !default;
+$badge-background-color:            $brand-primary !default;
+$badge-padding-y:                   .25em !default;
+$badge-padding-x:                   .5em !default;
+$badge-border-radius:               $border-radius !default;

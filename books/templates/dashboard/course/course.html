@@ -53,6 +53,12 @@ analytics.page("{{ product.name }} Course Dashboard");
             </ul>
             {% endif %}
             {% endfor %}
+            <h4>Updates</h4>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="{% url 'course_link' product_slug=product.get_slug link='updates' %}">Changes and updates</a>
+                </li>
+            </ul>
             <h4>Download Files</h4>
             <!-- FIXME: This isn't the best solution but it's good enough for now -->
             <!-- FIXME: If fixed, fix in dashboard.html too -->

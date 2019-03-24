@@ -1,0 +1,33 @@
+// Base class
+//
+// Requires one of the contextual, color modifier classes for `color` and
+// `background-color`.
+
+.badge {
+  display: inline-block;
+  padding: $badge-padding-y $badge-padding-x;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: $badge-color;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: text-top;
+  background-color: $brand-primary;
+  margin-right: 0.5em;
+  @include border-radius($badge-border-radius);
+
+  // Empty badges collapse automatically
+  &:empty {
+    display: none;
+  }
+}
+
+.badge-content { background-color: $brand-success; }
+.badge-fix { background-color: $brand-danger; }
+
+// Quick fix for badges in buttons
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
