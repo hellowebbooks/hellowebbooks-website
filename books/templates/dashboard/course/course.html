@@ -45,7 +45,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                         <b>{{ v.name }}</b>
                     {% else %}
                     <a href="{% url 'course_link' product_slug=product.get_slug link=v.link %}" data-video="{{ v.video }}" data-template="{{ v.template }}" data-chapter="{{ k }}" data-name="{{ v.name }}" class="chapter-link" title='Click to watch video: "{{ k }}. {{ v.name }}"'>
-                        {% if v.video and membership.video %}<i class="fa fa-play-circle-o"></i> {% endif %}{{ v.name }}
+                        {% if v.video %}{% if membership.video or '322468325' in v.video or '125105042' in v.video or '322480097' in v.video or '322480267' in v.video %}<i class="fa fa-play-circle-o"></i> {% endif %}{% endif %}{{ v.name }}
                     </a>
                     {% endif %}
                 </li>
@@ -81,12 +81,27 @@ analytics.page("{{ product.name }} Course Dashboard");
             </div>
 
             <!-- video area -->
-            {% if membership.video and video_url %}
+            {% if video_url %}
+            {% if membership.video or '322468325' in video_url or '125105042' in video_url or '322480097' in video_url or '322480267' in video_url %}
             <div class="m-b course-video">
                 <figure class="caption video" style="padding-bottom: 53.9%;">
                     <iframe width="560" height="315" src="{{ video_url }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen='allowfullscreen'></iframe>
                 </figure>
+                {% if not membership.video %}
+                <p class="text-muted" style="margin-top:-2em;">
+                    <small>Preview of the videos contained in this package.
+                        {% if product.name == "Hello Web App" %}
+                        <a href="{% url 'charge' product_slug="hwa-video-supplement" %}?coupon=customerfriend">
+                        {% else %}
+                        <a href="{% url 'charge' product_slug="hwd-video-supplement" %}?coupon=customerfriend">
+                        {% endif %}
+                            Upgrade here if you'd like to add them to your account
+                        </a>.
+                    </small>
+                </p>
+                {% endif %}
             </div>
+            {% endif %}
             {% endif %}
             <!-- content area -->
             <div id="course-content" class="row">
