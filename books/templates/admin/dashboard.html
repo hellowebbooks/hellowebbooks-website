@@ -15,7 +15,10 @@
                 </div>
             </div>
             <hr/>
-            <a href="{% url 'admin_add_customer' %}" class="btn btn-primary">Add Customer Page</a>
+            <div class="generic-grid">
+                <a href="{% url 'admin_add_customer' %}" class="btn btn-primary">Add Customer Page</a>
+                <a href="{% url 'admin_export_customer_emails' %}" class="btn btn-secondary">Output Customer Emails</a>
+            </div>
         </div>
     </div>
 

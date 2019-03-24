@@ -92,3 +92,11 @@ def admin_add_customer(request):
     return render(request, 'admin/add_customer.html', {
         'form': form,
     })
+
+
+@user_passes_test(lambda u: u.is_staff)
+def admin_export_customer_emails(request):
+    customers = Customer.objects.all()
+    return render(request, 'admin/export-emails.html', {
+        'customers': customers,
+    })

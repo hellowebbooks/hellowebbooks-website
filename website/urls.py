@@ -140,6 +140,7 @@ urlpatterns = [
 
     # admin
     path('admin/dashboard/add-customer/', views.admin_add_customer, name='admin_add_customer'),
+    path('admin/dashboard/export-emails/', views.admin_export_customer_emails, name='admin_export_customer_emails'),
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('admin/', admin.site.urls),
 
