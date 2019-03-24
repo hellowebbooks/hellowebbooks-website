@@ -1082,11 +1082,11 @@ figure.video {
 }
 .box.hello-web-design {
     background: url(../images/hwd/1.jpg) 0 -20px no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 .box.hello-web-app {
-    background: url(../images/both/1.jpg) 0 -220px no-repeat;
-    background-size: cover;
+    background: url(../images/both/1.jpg) 0 -120px no-repeat;
+    background-size: contain;
 }
 
 #upsells {
