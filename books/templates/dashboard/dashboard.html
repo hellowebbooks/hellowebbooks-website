@@ -22,7 +22,8 @@ analytics.page("Dashboard");
             <section id="memberships">
                 <!-- FIXME: This needs to be updated so if only one book, it doesn't go gigantic -->
                 {% for membership in memberships %}
-                <div class="box {{ membership.product.name|slugify }}">
+                <!-- TODO: The background size thing is a hack and should be made mo betta -->
+                <div class="box {{ membership.product.name|slugify }}" {% if memberships.count != 1 %}style="background-size:contain;{% if membership.product.name == 'Hello Web App' %}background-position: 0 -120px;{% endif %}"{% endif %}>
                     <div class="content">
                         <h2>
                             <a href="{% url 'course' product_slug=membership.product.get_slug %}">
