@@ -160,6 +160,7 @@ def send_admin_charge_success_email(user_email, product_name, has_paperback, sup
     # FIXME: Need to pass along shipping details too
     # FIXME: Price would be nice here too
     # TODO: This is a silly way to do things, make this better.
+    # TODO: A breakdown of the price (shipping, tax, price, etc would be nice.)
     content = '%s bought %s. Supplement: %s. Shipping: %s. Gifted? %s' % (user_email, product_name, supplement, has_paperback, gifted_product)
 
     # send email to admin
