@@ -11,10 +11,11 @@ from books.models import Product, Membership, Customer
 
 @login_required
 def dashboard(request):
+    customer = Customer.objects.get(user=request.user)
+    memberships = Membership.objects.filter(customer=customer)
+
     has_hwa = False
     has_hwd = False
-
-    memberships = Membership.objects.filter(customer__user=request.user)
 
     # if someone has no memberships, means they went through the create account
     # page but didn't buy a product. Redirect to charge.
@@ -29,6 +30,7 @@ def dashboard(request):
             has_hwd = True
 
     return render(request, 'dashboard/dashboard.html', {
+        'customer': customer,
         'memberships': memberships,
         'has_hwa': has_hwa,
         'has_hwd': has_hwd,
