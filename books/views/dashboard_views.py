@@ -68,9 +68,14 @@ def course(request, product_slug, link=None):
         messages.error(request, 'Membership not found. If this is in error, please email tracy@hellowebbooks.com with details.')
         return redirect('order')
 
-    # if default page, then show the intro page
+    # if default page, then show the last read page or the intro page
     if not link:
         link = 'intro'
+        if membership.last_read:
+            link = membership.last_read
+
+    membership.last_read = link
+    membership.save()
 
     # loop through options to get details for this course
     video_url, course_name, course_template, prev_link, prev_name, next_link, next_name = helpers.get_course_info(course, link)

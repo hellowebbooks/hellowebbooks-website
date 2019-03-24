@@ -48,6 +48,7 @@ class Membership(Timestamp):
         related_name="products")
     paperback = models.BooleanField(default=False)
     video = models.BooleanField(default=False)
+    last_read = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.customer.user.username
