@@ -3,6 +3,7 @@ import stripe
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 
 from books import forms, options, helpers
@@ -11,8 +12,12 @@ from books.models import Product, Membership, Customer
 
 @login_required
 def dashboard(request):
-    customer = Customer.objects.get(user=request.user)
-    memberships = Membership.objects.filter(customer=customer)
+    try:
+        customer = Customer.objects.get(user=request.user)
+        memberships = Membership.objects.filter(customer=customer)
+    except ObjectDoesNotExist:
+        messages.error(request, 'Customer not found. If this is in error, please email tracy@hellowebbooks.com with details.')
+        return redirect('order')
 
     has_hwa = False
     has_hwd = False
@@ -54,10 +59,14 @@ def course(request, product_slug, link=None):
     product = Product.objects.get(name__iexact=product_name)
     course = options.course_list[product.name]
 
-    membership = Membership.objects.get(
-        customer__user=request.user,
-        product__name=product.name,
-    )
+    try:
+        membership = Membership.objects.get(
+            customer__user=request.user,
+            product__name=product.name,
+        )
+    except ObjectDoesNotExist:
+        messages.error(request, 'Membership not found. If this is in error, please email tracy@hellowebbooks.com with details.')
+        return redirect('order')
 
     # if default page, then show the intro page
     if not link:
