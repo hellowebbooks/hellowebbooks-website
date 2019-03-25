@@ -2,13 +2,15 @@ import os
 import stripe
 import requests
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.models import User
 from django.core.mail import send_mail, mail_admins
 from django.shortcuts import redirect
 
 from books import options
-from books.models import Product, Membership
+from books.models import Product, Customer, Membership
 
 stripe.api_key = os.environ['STRIPE_SECRET']
 
@@ -253,6 +255,10 @@ def get_course_info(course, link):
 
 
 def subscribe_to_newsletter(email, product_slug, has_paperback):
+    """
+    Uses the ConvertKit API to add a person into the newsletter system with
+    the appropriate tags.
+    """
     convertkit_secret = os.environ['CONVERTKIT_SECRET']
     convertkit_public = os.environ['CONVERTKIT_PUBLIC']
     convertkit_form_id = 874212 # the dummy form we're subscribing them to in convertkit
@@ -383,6 +389,12 @@ def subscribe_to_newsletter(email, product_slug, has_paperback):
 
 
 def invite_to_slack(email, product_name):
+    """
+    Invites new customer to Slack account using the web API (legacy token,
+    could be deprecated in the future.)
+
+    product_name: Expecting something like "Hello Web Books Video Package"
+    """
     token = os.environ['SLACK_LEGACY_TOKEN']
     channels = ['C787P0PK8', 'C77F3724V',]
 
@@ -399,4 +411,68 @@ def invite_to_slack(email, product_name):
     url = 'https://slack.com/api/users.admin.invite'
     payload = {'token': token, 'email': email, 'channels': channel_string}
     r = requests.post(url, params=payload)
+    return
+
+
+def manual_admin_add_customer(request, email, hello_web_app, hello_web_design):
+    # create user
+    print("attempting " + email)
+    user = User.objects.create_user(
+        username=email.replace("@", "").replace(".", ""),
+        email=email,
+        password=User.objects.make_random_password(),
+    )
+
+    # create Customer from user
+    customer = Customer.objects.create(user=user)
+
+    # make appropriate Memberships based on form
+    if hello_web_app:
+        hwa_product_obj = Product.objects.get(name="Hello Web App")
+        paperback = False
+        if 'paperback' in hello_web_app:
+            paperback = True
+        video = False
+        if 'video' in hello_web_app:
+            video = True
+        Membership.objects.create(
+            customer=customer,
+            product=hwa_product_obj,
+            paperback=paperback,
+            video=video,
+        )
+
+    if hello_web_design:
+        hwd_product_obj = Product.objects.get(name="Hello Web Design")
+        paperback = False
+        if 'paperback' in hello_web_design:
+            paperback = True
+        video = False
+        if 'video' in hello_web_design:
+            video = True
+        Membership.objects.create(
+            customer=customer,
+            product=hwd_product_obj,
+            paperback=paperback,
+            video=video,
+        )
+
+    # send User an email with how to access and reset the password
+    send_giftee_password_reset(
+        request,
+        user.email,
+        "Admin Add",
+        'registration/admin_add_password_reset_subject.txt',
+        'registration/admin_add_password_reset_email.txt',
+    )
+
+    # invite the person into the slack channel
+    if not settings.DEBUG:
+        product_name = "Hello Web Books"
+        if hello_web_app and not hello_web_design:
+            product_name = "Hello Web App"
+        elif hello_web_design and not hello_web_app:
+            product_name = "Hello Web Design"
+        invite_to_slack(user.email, product_name)
+
     return

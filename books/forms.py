@@ -91,12 +91,23 @@ class MyAuthenticationForm(auth_forms.AuthenticationForm):
         return username
 
 
+PRODUCTS = [
+    ('ebook', 'eBook Only'),
+    ('paperback', 'Paperback'),
+    ('video', 'Video'),
+]
+
 class AdminAddCustomerForm(forms.Form):
-    PRODUCTS = [
-        ('ebook', 'eBook Only'),
-        ('paperback', 'Paperback'),
-        ('video', 'Video'),
-    ]
     email = forms.EmailField()
     hello_web_app = forms.MultipleChoiceField(choices=PRODUCTS, widget=forms.CheckboxSelectMultiple(), required=False)
     hello_web_design = forms.MultipleChoiceField(choices=PRODUCTS, widget=forms.CheckboxSelectMultiple(), required=False)
+
+
+class AdminAddCustomerBulkForm(forms.Form):
+    emails = forms.CharField(widget=forms.Textarea)
+    hello_web_app = forms.MultipleChoiceField(choices=PRODUCTS, widget=forms.CheckboxSelectMultiple(), required=False)
+    hello_web_design = forms.MultipleChoiceField(choices=PRODUCTS, widget=forms.CheckboxSelectMultiple(), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(AdminAddCustomerBulkForm, self).__init__(*args, **kwargs)
+        self.fields['emails'].label = "Comma delimited emails"
