@@ -78,7 +78,7 @@ def course(request, product_slug, link=None):
     membership.save()
 
     # loop through options to get details for this course
-    video_url, course_name, course_template, prev_link, prev_name, next_link, next_name = helpers.get_course_info(course, link)
+    video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name = helpers.get_course_info(course, link)
 
     return render(request, "dashboard/course/course.html", {
         'product': product,
@@ -86,6 +86,7 @@ def course(request, product_slug, link=None):
         'course': course,
         'course_template': course_template,
         'course_name': course_name,
+        'course_link': course_link,
         'video_url': video_url,
         'prev_link': prev_link,
         'prev_name': prev_name,

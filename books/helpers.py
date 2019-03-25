@@ -189,6 +189,7 @@ def send_giftee_password_reset(request, email, product_name, subject_template_na
 def get_course_info(course, link):
     video_url = ""
     course_name = ""
+    course_link = ""
     course_template = ""
     prev_link = ""
     prev_name = ""
@@ -203,11 +204,11 @@ def get_course_info(course, link):
         if "Hello Web App" in course:
             course_template = "dashboard/course/hwa/hwa-updates.md"
             course_name = "Hello Web App and Website Updates"
-            return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+            return video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name
         elif "Module 1" in course:
             course_template = "dashboard/course/hwd/hwd-updates.md"
             course_name = "Hello Web Design and Website Updates"
-            return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+            return video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name
 
     # loop through course
     module_count = 0
@@ -222,7 +223,7 @@ def get_course_info(course, link):
             if info_hit:
                 next_link = value['link']
                 next_name = value['name']
-                return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+                return video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name
 
             if value['link'] != link:
                 prev_link = value['link']
@@ -231,6 +232,7 @@ def get_course_info(course, link):
 
             video_url = value['video']
             course_name = value['name']
+            course_link = value['link']
             course_template = "dashboard/" + value['template']
             info_hit = True
 
@@ -242,12 +244,12 @@ def get_course_info(course, link):
         # we should only get here if we returned early in the inner loop
         if stop_loop and not once_more:
             if module_count == module_total:
-                return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+                return video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name
             once_more = True
             continue
 
         if stop_loop and once_more:
-            return video_url, course_name, course_template, prev_link, prev_name, next_link, next_name
+            return video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name
 
 
 def subscribe_to_newsletter(email, product_slug, has_paperback):

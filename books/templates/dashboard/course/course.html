@@ -20,8 +20,6 @@ analytics.page("{{ product.name }} Course Dashboard");
             <li class="active">{{ product.name }} Course</li>
         </ul>
 
-        <!-- FIXME: This probably should go under a popout menu -->
-        <!-- TODO: Add in a page to track updates to the online content -->
         <div class="col-xs-2 hidden-md-up">
             <button class="h4 m-b-md" onclick="w3_toggle()" style="color:#498D90; padding:0">&#9776;</button>
         </div>
@@ -112,9 +110,28 @@ analytics.page("{{ product.name }} Course Dashboard");
             <!-- content area -->
             <div id="course-content" class="row">
                 <div class="col-lg-10 col-xl-8 p-l-0">
-                {% filter markdown %}
+                    {% filter markdown %}
 {% include course_template %} <!-- if indented, markdown thinks its code. sigh -->
-                {% endfilter %}
+                    {% endfilter %}
+
+                    {% if video_url %}
+                    <div class="row hidden-md-down" style="margin-top:5em;margin-left:-2rem;margin-right:-2rem;">
+                        {% include 'includes/course-prev-next.html' %}
+                    </div>
+                    <div class="row hidden-lg-up" style="margin-top:5em;">
+                        {% include 'includes/course-prev-next.html' %}
+                    </div>
+
+                    <hr class="m-l-0 m-r-0" style="border-color:#eceeef; margin-top:3em;"/>
+                    <h3>Questions or comments on this section?</h3>
+                    {% if product == "Hello Web App" %}
+                    <p>Feel free to post </p>
+                    {% else %}
+                    Please use the comment form below to ask questions or get help.
+                    {% endif %}
+                    <div id="disqus_thread"></div>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                    {% endif %}
                 </div>
             </div>
             <div class="row m-t-lg">
@@ -137,5 +154,19 @@ analytics.page("{{ product.name }} Course Dashboard");
         const div = document.getElementById("course-sidebar");
         div.style.display = div.style.display == "none" ? "block" : "none";
     }
+
+    {% if video_url %}
+    var disqus_config = function () {
+    this.page.url = 'https://hellowebbooks.com/course/{{ product.get_slug }}/{{ course_link }}/';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '{{ course_link }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://hellowebbooks.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+    {% endif %}
 </script>
 {% endblock %}
