@@ -15,11 +15,7 @@
           <div class="top-meta">
             <span class="date small-sans">{{ post.date|date:"F j, Y" }}</span>
             <span class="twitter-follow">
-              {% if post.title == "Does your inbox feel too quiet? The hidden consequences for temporarily breaking your email." %}
-              <a href="https://twitter.com/tracymakes?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @tracymakes</a>
-              {% else %}
               <a href="https://twitter.com/hellowebbooks?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @hellowebbooks</a>
-              {% endif %}
               <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             </span>
             {% comment %}<span class="category">{% include 'includes/category-link.html' with category=category %}</span>{% endcomment %}
