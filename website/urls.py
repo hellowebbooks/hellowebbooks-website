@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.sitemaps.views import sitemap
-from django.urls import include, path
+from django.urls import include, path, reverse_lazy
 from django.views.generic import TemplateView, RedirectView
 
 from wagtail.admin import urls as wagtailadmin_urls
@@ -78,7 +78,10 @@ urlpatterns = [
         PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
         name='password_reset_done'),
     path('accounts/password/reset/<uidb64>/<token>/',
-        PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),
+        PasswordResetConfirmView.as_view(
+            template_name='registration/password_reset_confirm.html',
+            post_reset_login=True,
+        ),
         name='password_reset_confirm'),
     path('accounts/password/giftee/<uidb64>/<token>/',
         views.GifteePasswordResetConfirmView.as_view(),
