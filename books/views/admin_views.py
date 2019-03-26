@@ -53,7 +53,6 @@ def admin_add_customer_bulk(request):
         form = form_class(request.POST)
 
         if form.is_valid():
-            # XXX: Update this to loop around what emails were added
             emails = form.cleaned_data['emails']
             hello_web_app = form.cleaned_data['hello_web_app']
             hello_web_design = form.cleaned_data['hello_web_design']
@@ -64,7 +63,6 @@ def admin_add_customer_bulk(request):
             for email in email_list:
                 # check to make sure they're not already in system
                 if User.objects.filter(email=email).exists():
-                    print("no gusta " + email)
                     pass_list.append(email)
                     continue
 

@@ -416,7 +416,6 @@ def invite_to_slack(email, product_name):
 
 def manual_admin_add_customer(request, email, hello_web_app, hello_web_design):
     # create user
-    print("attempting " + email)
     user = User.objects.create_user(
         username=email.replace("@", "").replace(".", ""),
         email=email,
