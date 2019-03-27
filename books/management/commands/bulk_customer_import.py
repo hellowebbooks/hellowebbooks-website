@@ -70,7 +70,7 @@ def add_customer(email, hello_web_app, hello_web_design, active):
 
     # invite the person into the slack channel
     if active == "active":
-        print("sending person to slack: " + user.email)
+        print("Sending person to Slack: " + user.email)
         if not settings.DEBUG:
             product_name = "Hello Web Books"
             if hello_web_app and not hello_web_design:
@@ -79,7 +79,7 @@ def add_customer(email, hello_web_app, hello_web_design, active):
                 product_name = "Hello Web Design"
             helpers.invite_to_slack(user.email, product_name)
     else:
-        print("skipping slack: " + user.email)
+        print("Skipping Slack: " + user.email)
 
     return
 
@@ -93,6 +93,7 @@ def bulk_customer_import(csv_file):
 
         if User.objects.filter(email=email).exists():
             pass_list.append(email)
+            print("Skipping import, already added: " + email)
             continue
 
         hello_web_app = row[1]
