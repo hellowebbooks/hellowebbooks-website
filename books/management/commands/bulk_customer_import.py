@@ -93,12 +93,18 @@ def bulk_customer_import(csv_file):
 
         if User.objects.filter(email=email).exists():
             pass_list.append(email)
-            print("Skipping import, already added: " + email)
+            print("Skipping, already added: " + email)
             continue
 
         hello_web_app = row[1]
         hello_web_design = row[2]
         active = row[3]
+
+        if active == "bounced":
+            pass_list.append(email)
+            print("Skipping, bouncing email: " + email)
+            continue
+
         add_customer(email, hello_web_app, hello_web_design, active)
 
     print('Finished. Skipped: [%s]' % ', '.join(map(str, pass_list)))
