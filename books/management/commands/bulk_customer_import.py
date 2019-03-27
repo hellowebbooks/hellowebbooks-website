@@ -77,7 +77,7 @@ def add_customer(email, hello_web_app, hello_web_design, active):
                 product_name = "Hello Web App"
             elif hello_web_design and not hello_web_app:
                 product_name = "Hello Web Design"
-            invite_to_slack(user.email, product_name)
+            helpers.invite_to_slack(user.email, product_name)
     else:
         print("skipping slack: " + user.email)
 
