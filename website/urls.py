@@ -39,6 +39,7 @@ urlpatterns = [
     path('setup/', TemplateView.as_view(template_name='setup.html'), name='setup'),
     path('start/', RedirectView.as_view(url='/accounts/login/')),
     path('unsubscribe/', TemplateView.as_view(template_name='unsubscribe.html'), name='unsubscribe'),
+    path('keepme/', TemplateView.as_view(template_name='keepme.html'), name='keepme'),
     path('workshops/', TemplateView.as_view(template_name='workshops.html'), name='workshops'),
     path('write/', TemplateView.as_view(template_name='write.html'), name='write'),
 
