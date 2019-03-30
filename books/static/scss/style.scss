@@ -494,6 +494,40 @@ figure.video {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+.github-button {
+    position: absolute;
+    left: 102%;
+    margin-top: -15px;
+    .btn-primary {
+        background-color: lighten($brand-secondary, 15%);
+        border-color: lighten($brand-secondary, 15%);
+        &:hover {
+            background-color: $brand-secondary;
+            border-color: $brand-secondary;
+        }
+    }
+    &.github-button-end {
+        position: static;
+        margin: 0;
+    }
+    @include media-breakpoint-down(lg) {
+        .btn-primary {
+            white-space: normal;
+            text-align: left;
+        }
+    }
+    @include media-breakpoint-down(md) {
+        margin-bottom: 15px;
+        position: static;
+    }
+}
+.negative-margin {
+    margin-bottom: -15px;
+    @include media-breakpoint-down(md) {
+        margin-bottom: 0;
+    }
+}
+
 // all posts page
 .blog-home-header {
     p {

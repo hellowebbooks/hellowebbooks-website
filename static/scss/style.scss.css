@@ -3860,6 +3860,10 @@ a.bg-danger:focus, a.bg-danger:hover {
   content: "";
 }
 
+.fa-share:before {
+  content: "";
+}
+
 /*
 .fa-glass:before { content: $fa-var-glass; }
 .fa-music:before { content: $fa-var-music; }
@@ -5596,6 +5600,45 @@ figure.video iframe {
 
 .course-grid-large {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.github-button {
+  position: absolute;
+  left: 102%;
+  margin-top: -15px;
+}
+.github-button .btn-primary {
+  background-color: #6fb3b6;
+  border-color: #6fb3b6;
+}
+.github-button .btn-primary:hover {
+  background-color: #498D90;
+  border-color: #498D90;
+}
+.github-button.github-button-end {
+  position: static;
+  margin: 0;
+}
+@media (max-width: 74.9em) {
+  .github-button .btn-primary {
+    white-space: normal;
+    text-align: left;
+  }
+}
+@media (max-width: 61.9em) {
+  .github-button {
+    margin-bottom: 15px;
+    position: static;
+  }
+}
+
+.negative-margin {
+  margin-bottom: -15px;
+}
+@media (max-width: 61.9em) {
+  .negative-margin {
+    margin-bottom: 0;
+  }
 }
 
 .blog-home-header p {
