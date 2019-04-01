@@ -22,7 +22,7 @@ stripe.api_key = os.environ['STRIPE_SECRET']
 # TODO: Set up something so people who made accounts but haven't bought
 # anything are tracked.
 # TODO: This view should be renamed to log in or create account
-def upsell(request, product_slug):
+def upsell(request, product_slug=None):
     # User is logged in, go straight to buy page (as long as they're not a
     # gifted user or someone who made a log in but hasn't bought yet.)
     if request.user.is_authenticated and 'giftee_user' not in request.session and 'brand_new_user' not in request.session:
@@ -32,6 +32,9 @@ def upsell(request, product_slug):
     # page without the coupon
     if request.user.is_authenticated and 'brand_new_user' in request.session:
         return redirect('/charge/%s' % product_slug)
+
+    # grab coupon if supplied
+    coupon_supplied = request.GET.get("coupon", None)
 
     # Get someone to log in OR create an account
     form_class = forms.AddEmailForm
@@ -63,17 +66,21 @@ def upsell(request, product_slug):
                     # FIXME: Maybe don't log in the person? Because then
                     # if they return to the page, it gives them a discount
                     login(request, user)
+                    if coupon_supplied:
+                        return redirect('/charge/' + product_slug + '/?coupon=' + coupon_supplied)
                     return redirect('charge', product_slug=product_slug)
 
                 # user wasn't found but the email exists in the system, so their
                 # password must be wrong (or something)
                 messages.error(request, 'Email address found in system but password did not match. Try again?')
-                return redirect('upsell', product_slug=product_slug)
+                return redirect('/buy/' + product_slug + '/?coupon=' + coupon_supplied)
 
             else:
                 # existing user was found and logged in
                 login(request, user)
-                return redirect('/charge/%s' % product_slug + '?coupon=customerfriend')
+                if coupon_supplied:
+                    return redirect('/charge/%s' % product_slug + '/?coupon=' + coupon_supplied)
+                return redirect('/charge/%s' % product_slug + '/?coupon=customerfriend')
 
     else:
         form = form_class()
@@ -81,6 +88,7 @@ def upsell(request, product_slug):
     return render(request, 'order/upsell.html', {
         'form': form,
         'product': product_slug,
+        'coupon_supplied': coupon_supplied,
     })
 
 
@@ -111,8 +119,11 @@ def gift(request, product_slug):
 
 def charge(request, product_slug=None):
     user = request.user
+    if not user.is_authenticated and 'giftee_user' not in request.session:
+        messages.error(request, "Please choose a product and sign in or create an account first.")
+        return redirect('order')
 
-    # TODO: check whether we're going to this page with a coupon specified
+    # grab coupon if supplied
     coupon_supplied = request.GET.get("coupon", None)
 
     amount, product_name, us_postage, can_postage, aus_postage, eur_postage, else_postage, paperback_price = helpers.product_details(product_slug)
@@ -244,6 +255,7 @@ def charge(request, product_slug=None):
             )
             logout(request)
             messages.success(request, "Success! We've sent an email to your giftee with how to access their files.")
+            request.session.pop('giftee_user', None)
             return redirect('order')
 
         # log in customer, redirect to their dashboard

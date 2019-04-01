@@ -20,7 +20,10 @@ analytics.page("Confirm Email");
             </div>
 
             <h1>Create an account or login</h1>
-            <p>You'll get access to a dashboard with your eBook files and video files if applicable.</p>
+            <p>After buying, you'll get access to a dashboard with your content, downloadable eBook files, and videos (if included in your package.)</p>
+            {% if coupon_supplied %}
+            <p style="margin-top:-10px;">Your coupon <em>{{ coupon_supplied }}</em> will be applied on the following checkout page.</p>
+            {% endif %}
             <form action="" method="POST">
                 {% csrf_token %}
                 {% include 'includes/form.html' with form=form %}
