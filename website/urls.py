@@ -73,7 +73,10 @@ urlpatterns = [
 
     # registration
     path('accounts/password/reset/',
-        PasswordResetView.as_view(template_name='registration/password_reset_form.html'),
+        PasswordResetView.as_view(
+            template_name='registration/password_reset_form.html',
+            email_template_name='registration/password_reset_email.txt',
+        ),
         name='password_reset'),
     path('accounts/password/reset/done/',
         PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
