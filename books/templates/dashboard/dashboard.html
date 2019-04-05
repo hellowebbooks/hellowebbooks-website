@@ -62,12 +62,13 @@ analytics.page("Dashboard");
 
             {% if 'Hello Web Design' not in membership_list or 'Hello Web App' not in membership_list or 'Really Friendly Command Line Intro' not in membership_list %}
             <hr />
-            <h4>Want to buy another <i>Hello Web Books</i> product?</h4>
+            <h4>Other <i>Hello Web Books</i> products</h4>
             <p>You get 20% off all products as an existing customer!</p>
             <section id="upsells">
                 {% if 'Hello Web Design' not in membership_list %}
                 <div class="box hello-web-design">
                     <div class="content">
+                        <span class="badge badge-content membership-badge membership-badge-new">Book</span>
                         <h5>Hello Web Design</h5>
                         <p>Learn web design fundamentals and shortcuts. Everything you need to learn just enough design for your projects.</p>
                         <ul>
@@ -82,6 +83,7 @@ analytics.page("Dashboard");
                 {% if 'Hello Web App' not in membership_list %}
                 <div class="box hello-web-app">
                     <div class="content">
+                        <span class="badge badge-content membership-badge membership-badge-new">Book</span>
                         <h5>Hello Web App</h5>
                         <p>Create a unique web app using Python 3 and Django 2.0 and launch on Heroku. Two book set.</p>
                         <ul>
@@ -96,8 +98,9 @@ analytics.page("Dashboard");
                 {% if 'Really Friendly Command Line Intro' not in membership_list %}
                 <div class="box really-friendly-command-line-intro">
                     <div class="content">
+                        <span class="badge badge-content membership-badge membership-badge-new">Zine</span>
                         <h5>Really Friendly Command Line Intro</h5>
-                        <p style="margin-bottom: 10px;">Learn just enough command line! This is a free addition to your account (other than Amazon Kindle or print versions). Downloadable files include both PDF and print-and-staple PDF files. An ideal companion to <i>Hello Web App</i>.</p>
+                        <p style="margin-bottom: 10px;">Learn how to use the command line! This is a free addition to your account (other than Amazon Kindle or print versions). Downloadable files include both PDF and print-and-staple PDF files. An ideal companion to <i>Hello Web App</i>.</p>
                         <ul>
                             <li><a href="{% url 'add_product' product_slug='really-friendly-command-line-intro' %}">Add the <em>free</em> eBook to your dashboard.</li>
                             <li><a href="https://amzn.to/2TKQGkc">Get the physical version</a> for <b>$5.95</b> + shipping.</li>
@@ -127,10 +130,10 @@ analytics.page("Dashboard");
             <p>Amazon reviews are hugely important to me. Even if you didn't buy on Amazon, it would be a great help if you could leave a review for me (good or bad!)</p>
             <ul class="list-unstyled">
             {% if 'Hello Web App' in membership_list %}
-            <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365912" target="_blank" class="btn btn-sm btn-secondary">Leave a review for Hello Web App</a></li>
+            <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365912" target="_blank" class="btn btn-sm btn-secondary wrap-button">Leave a review for Hello Web App</a></li>
             {% endif %}
             {% if 'Hello Web Design' in membership_list %}
-            <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365947" class="btn btn-sm btn-secondary m-t">Leave a review for Hello Web Design</a></li>
+            <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365947" class="btn btn-sm btn-secondary m-t wrap-button">Leave a review for Hello Web Design</a></li>
             {% endif %}
             <ul>
         </div>

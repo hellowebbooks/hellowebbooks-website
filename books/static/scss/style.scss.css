@@ -6203,7 +6203,7 @@ figure.video iframe {
 }
 
 .box.really-friendly-command-line-intro {
-  background: url(../images/cmd/cmd-courses.jpg) 0 -20px no-repeat;
+  background: url(../images/cmd/cmd-courses2.jpg) 0 -20px no-repeat;
   background-size: cover;
 }
 
@@ -6239,6 +6239,10 @@ figure.video iframe {
   background-color: #498D90;
   color: #fff;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.membership-badge-new {
+  background-color: #e7ab40;
 }
 
 /* CHARGE PAGE */

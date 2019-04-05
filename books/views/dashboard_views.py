@@ -148,7 +148,7 @@ def add_product(request, product_slug):
         return redirect('order')
 
     product_name = product_slug.replace("-", " ")
-    if 'Really Friendly' not in product_name:
+    if 'really friendly' not in product_name:
         messages.error(request, 'Cannot add that product, sorry!')
         return redirect('dashboard')
 
@@ -162,4 +162,4 @@ def add_product(request, product_slug):
     membership.save()
 
     messages.success(request, 'Product has been added to your account!')
-    return redirect('course', product_slug=product_slug)
+    return redirect('dashboard')
