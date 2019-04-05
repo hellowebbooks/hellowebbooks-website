@@ -1,0 +1,35 @@
+<!-- FIXME: This isn't the best solution but it's good enough for now -->
+<!-- FIXME: If fixed, fix in dashboard.html too -->
+{% if product_name == "Hello Web App" %}
+<li>
+    Hello Web App:
+    <a href="{{ hwa_pdf }}" title="Download the Hello Web App PDF">PDF</a>,
+    <a href="{{ hwa_epub }}" title="Download the Hello Web App ePub">ePub</a>,
+    <a href="{{ hwa_mobi }}" title="Download the Hello Web App Kindle/.mobi">.mobi/Kindle</a>
+</li>
+<li>Intermediate Concepts:
+    <a href="{{ hwaic_pdf }}" title="Download the Hello Web App Intermediate Concepts PDF">PDF</a>,
+    <a href="{{ hwaic_epub }}" title="Download the Hello Web App Intermediate Concepts ePub">ePub</a>,
+    <a href="{{ hwaic_mobi }}" title="Download the Hello Web App Intermediate Concepts Kindle/.mobi">.mobi/Kindle</a>
+</li>
+{% elif product_name == "Hello Web Design" %}
+<li>
+    <a href="{{ hwd_pdf }}" title="Download the Hello Web Design PDF">PDF</a>
+</li>
+<li>
+    <a href="{{ hwd_epub }}" title="Download the Hello Web Design ePub">ePub</a>
+</li>
+<li>
+    <a href="{{ hwd_mobi }}" title="Download the Hello Web Design Kindle/.mobi">Kindle/.mobi</a>
+</li>
+{% elif product_name == "Really Friendly Command Line Intro" %}
+<li>
+    <a href="http://hellobks.com/cmd-line-pdf" title="Download the Command Line PDF">PDF</a>
+</li>
+<li>
+    <a href="http://hellobks.com/cmd-line-printable" title="Download the Command Line PDF">Print-and-staple PDF</a>
+</li>
+<li>
+    <a href="https://amzn.to/2TKQGkc" title="Buy on Amazon Kindle">Buy Kindle version ($2.99 USD)</a>
+</li>
+{% endif %}

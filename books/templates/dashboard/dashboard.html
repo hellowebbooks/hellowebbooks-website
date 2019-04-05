@@ -23,37 +23,33 @@ analytics.page("Dashboard");
                 {% for membership in memberships %}
                 <div class="box {{ membership.product.name|slugify }}" {% if memberships.count != 1 %}style="background-size:contain;{% if membership.product.name == 'Hello Web App' %}background-position: 0 -120px;{% endif %}"{% endif %}>
                     <div class="content">
+                        {% if membership.product.type == 'zine' %}
+                        <span class="badge badge-content membership-badge">Zine</span>
+                        {% else %}
+                        <span class="badge badge-content membership-badge">Book</span>
+                        {% endif %}
                         <h2>
                             <a href="{% url 'course' product_slug=membership.product.get_slug %}">
                                 {{ membership.product.name }}
                             </a>
                         </h2>
-                        {% if customer.stripe_id %}
-                        <p class="boughton">Bought on {{ membership.created|date:"M. d, Y" }}</p>
-                        {% else %}
+                        {% if not customer.stripe_id or membership.product.type == "zine" %}
                         <p class="boughton">Access began on {{ membership.created|date:"M. d, Y" }}</p>
+                        {% else %}
+                        <p class="boughton">Bought on {{ membership.created|date:"M. d, Y" }}</p>
                         {% endif %}
                         <div style="margin-top: 1em; margin-bottom: 2em;">
                             <p style="font-size:90%;" class="m-b-0"><b>Download eBook files:</b></p>
-                            <!-- FIXME: This isn't the best solution but it's good enough for now -->
-                            <!-- FIXME: If fixed, fix in course.html too -->
                             <ul style="font-size:90%;">
-                                {% if membership.product.name == "Hello Web App" %}
-                                <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ membership.product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ membership.product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ membership.product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
-                                <li>Intermediate Concepts: <a href="{{ hwaic_pdf }}" title="Download {{ membership.product.name }} Intermediate Concepts PDF">PDF</a>, <a href="{{ hwaic_epub }}" title="Download {{ membership.product.name }} Intermediate Concepts ePub">ePub</a>, <a href="{{ hwaic_mobi }}" title="Download {{ membership.product.name }} Intermediate Concepts Kindle/.mobi">.mobi/Kindle</a></li>
-                                {% elif membership.product.name == "Hello Web Design" %}
-                                <li><a href="{{ hwd_pdf }}" title="Download {{ membership.product.name }} PDF">PDF</a></li>
-                                <li><a href="{{ hwd_epub }}" title="Download {{ membership.product.name }} ePub">ePub</a></li>
-                                <li><a href="{{ hwd_mobi }}" title="Download {{ membership.product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
-                                {% endif %}
+                                {% include 'dashboard/course/_course_files.html' with product_name=membership.product.name %}
                             </ul>
                         </div>
-                        {% if membership.video %}
+                        {% if membership.video and membership.product.type == 'book' %}
                         <a href="{% url 'course' product_slug=membership.product.get_slug %}" class="btn btn-primary">Access course videos</a>
                         {% else %}
                         <a href="{% url 'course' product_slug=membership.product.get_slug %}" class="btn btn-primary">Read online</a>
                         {% endif %}
-                        <a href="https://hellowebbooks.slack.com/messages/{{ membership.product.get_slug }}/" class="btn btn-secondary btn-sm m-t-sm" style="vertical-align: bottom; margin-left:0.3em;" target="_blank"><i class="fa fa-slack"></i> Slack channel</a>
+                        <a href="https://hellowebbooks.slack.com/messages/{% if membership.product.name == 'Really Friendly Command Line Intro' %}command-line-zine{% else %}{{ membership.product.get_slug }}{% endif %}/" class="btn btn-secondary btn-sm m-t-sm" style="vertical-align: bottom; margin-left:0.3em;" target="_blank"><i class="fa fa-slack"></i> Slack channel</a>
                         {% if membership.product.name == "Hello Web App" and not membership.video %}
                         <a href="{% url 'charge' product_slug="hwa-video-supplement" %}?coupon=customerfriend" class="btn btn-secondary btn-sm m-t-sm" style="vertical-align: bottom"><strong>Upgrade:</strong> Buy video course for 20% off ($115.24)</a>
                         {% elif membership.product.name == "Hello Web Design" and not membership.video %}
@@ -64,12 +60,12 @@ analytics.page("Dashboard");
                 {% endfor %}
             </section>
 
-            {% if not has_hwd or not has_hwa or not has_cmd %}
+            {% if 'Hello Web Design' not in membership_list or 'Hello Web App' not in membership_list or 'Really Friendly Command Line Intro' not in membership_list %}
             <hr />
             <h4>Want to buy another <i>Hello Web Books</i> product?</h4>
             <p>You get 20% off all products as an existing customer!</p>
             <section id="upsells">
-                {% if not has_hwd %}
+                {% if 'Hello Web Design' not in membership_list %}
                 <div class="box hello-web-design">
                     <div class="content">
                         <h5>Hello Web Design</h5>
@@ -83,7 +79,7 @@ analytics.page("Dashboard");
                     </div>
                 </div>
                 {% endif %}
-                {% if not has_hwa %}
+                {% if 'Hello Web App' not in membership_list %}
                 <div class="box hello-web-app">
                     <div class="content">
                         <h5>Hello Web App</h5>
@@ -97,17 +93,17 @@ analytics.page("Dashboard");
                     </div>
                 </div>
                 {% endif %}
-                {% if not has_cmd %}
+                {% if 'Really Friendly Command Line Intro' not in membership_list %}
                 <div class="box really-friendly-command-line-intro">
                     <div class="content">
-                        <h5>Really Friendly Command Line Zine</h5>
-                        <p>Small zine! Learn just enough command line to get you started. An ideal companion to <i>Hello Web App</i>.</p>
+                        <h5>Really Friendly Command Line Intro</h5>
+                        <p style="margin-bottom: 10px;">Learn just enough command line! This is a free addition to your account (other than Amazon Kindle or print versions). Downloadable files include both PDF and print-and-staple PDF files. An ideal companion to <i>Hello Web App</i>.</p>
                         <ul>
-                            <li><a href="">Add the <em>free</em> eBook to your dashboard.</li>
-                            <li><a href="{% url 'charge' product_slug="cmd-pb" %}?coupon=customerfriend">Get the physical version</a> for <b>$4.00</b> + shipping (originally $5.95).</li>
+                            <li><a href="{% url 'add_product' product_slug='really-friendly-command-line-intro' %}">Add the <em>free</em> eBook to your dashboard.</li>
+                            <li><a href="https://amzn.to/2TKQGkc">Get the physical version</a> for <b>$5.95</b> + shipping.</li>
                         </ul>
-                        <a href="{% url 'add_product' product_slug='really-friendly-command-line-intro' %}" class="btn btn-primary btn-sm">Add to your dashboard (free)</a>
-                        <a href="{% url 'learn-command-line' %}" class="btn btn-secondary btn-sm">See product page</a>
+                        <a href="{% url 'add_product' product_slug='really-friendly-command-line-intro' %}" class="btn btn-primary btn-sm m-t">Add to your dashboard (free)</a>
+                        <a href="{% url 'learn-command-line' %}" class="btn btn-secondary btn-sm m-t">See product page</a>
                     </div>
                 </div>
                 {% endif %}
@@ -130,10 +126,10 @@ analytics.page("Dashboard");
             <h4 class="m-t-lg">Want to help out?</h4>
             <p>Amazon reviews are hugely important to me. Even if you didn't buy on Amazon, it would be a great help if you could leave a review for me (good or bad!)</p>
             <ul class="list-unstyled">
-            {% if has_hwa %}
+            {% if 'Hello Web App' in membership_list %}
             <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365912" target="_blank" class="btn btn-sm btn-secondary">Leave a review for Hello Web App</a></li>
             {% endif %}
-            {% if has_hwd %}
+            {% if 'Hello Web Design' in membership_list %}
             <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365947" class="btn btn-sm btn-secondary m-t">Leave a review for Hello Web Design</a></li>
             {% endif %}
             <ul>

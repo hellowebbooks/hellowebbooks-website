@@ -211,6 +211,10 @@ def get_course_info(course, link):
             course_template = "dashboard/course/hwd/hwd-updates.md"
             course_name = "Hello Web Design and Website Updates"
             return video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name
+        elif "Zine" in course:
+            course_template = "dashboard/course/zine-updates.md"
+            course_name = "Zine Updates"
+            return video_url, course_name, course_template, course_link, prev_link, prev_name, next_link, next_name
 
     # loop through course
     module_count = 0

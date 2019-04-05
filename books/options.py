@@ -426,7 +426,7 @@ course_list = OrderedDict({
         },
     },
     'Really Friendly Command Line Intro': {
-        'Module': {
+        'Zine': {
             '0': {
                 'name': 'Introduction',
                 'video': 'https://player.vimeo.com/video/328691402',

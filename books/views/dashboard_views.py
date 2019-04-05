@@ -19,29 +19,18 @@ def dashboard(request):
         messages.error(request, 'Customer not found. If this is in error, please email tracy@hellowebbooks.com with details.')
         return redirect('order')
 
-    has_hwa = False
-    has_hwd = False
-    has_cmd = False
-
     # if someone has no memberships, means they went through the create account
     # page but didn't buy a product. Redirect to charge.
     if len(memberships) == 0:
         messages.info(request, 'You will get access to the dashboard after ordering a product. :)')
         return redirect('order')
 
-    for m in memberships:
-        if m.product.name == "Hello Web App":
-            has_hwa = True
-        elif m.product.name == "Hello Web Design":
-            has_hwd = True
-        elif m.product.name == "Really Friendly Command Line Intro":
-            has_cmd = True
+    membership_list = [m.product.name for m in memberships]
 
     return render(request, 'dashboard/dashboard.html', {
         'customer': customer,
         'memberships': memberships,
-        'has_hwa': has_hwa,
-        'has_hwd': has_hwd,
+        'membership_list': membership_list,
         'dashboard_area': True,
         # FIXME: Bad hack. Replace with temporary generated URLs on a private S3 file.
         'hwa_pdf': os.environ['HWA_PDF'],
@@ -159,6 +148,10 @@ def add_product(request, product_slug):
         return redirect('order')
 
     product_name = product_slug.replace("-", " ")
+    if 'Really Friendly' not in product_name:
+        messages.error(request, 'Cannot add that product, sorry!')
+        return redirect('dashboard')
+
     product_obj = Product.objects.get(name__iexact=product_name)
     membership = Membership(
         customer = customer,
@@ -168,4 +161,5 @@ def add_product(request, product_slug):
     )
     membership.save()
 
+    messages.success(request, 'Product has been added to your account!')
     return redirect('course', product_slug=product_slug)

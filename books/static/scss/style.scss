@@ -474,6 +474,10 @@ figure.video {
     }
 }
 
+#course-content > div:first-child > h2:first-child {
+    margin-top: 0;
+}
+
 .course-video {
     figure {
         border:1px solid #e1e1e1;
@@ -1095,6 +1099,7 @@ figure.video {
     //border: 1px solid black;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    position: relative;
     .content {
         background-color: white;
         border-radius: 0 0 10px 10px;
@@ -1155,6 +1160,15 @@ figure.video {
     li, p {
         font-size: 1rem;
     }
+}
+
+.membership-badge {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    background-color: $brand-secondary;
+    color: #fff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* CHARGE PAGE */

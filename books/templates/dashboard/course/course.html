@@ -58,17 +58,8 @@ analytics.page("{{ product.name }} Course Dashboard");
                 </li>
             </ul>
             <h4>Download Files</h4>
-            <!-- FIXME: This isn't the best solution but it's good enough for now -->
-            <!-- FIXME: If fixed, fix in dashboard.html too -->
             <ul class="list-unstyled">
-                {% if product.name == "Hello Web App" %}
-                <li>Hello Web App: <a href="{{ hwa_pdf }}" title="Download {{ product.name }} PDF">PDF</a>, <a href="{{ hwa_epub }}" title="Download {{ product.name }} ePub">ePub</a>, <a href="{{ hwa_mobi }}" title="Download {{ product.name }} Kindle/.mobi">.mobi/Kindle</a></li>
-                <li>Intermediate Concepts: <a href="{{ hwaic_pdf }}" title="Download {{ product.name }} Intermediate Concepts PDF">PDF</a>, <a href="{{ hwaic_epub }}" title="Download {{ product.name }} Intermediate Concepts ePub">ePub</a>, <a href="{{ hwaic_mobi }}" title="Download {{ product.name }} Intermediate Concepts Kindle/.mobi">.mobi/Kindle</a></li>
-                {% elif product.name == "Hello Web Design" %}
-                <li><a href="{{ hwd_pdf }}" title="Download {{ product.name }} PDF">PDF</a></li>
-                <li><a href="{{ hwd_epub }}" title="Download {{ product.name }} ePub">ePub</a></li>
-                <li><a href="{{ hwd_mobi }}" title="Download {{ product.name }} Kindle/.mobi">Kindle/.mobi</a></li>
-                {% endif %}
+                {% include 'dashboard/course/_course_files.html' with product_name=product.name %}
             </ul>
         </div>
         <div class="col-md-10">
@@ -115,6 +106,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                     {% endfilter %}
 
                     {% if video_url  or product.name == "Really Friendly Command Line Intro" %}<!-- Because generally important pages always have a video. The exemption are zines. -->
+                    {% if 'Updates' not in course_name %}
                     <div class="row hidden-md-down" style="margin-top:5em;margin-left:-2rem;margin-right:-2rem;">
                         {% include 'includes/course-prev-next.html' %}
                     </div>
@@ -131,7 +123,7 @@ analytics.page("{{ product.name }} Course Dashboard");
                     {% endif %}
                     <div id="disqus_thread"></div>
                     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                    {% endif %}
+                    {% endif %}{% endif %}
                 </div>
             </div>
             <div class="row m-t-lg">
@@ -156,6 +148,7 @@ analytics.page("{{ product.name }} Course Dashboard");
     }
 
     {% if video_url or product.name == "Really Friendly Command Line Intro" %} // Because generally important pages always have a video. The exemption are zines.
+    {% if 'Updates' not in course_name %}
     var disqus_config = function () {
     this.page.url = 'https://hellowebbooks.com/course/{{ product.get_slug }}/{{ course_link }}/';  // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = '{{ course_link }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
@@ -167,6 +160,6 @@ analytics.page("{{ product.name }} Course Dashboard");
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();
-    {% endif %}
+    {% endif %}{% endif %}
 </script>
 {% endblock %}
