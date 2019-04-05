@@ -20,9 +20,7 @@ analytics.page("Dashboard");
         <div class="col-md-9">
             <h2>Your products:</h2>
             <section id="memberships">
-                <!-- FIXME: This needs to be updated so if only one book, it doesn't go gigantic -->
                 {% for membership in memberships %}
-                <!-- TODO: The background size thing is a hack and should be made mo betta -->
                 <div class="box {{ membership.product.name|slugify }}" {% if memberships.count != 1 %}style="background-size:contain;{% if membership.product.name == 'Hello Web App' %}background-position: 0 -120px;{% endif %}"{% endif %}>
                     <div class="content">
                         <h2>
@@ -66,7 +64,7 @@ analytics.page("Dashboard");
                 {% endfor %}
             </section>
 
-            {% if not has_hwd or not has_hwa %}
+            {% if not has_hwd or not has_hwa or not has_cmd %}
             <hr />
             <h4>Want to buy another <i>Hello Web Books</i> product?</h4>
             <p>You get 20% off all products as an existing customer!</p>
@@ -96,6 +94,20 @@ analytics.page("Dashboard");
                             <li><a href="{% url 'charge' product_slug="hwa-ebooks" %}?coupon=customerfriend">Buy the eBook package</a> for <b>$27.96</b> (originally $34.95).</li>
                         </ul>
                         <a href="{% url 'learn-django' %}" class="btn btn-secondary btn-sm">See product page</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if not has_cmd %}
+                <div class="box command-line-zine">
+                    <div class="content">
+                        <h5>Really Friendly Command Line Zine</h5>
+                        <p>Small zine! Learn just enough command line to get you started. An ideal companion to <i>Hello Web App</i>.</p>
+                        <ul>
+                            <li><a href="">Add the <em>free</em> eBook to your dashboard.</li>
+                            <li><a href="{% url 'charge' product_slug="cmd-pb" %}?coupon=customerfriend">Get the physical version</a> for <b>$4.00</b> + shipping (originally $5.95).</li>
+                        </ul>
+                        <a href="" class="btn btn-primary btn-sm">Add to your dashboard (free)</a>
+                        <a href="{% url 'learn-command-line' %}" class="btn btn-secondary btn-sm">See product page</a>
                     </div>
                 </div>
                 {% endif %}

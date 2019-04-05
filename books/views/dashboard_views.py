@@ -21,6 +21,7 @@ def dashboard(request):
 
     has_hwa = False
     has_hwd = False
+    has_cmd = False
 
     # if someone has no memberships, means they went through the create account
     # page but didn't buy a product. Redirect to charge.
@@ -33,6 +34,8 @@ def dashboard(request):
             has_hwa = True
         elif m.product.name == "Hello Web Design":
             has_hwd = True
+        elif m.product.name == "Really Friendly Command Line Intro":
+            has_cmd = True
 
     return render(request, 'dashboard/dashboard.html', {
         'customer': customer,
