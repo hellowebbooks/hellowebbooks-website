@@ -15,7 +15,7 @@ class MembershipInline(admin.TabularInline):
 
 class CustomerAdmin(admin.ModelAdmin):
     model = Customer
-    list_display = ('user_email', 'stripe_id', 'last_4_digits', 'coupon', 'gift',)
+    list_display = ('user_email', 'created', 'stripe_id', 'last_4_digits', 'coupon', 'gift',)
     search_fields = ('user__email', 'stripe_id', 'coupon',)
     inlines = [MembershipInline,]
 
@@ -28,6 +28,7 @@ class MembershipAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
+    list_display = ('name', 'type',)
 
 
 admin.site.unregister(User)

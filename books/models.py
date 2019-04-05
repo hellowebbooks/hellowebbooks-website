@@ -29,9 +29,14 @@ class Customer(Timestamp):
         return self.user.email
 
 
-# FIXME: Hm, I may want a slugfield here
+# TODO: Hm, I may want a slugfield here
 class Product(models.Model):
+    PRODUCT_TYPES = (
+        ('book', 'Book'),
+        ('zine', 'Zine'),
+    )
     name = models.CharField(max_length=50)
+    type = models.CharField(max_length=255, choices=PRODUCT_TYPES)
     customers = models.ManyToManyField(Customer, through='Membership')
 
     def __str__(self):

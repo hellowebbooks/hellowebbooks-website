@@ -114,7 +114,7 @@ analytics.page("{{ product.name }} Course Dashboard");
 {% include course_template %} <!-- if indented, markdown thinks its code. sigh -->
                     {% endfilter %}
 
-                    {% if video_url %}
+                    {% if video_url  or product.name == "Really Friendly Command Line Intro" %}<!-- Because generally important pages always have a video. The exemption are zines. -->
                     <div class="row hidden-md-down" style="margin-top:5em;margin-left:-2rem;margin-right:-2rem;">
                         {% include 'includes/course-prev-next.html' %}
                     </div>
@@ -155,7 +155,7 @@ analytics.page("{{ product.name }} Course Dashboard");
         div.style.display = div.style.display == "none" ? "block" : "none";
     }
 
-    {% if video_url %}
+    {% if video_url or product.name == "Really Friendly Command Line Intro" %} // Because generally important pages always have a video. The exemption are zines.
     var disqus_config = function () {
     this.page.url = 'https://hellowebbooks.com/course/{{ product.get_slug }}/{{ course_link }}/';  // Replace PAGE_URL with your page's canonical URL variable
     this.page.identifier = '{{ course_link }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable

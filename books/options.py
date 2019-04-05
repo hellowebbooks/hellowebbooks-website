@@ -428,10 +428,40 @@ course_list = OrderedDict({
     'Really Friendly Command Line Intro': {
         'Module': {
             '0': {
-                'name': 'Learn Command Line',
-                'video': '',
+                'name': 'Introduction',
+                'video': 'https://player.vimeo.com/video/328691402',
                 'template': 'course/cmd/intro.md',
                 'link': 'intro',
+            },
+            '1': {
+                'name': 'Let’s start playing!',
+                'video': '',
+                'template': 'course/cmd/playing.md',
+                'link': 'playing',
+            },
+            '2': {
+                'name': 'But I’m tired of typing already!',
+                'video': '',
+                'template': 'course/cmd/tired.md',
+                'link': 'tired',
+            },
+            '3': {
+                'name': 'Intermediate command line utilities',
+                'video': '',
+                'template': 'course/cmd/intermediate.md',
+                'link': 'intermediate',
+            },
+            '4': {
+                'name': 'Wait, something went wrong',
+                'video': '',
+                'template': 'course/cmd/wrong.md',
+                'link': 'wrong',
+            },
+            '5': {
+                'name': 'Conclusion',
+                'video': '',
+                'template': 'course/cmd/conclusion.md',
+                'link': 'conclusion',
             },
         },
     },
