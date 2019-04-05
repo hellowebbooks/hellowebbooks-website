@@ -106,7 +106,7 @@ analytics.page("Dashboard");
                             <li><a href="">Add the <em>free</em> eBook to your dashboard.</li>
                             <li><a href="{% url 'charge' product_slug="cmd-pb" %}?coupon=customerfriend">Get the physical version</a> for <b>$4.00</b> + shipping (originally $5.95).</li>
                         </ul>
-                        <a href="" class="btn btn-primary btn-sm">Add to your dashboard (free)</a>
+                        <a href="{% url 'add_product' product_slug='really-friendly-command-line-intro' %}" class="btn btn-primary btn-sm">Add to your dashboard (free)</a>
                         <a href="{% url 'learn-command-line' %}" class="btn btn-secondary btn-sm">See product page</a>
                     </div>
                 </div>

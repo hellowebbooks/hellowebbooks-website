@@ -120,7 +120,7 @@ def edit_email(request):
         if form.is_valid():
             form.save()
             # TODO: Might be good to update this later to update the username
-            # too so we aren't doing two database saves
+            # too so we aren't doing two database saves with the below
 
             # update their "username" accordingly
             email = user.email
@@ -148,3 +148,24 @@ def edit_email(request):
         'form': form,
         'dashboard_area': True,
     })
+
+
+@login_required
+def add_product(request, product_slug):
+    try:
+        customer = Customer.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        messages.error(request, 'Customer not found. If this is in error, please email tracy@hellowebbooks.com with details.')
+        return redirect('order')
+
+    product_name = product_slug.replace("-", " ")
+    product_obj = Product.objects.get(name__iexact=product_name)
+    membership = Membership(
+        customer = customer,
+        product = product_obj,
+        paperback = False,
+        video = True,
+    )
+    membership.save()
+
+    return redirect('course', product_slug=product_slug)

@@ -425,4 +425,14 @@ course_list = OrderedDict({
             },
         },
     },
+    'Really Friendly Command Line Intro': {
+        'Module': {
+            '0': {
+                'name': 'Learn Command Line',
+                'video': '',
+                'template': 'course/cmd/intro.md',
+                'link': 'intro',
+            },
+        },
+    },
 })

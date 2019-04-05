@@ -69,6 +69,7 @@ urlpatterns = [
     #path('charge/cancel/', views.charge_cancel, name="charge_cancel"),
     path('buy/<product_slug>/', views.upsell, name='upsell'),
     path('gift/<product_slug>/', views.gift, name='gift'),
+    path('add/<product_slug>/', views.add_product, name='add_product'),
     path('check_coupon/', views.check_coupon, name='check_coupon'),
 
     # registration
