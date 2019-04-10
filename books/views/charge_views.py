@@ -116,6 +116,9 @@ def gift(request, product_slug):
         messages.error(request, "That person already has an account on Hello Web Books! This is a use-case that Tracy hasn't written the code for yet (whoops.) Please email tracy@hellowebbooks.com and she'll set it up manually with a discount for your trouble.")
         return redirect('upsell', product_slug=product_slug)
 
+    messages.error(request, 'How did you get here? Email tracy@hellowebbooks.com if you need help!')
+    return redirect('order')
+
 
 def charge(request, product_slug=None):
     user = request.user
