@@ -928,12 +928,13 @@ figure.video {
 
 #cmd-line {
     .jumbotron {
-        padding-bottom: 2rem;
+        padding-bottom: 3rem;
         text-align: left;
         h1 {
             max-width: none;
             margin-left: 0;
             font-size: 5rem;
+            margin-top: 0.2em;
             span.hl {
                 transform: initial;
                 span {
@@ -946,7 +947,7 @@ figure.video {
             margin: 1em 0;
         }
         p {
-            color: $gray-light;
+            //color: $gray-light;
         }
     }
     .toc-area {
@@ -957,6 +958,19 @@ figure.video {
             font-weight: bold;
             letter-spacing: 0.05em;
         }
+    }
+}
+
+.zine-signup {
+    background-color: lighten($highlight, 5%);
+    padding: 1em;
+    border-radius: 1em;
+    label {
+        @extend .sr-only;
+    }
+    input[type="email"] {
+        width: 400px;
+        margin-right: 0.5em;
     }
 }
 

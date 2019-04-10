@@ -44,10 +44,13 @@ urlpatterns = [
     path('write/', TemplateView.as_view(template_name='write.html'), name='write'),
 
     # books and courses
-    path('django-intermediate-concepts/', TemplateView.as_view(template_name='django-intermediate-concepts.html'), name='django-intermediate-concepts'),
-    path('learn-command-line/', TemplateView.as_view(template_name='learn-command-line.html'), name='learn-command-line'),
-    path('learn-design/', TemplateView.as_view(template_name='learn-design.html'), name='learn-design'),
     path('learn-django/', TemplateView.as_view(template_name='learn-django.html'), name='learn-django'),
+    path('django-intermediate-concepts/', TemplateView.as_view(template_name='django-intermediate-concepts.html'), name='django-intermediate-concepts'),
+    path('learn-design/', TemplateView.as_view(template_name='learn-design.html'), name='learn-design'),
+
+    # zines
+    path('learn-command-line/', views.command_line_zine, name='learn-command-line'),
+    path('learn-git/', RedirectView.as_view(url='https://pages.convertkit.com/1995434c27/9822c184ab')),
 
     # blog
     path('cms/', include(wagtailadmin_urls)),

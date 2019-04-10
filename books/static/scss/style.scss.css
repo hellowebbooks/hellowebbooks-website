@@ -3011,7 +3011,7 @@ input[type=button].btn-block {
   float: left !important;
 }
 
-.sr-only {
+.sr-only, .zine-signup label {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6007,13 +6007,14 @@ figure.video iframe {
 }
 
 #cmd-line .jumbotron {
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   text-align: left;
 }
 #cmd-line .jumbotron h1 {
   max-width: none;
   margin-left: 0;
   font-size: 5rem;
+  margin-top: 0.2em;
 }
 #cmd-line .jumbotron h1 span.hl {
   transform: initial;
@@ -6025,15 +6026,22 @@ figure.video iframe {
   max-width: none;
   margin: 1em 0;
 }
-#cmd-line .jumbotron p {
-  color: #818a91;
-}
 #cmd-line .toc-area li {
   margin-bottom: 1em;
   text-transform: uppercase;
   font-size: 1rem;
   font-weight: bold;
   letter-spacing: 0.05em;
+}
+
+.zine-signup {
+  background-color: #fffde4;
+  padding: 1em;
+  border-radius: 1em;
+}
+.zine-signup input[type=email] {
+  width: 400px;
+  margin-right: 0.5em;
 }
 
 @media (max-width: 74.9em) {

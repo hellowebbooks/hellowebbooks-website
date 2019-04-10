@@ -111,3 +111,12 @@ class AdminAddCustomerBulkForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(AdminAddCustomerBulkForm, self).__init__(*args, **kwargs)
         self.fields['emails'].label = "Comma delimited emails"
+
+
+class ZineSignupForm(forms.Form):
+    email = forms.EmailField()
+
+    def __init__(self, request=None, *args, **kwargs):
+        super(ZineSignupForm, self).__init__(*args, **kwargs)
+        self.fields['email'].label = "Add your email here to get access to the files"
+        self.fields['email'].widget.attrs['placeholder'] = 'Add your email here to access'
