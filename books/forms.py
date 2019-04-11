@@ -119,4 +119,4 @@ class ZineSignupForm(forms.Form):
     def __init__(self, request=None, *args, **kwargs):
         super(ZineSignupForm, self).__init__(*args, **kwargs)
         self.fields['email'].label = "Add your email here to get access to the files"
-        self.fields['email'].widget.attrs['placeholder'] = 'Add your email here to access'
+        self.fields['email'].widget.attrs['placeholder'] = 'Your email address'

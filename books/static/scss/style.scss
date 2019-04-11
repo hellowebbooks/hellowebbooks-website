@@ -933,7 +933,7 @@ figure.video {
         h1 {
             max-width: none;
             margin-left: 0;
-            font-size: 5rem;
+            font-size: 4.5rem;
             margin-top: 0.2em;
             span.hl {
                 transform: initial;
@@ -972,7 +972,20 @@ figure.video {
         width: 400px;
         margin-right: 0.5em;
     }
+    @include media-breakpoint-down(md) {
+        margin-left: -0.9375rem;
+        margin-right: -0.9375rem;
+        input[type="email"] {
+            width: 100%;
+            //padding: $input-padding-y-sm $input-padding-x-sm !important;
+            //font-size: $font-size-sm !important;
+            //line-height: $line-height-sm !important;
+            //border-radius: $input-border-radius-sm !important;
+        }
+    }
 }
+
+
 
 
 @include media-breakpoint-down(lg) {

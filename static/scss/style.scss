@@ -928,12 +928,13 @@ figure.video {
 
 #cmd-line {
     .jumbotron {
-        padding-bottom: 2rem;
+        padding-bottom: 3rem;
         text-align: left;
         h1 {
             max-width: none;
             margin-left: 0;
-            font-size: 5rem;
+            font-size: 4.5rem;
+            margin-top: 0.2em;
             span.hl {
                 transform: initial;
                 span {
@@ -946,7 +947,7 @@ figure.video {
             margin: 1em 0;
         }
         p {
-            color: $gray-light;
+            //color: $gray-light;
         }
     }
     .toc-area {
@@ -959,6 +960,32 @@ figure.video {
         }
     }
 }
+
+.zine-signup {
+    background-color: lighten($highlight, 5%);
+    padding: 1em;
+    border-radius: 1em;
+    label {
+        @extend .sr-only;
+    }
+    input[type="email"] {
+        width: 400px;
+        margin-right: 0.5em;
+    }
+    @include media-breakpoint-down(md) {
+        margin-left: -0.9375rem;
+        margin-right: -0.9375rem;
+        input[type="email"] {
+            width: 100%;
+            //padding: $input-padding-y-sm $input-padding-x-sm !important;
+            //font-size: $font-size-sm !important;
+            //line-height: $line-height-sm !important;
+            //border-radius: $input-border-radius-sm !important;
+        }
+    }
+}
+
+
 
 
 @include media-breakpoint-down(lg) {

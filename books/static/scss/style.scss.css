@@ -6013,7 +6013,7 @@ figure.video iframe {
 #cmd-line .jumbotron h1 {
   max-width: none;
   margin-left: 0;
-  font-size: 5rem;
+  font-size: 4.5rem;
   margin-top: 0.2em;
 }
 #cmd-line .jumbotron h1 span.hl {
@@ -6042,6 +6042,15 @@ figure.video iframe {
 .zine-signup input[type=email] {
   width: 400px;
   margin-right: 0.5em;
+}
+@media (max-width: 61.9em) {
+  .zine-signup {
+    margin-left: -0.9375rem;
+    margin-right: -0.9375rem;
+  }
+  .zine-signup input[type=email] {
+    width: 100%;
+  }
 }
 
 @media (max-width: 74.9em) {
