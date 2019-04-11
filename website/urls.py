@@ -50,7 +50,7 @@ urlpatterns = [
 
     # zines
     path('learn-command-line/', views.command_line_zine, name='learn-command-line'),
-    path('learn-git/', RedirectView.as_view(url='https://pages.convertkit.com/1995434c27/9822c184ab')),
+    path('learn-git/', RedirectView.as_view(url='https://pages.convertkit.com/1995434c27/9822c184ab'), name='learn-git'),
 
     # blog
     path('cms/', include(wagtailadmin_urls)),

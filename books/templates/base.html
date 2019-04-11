@@ -22,7 +22,7 @@
     <link rel="icon" type="image/png" href="{% static '/images/favicons/favicon-96x96.png' %}" sizes="96x96">
     <link rel="icon" type="image/png" href="{% static '/images/favicons/favicon-16x16.png' %}" sizes="16x16">
     <link rel="canonical" href="{{ CURRENT_PAGE.absolute_final_url }}" />
-    <link rel="stylesheet" href="{% static '/scss/style.scss.css' %}?v=5">
+    <link rel="stylesheet" href="{% static '/scss/style.scss.css' %}?v=6">
     <meta property="og:locale" content="en_CA" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Hello Web Books" />
@@ -108,30 +108,32 @@
             <div>
               <h6>Products</h6>
                 <ul class="list-unstyled">
-                  <li><a href="{% url 'courses' %}">All Products</a></li>
                   <li><a href="{% url 'learn-design' %}">Hello Web Design</a></li>
                   <li><a href="{% url 'learn-django' %}">Hello Web App</a></li>
-                  <li><a href="{% url 'order' %}">Order</a></li>
-                  <li><a href="{% url 'donate' %}">Donate</a></li>
-                  <li><a href="{% url 'workshops' %}">Workshops</a></li>
+                  <li><a href="{% url 'learn-command-line' %}">Command Line Zine</a></li>
+                  <li><a href="{% url 'learn-git' %}">Git Zine</a></li>
+                  <li><a href="{% url 'courses' %}">See All Products</a></li>
+                  {% comment %}<li><a href="{% url 'donate' %}">Donate</a></li>
+                  <li><a href="{% url 'workshops' %}">Workshops</a></li>{% endcomment %}
                 </ul>
             </div>
               <div>
                 <h6>Discussion</h6>
                 <ul class="list-unstyled">
-                  <li><a href="/news">Blog</a></li>
+                  <li><a href="/news">News and Articles</a></li>
                   <li><a href="//discuss.hellowebapp.com">Discuss</a></li>
                   <li><a href="{% url 'setup' %}">Django Setup</a></li>
+                  <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>
             </div>
               <div>
                   <h6>About</h6>
                 <ul class="list-unstyled">
-                  <li><a href="https://www.patreon.com/tracyosborn">Patreon</a></li>
+                  <li><a href="{% url 'order' %}">Order</a></li>
                   <li><a href="{% url 'faq' %}">FAQ</a></li>
                   <li><a href="{% url 'press' %}">Press</a></li>
                   <li><a href="{% url 'privacy-policy' %}">Privacy Policy</a></li>
-                  <li><a href="{% url 'contact' %}">Contact</a></li>
+                  <li><a href="https://www.patreon.com/tracyosborn">Patreon</a></li>
                 </ul>
             </div>
         </nav>
