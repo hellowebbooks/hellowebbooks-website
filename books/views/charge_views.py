@@ -234,7 +234,7 @@ def charge(request, product_slug=None):
         customer.save()
 
         # save the memberships in the database
-        helpers.create_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2)
+        helpers.new_account_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2)
 
         # send success email to admin
         helpers.send_admin_charge_success_email(user.email, product_name, has_paperback, supplement, gifted_product)

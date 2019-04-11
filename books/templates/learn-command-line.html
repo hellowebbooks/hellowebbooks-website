@@ -30,9 +30,9 @@ analytics.page("Command Line book landing page");
             <img src="{% static '/images/cmd/cmd-headline-graphic.png' %}" alt="Really friendly command line tutorial" />
         </div>
         <div class="col-md-8">
-            <h1><span class=""><span>Learn how to use the command line</span></span></h1>
+            <h1><span class=""><span>Learn command line</span></span></h1>
             <h2>Curious about the command line? This friendly introduction will go over the basics for beginners in a fun, illustrated zine format.</h2>
-            <p class="m-b-md" style="line-height:1.78;"><strong>Completely free!</strong> Sign up and get access to online content as well as downloadable PDF and print-and-staple booklet files. For MacOS; Linux and Windows coming soon. <a target="_blank" href="https://amzn.to/2TKQGkc" style="text-decoration:underline">Also on Amazon</a></p>
+            <p>Completely free! Sign up and get access to online content as well as downloadable PDF and print-and-staple booklet files. For MacOS — Linux and Windows coming soon. <a target="_blank" href="https://amzn.to/2TKQGkc" style="text-decoration:underline">Also on Amazon</a></p>
             <form action="" method="post" class="form zine-signup form-inline">
                 {% csrf_token %}
                 {% include 'includes/form.html' with form=form %}

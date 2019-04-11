@@ -141,6 +141,11 @@ def edit_email(request):
 
 @login_required
 def add_product(request, product_slug):
+    """
+    Button on dashboards to add a specific product without paying (like, for a
+    zine, which is free.)
+    TODO: Make this better/more general to work for more cases.
+    """
     try:
         customer = Customer.objects.get(user=request.user)
     except ObjectDoesNotExist:
@@ -148,6 +153,7 @@ def add_product(request, product_slug):
         return redirect('order')
 
     product_name = product_slug.replace("-", " ")
+    # FIXME: This is silly, figure out a better way to do it
     if 'really friendly' not in product_name:
         messages.error(request, 'Cannot add that product, sorry!')
         return redirect('dashboard')
@@ -157,7 +163,7 @@ def add_product(request, product_slug):
         customer = customer,
         product = product_obj,
         paperback = False,
-        video = True,
+        video = True, # set to True because zines don't differentiate
     )
     membership.save()
 

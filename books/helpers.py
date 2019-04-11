@@ -15,6 +15,25 @@ from books.models import Product, Customer, Membership
 stripe.api_key = os.environ['STRIPE_SECRET']
 
 
+def create_membership(customer, product_obj, paperback, video):
+    membership = Membership.objects.create(
+        customer=customer,
+        product=product_obj,
+        paperback=paperback,
+        video=video,
+    )
+    return membership
+
+
+def create_user_from_email(email):
+    user = User.objects.create_user(
+        username=email.replace("@", "").replace(".", ""),
+        email=email,
+        password=User.objects.make_random_password(),
+    )
+    return user
+
+
 def product_details(product):
     try:
         amount = options.PRODUCT_LOOKUP[product].amount or 0
@@ -128,7 +147,7 @@ def create_stripe_customer(request, product_slug, user, source, shipping, coupon
     return id
 
 
-def create_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2):
+def new_account_memberships(supplement, has_paperback, video, customer, product_obj, product_obj2):
     if supplement:
         try:
             membership = Membership.objects.get(customer=customer, product=product_obj)
@@ -140,22 +159,12 @@ def create_memberships(supplement, has_paperback, video, customer, product_obj, 
             mail_admins("Bad happenings on HWB", "Payment failure for [%s] - Buying supplement but membership doesn't exist" % (user.email))
 
     else: # not supplement, make a whole new membership
-        membership = Membership(
-            customer = customer,
-            product = product_obj,
-            paperback = has_paperback, # set from form after if statement
-            video = video, # set before POST if statement
-        )
-        membership.save()
+        create_membership(customer, product_obj, has_paperback, video)
 
         if product_obj2:
-            membership2 = Membership(
-                customer = customer,
-                product = product_obj2,
-                paperback = has_paperback, # set from form after if statement
-                video = video, # set before POST if statement
-            )
-            membership2.save()
+            create_membership(customer, product_obj2, has_paperback, video)
+
+    return
 
 
 def send_admin_charge_success_email(user_email, product_name, has_paperback, supplement, gifted_product):
@@ -282,13 +291,19 @@ def subscribe_to_newsletter(email, product_slug, has_paperback):
         'Own: HWD eBook': '330764',
         'Own: HWD Paperback': '330765',
         'Own: HWD Videos': '330766',
+        'Own: Zine Command Line': '870933',
+        'Own: Zine Git': '870934',
     }
 
     # by default, adding the "From: Website" tag
     tags = ['824915',]
 
     # FIXME: There *must* be a better way to do this. Fix me later.
-    if product_slug == 'hwb-video' and has_paperback:
+    if product_slug == 'cmd-zine':
+        tags.append('870933') # Own: Cmd Zine
+    elif product_slug == 'git-zine':
+        tags.append('870934') # Own: Cmd Zine
+    elif product_slug == 'hwb-video' and has_paperback:
         tags.append('330744') # Own: HWA
         tags.append('330745') # Own: HWAIC
         tags.append('330747') # Own: HWD
@@ -420,11 +435,7 @@ def invite_to_slack(email, product_name):
 
 def manual_admin_add_customer(request, email, hello_web_app, hello_web_design):
     # create user
-    user = User.objects.create_user(
-        username=email.replace("@", "").replace(".", ""),
-        email=email,
-        password=User.objects.make_random_password(),
-    )
+    user = create_user_from_email(email)
 
     # create Customer from user
     customer = Customer.objects.create(user=user)
@@ -432,33 +443,15 @@ def manual_admin_add_customer(request, email, hello_web_app, hello_web_design):
     # make appropriate Memberships based on form
     if hello_web_app:
         hwa_product_obj = Product.objects.get(name="Hello Web App")
-        paperback = False
-        if 'paperback' in hello_web_app:
-            paperback = True
-        video = False
-        if 'video' in hello_web_app:
-            video = True
-        Membership.objects.create(
-            customer=customer,
-            product=hwa_product_obj,
-            paperback=paperback,
-            video=video,
-        )
+        paperback = 'paperback' in hello_web_app # boolean response, neat
+        video = 'video' in hello_web_app # same
+        create_membership(customer, hwa_product_obj, paperback, video)
 
     if hello_web_design:
         hwd_product_obj = Product.objects.get(name="Hello Web Design")
-        paperback = False
-        if 'paperback' in hello_web_design:
-            paperback = True
-        video = False
-        if 'video' in hello_web_design:
-            video = True
-        Membership.objects.create(
-            customer=customer,
-            product=hwd_product_obj,
-            paperback=paperback,
-            video=video,
-        )
+        paperback = 'paperback' in hello_web_design
+        video = 'video' in hello_web_design
+        create_membership(customer, hwd_product_obj, paperback, video)
 
     # send User an email with how to access and reset the password
     send_giftee_password_reset(

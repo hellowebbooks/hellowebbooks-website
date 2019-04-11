@@ -126,6 +126,7 @@ analytics.page("Dashboard");
                 <li><a href="{% url 'auth_logout' %}">Logout</a></li>
             </ul>
 
+            {% if 'Hello Web App' in membership_list or 'Hello Web Design' in membership_list %}
             <h4 class="m-t-lg">Want to help out?</h4>
             <p>Amazon reviews are hugely important to me. Even if you didn't buy on Amazon, it would be a great help if you could leave a review for me (good or bad!)</p>
             <ul class="list-unstyled">
@@ -134,6 +135,7 @@ analytics.page("Dashboard");
             {% endif %}
             {% if 'Hello Web Design' in membership_list %}
             <li><a href="https://www.amazon.com/review/create-review/ref=cm_cr_dp_d_wr_but_top?ie=UTF8&channel=glance-detail&asin=0986365947" class="btn btn-sm btn-secondary m-t wrap-button">Leave a review for Hello Web Design</a></li>
+            {% endif %}
             {% endif %}
             <ul>
         </div>
