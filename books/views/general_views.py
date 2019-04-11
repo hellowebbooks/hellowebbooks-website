@@ -72,7 +72,13 @@ def command_line_zine(request):
             )
 
             # add to convertkit
-            helpers.subscribe_to_newsletter(email, 'cmd-zine', has_paperback=False)
+            if not settings.DEBUG:
+                helpers.subscribe_to_newsletter(email, 'cmd-zine', has_paperback=False)
+
+            # send email to admin
+            mail_admins("Command line zine signup %s" % email, "Signed up on form on website")
+
+            # success
             messages.success(request, 'Success! Check your email for the link to log in.')
             return redirect('learn-command-line')
 
