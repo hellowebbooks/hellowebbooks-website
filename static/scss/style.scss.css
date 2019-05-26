@@ -6006,27 +6006,27 @@ figure.video iframe {
   background: url(../images/hwd/book-banner.jpg) top center no-repeat;
 }
 
-#cmd-line .jumbotron {
+#cmd-line .jumbotron, #git-zine .jumbotron {
   padding-bottom: 3rem;
   text-align: left;
 }
-#cmd-line .jumbotron h1 {
+#cmd-line .jumbotron h1, #git-zine .jumbotron h1 {
   max-width: none;
   margin-left: 0;
   font-size: 4.5rem;
   margin-top: 0.2em;
 }
-#cmd-line .jumbotron h1 span.hl {
+#cmd-line .jumbotron h1 span.hl, #git-zine .jumbotron h1 span.hl {
   transform: initial;
 }
-#cmd-line .jumbotron h1 span.hl span {
+#cmd-line .jumbotron h1 span.hl span, #git-zine .jumbotron h1 span.hl span {
   transform: initial;
 }
-#cmd-line .jumbotron h2 {
+#cmd-line .jumbotron h2, #git-zine .jumbotron h2 {
   max-width: none;
   margin: 1em 0;
 }
-#cmd-line .toc-area li {
+#cmd-line .toc-area li, #git-zine .toc-area li {
   margin-bottom: 1em;
   text-transform: uppercase;
   font-size: 1rem;

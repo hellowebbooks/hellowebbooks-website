@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Really Friendly Git Intro - {{ block.super }}{% endblock %}
+
+{% block header %}
+<meta property="og:title" content="Really Friendly Git Intro" />
+<meta property="og:description" content="Learn the basics of Git with this friendly illustrated 24-page zine. Online text and other formats also available." />
+<meta property="og:url" content="https://hellowebbooks.com/learn-git/" />
+<meta property="og:image" content="{% static '/images/cmd/twitter-card.png' %}" /><!-- XXX: Update me -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Really Friendly Git Intro"/>
+<meta name="twitter:description" content="Learn the basics of Git with this friendly illustrated 24-page zine. Online text and other formats also available"/>
+<meta name="twitter:site" content="@hellowebbooks" />
+<meta name="twitter:creator" content="@tracymakes">
+<meta name="twitter:image" content="https://hellowebbooks.com/static/images/cmd/twitter-card.png"/><!-- XXX: Update me -->
+{% endblock header %}
+
+{% block analytics %}
+analytics.page("Git zine landing page");
+{% endblock %}
+
+{% block bodyclass %}
+<body id="git-zine" class="product-page">
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{% static '/images/git/git-headline-graphic.png' %}" alt="Really friendly Git tutorial" />
+        </div>
+        <div class="col-md-8">
+            <h1>Learn just enough <span class="highlight">Git</span>.</h1>
+            <h2>Learning how to code? Git is a crucial version control tool in web development that can feel difficult to learn by beginners.</h2>
+            <p>This zine/ebook will cover the basics of Git so you can get started with your coding projects with confidence. <a target="_blank" href="https://amzn.to/2TKQGkc" style="text-decoration:underline">Also on Amazon</a></p><!-- XXX: Update me -->
+            <form action="" method="post" class="form zine-signup form-inline">
+                {% csrf_token %}
+                {% include 'includes/form.html' with form=form %}
+                <input type="submit" value="Submit" class="btn btn-primary"/>
+                <p class="m-b-0" style="line-height:1.2; margin-top: 5px;">
+                    <small class="form-text text-muted">No spam, I promise. Your email address will be used to create an account on HelloWebBooks.com so you can access the content online and download the files.</small>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {# The social media area #}
+    <div class="row" style="margin-bottom: 2rem;">
+        <div class="col-sm-3 text-center">
+            <a href="https://twitter.com/hellowebbooks?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @hellowebbooks</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="col-sm-3 text-center">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-size="large">Tweet</a>
+        </div>
+        {% comment %}
+        <div class="col-sm-3 text-center">
+            <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fhellowebbooks.com%2Flearn-command-line%2F&layout=button_count&size=large&mobile_iframe=true&appId=120933304627289&width=84&height=28" width="84" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+        </div>
+        {% endcomment %}
+        <div class="col-sm-3 text-center">
+            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Ffacebook.com%2Fhellowebbooks&width=140&layout=button_count&action=like&size=large&show_faces=true&share=true&height=46&appId=120933304627289" width="140" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+        </div>
+        <div class="col-sm-3 text-center">
+            <a href="https://twitter.com/tracymakes?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tracymakes</a>
+        </div>
+    </div>
+  {#<hr style="margin-top:0;">#}
+
+  {# features #}
+  <div class="row">
+    <div class="col-sm-4">
+        <img src="{% static '/images/cmd/photos/1.jpg' %}" alt="Really friendly command line tutorial" style="border: 1px solid black;"/>
+        <h3>Covers the commands you'll use most as a beginner developer</h3>
+        <p>24 friendly and easy-to-read pages, available to read online or print-and-staple at home.</p>
+    </div>
+    <div class="col-sm-4">
+        <img src="{% static '/images/cmd/photos/2.jpg' %}" alt="Really friendly command line tutorial" style="border: 1px solid black;" />
+        <h3>Friendly and fun illustrations</h3>
+        <p>Interior illustrations by the author, Tracy Osborn, and the cover lovingly made by her partner, <a href="https://shazow.net/">Andrey Petrov</a>.</p>
+    </div>
+    <div class="col-sm-4">
+        <img src="{% static '/images/cmd/photos/3.jpg' %}" alt="Really friendly command line tutorial" style="border: 1px solid black;" />
+        <h3>Free online and low cost eBooks</h3>
+        <p style="margin-bottom:0.5em;">Sign up here to access the content online as well as downloadable and print-and-staple at home PDFs. Other retailers:</p>
+        <ul>
+            <li><a href="https://amzn.to/2IY3Oh0">Buy Kindle version on Amazon for $2.99</a></li>
+            <li><a href="https://amzn.to/2IY3Oh0">Buy the print-on-demand paperback for $5.95</a></li>
+            <li><a href="https://leanpub.com/really-friendly-command-line-intro">Buy ePub version on Leanpub for $5.00</a></li>
+        </ul>
+    </div>
+  </div>
+
+  <hr/>
+
+  <!--<div class="text-center row">
+      <div class="col-md-10 col-md-offset-1">
+          <figure class="full video">
+              <iframe src="https://www.youtube.com/embed/d9s8co9POYY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="allowfullscreen"></iframe>
+          </figure>
+      </div>
+  </div>
+
+  <hr style="margin-bottom: 2em"/>-->
+
+  <div class="row">
+      <div class="col-md-6">
+          <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">haven&#39;t tried using the command line before? it&#39;s never too late to learn the basics, and this (FREE!) guide makes it easy:<br><br>Really Friendly Command Line Intro: <a href="https://t.co/jpWhbIB5lp">https://t.co/jpWhbIB5lp</a> <a href="https://t.co/O9EgpNcHmx">pic.twitter.com/O9EgpNcHmx</a></p>&mdash; Kevin Chang (@teenwolfblitzer) <a href="https://twitter.com/teenwolfblitzer/status/989176988396130305?ref_src=twsrc%5Etfw">April 25, 2018</a></blockquote>
+      </div>
+      <div class="col-md-6">
+          <blockquote class="twitter-tweet"  data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">“Really Friendly Command Line Intro” by the wonderful <a href="https://twitter.com/tracymakes?ref_src=twsrc%5Etfw">@tracymakes</a> - Hello Web Books <a href="https://t.co/kJty4HRFyg">https://t.co/kJty4HRFyg</a></p>&mdash; Hazim Sami (@hazim) <a href="https://twitter.com/hazim/status/978346811340591104?ref_src=twsrc%5Etfw">March 26, 2018</a></blockquote>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6">
+          <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Really Friendly Command Line Intro <a href="https://t.co/aF5Ph05dC0">https://t.co/aF5Ph05dC0</a> A free, ilustrated and fun book for learning about the command line <a href="https://t.co/qSJjkUqCqh">pic.twitter.com/qSJjkUqCqh</a></p>&mdash; Rubén Chavarría T. (@rchavarriat) <a href="https://twitter.com/rchavarriat/status/984763189266087936?ref_src=twsrc%5Etfw">April 13, 2018</a></blockquote>
+      </div>
+      <div class="col-md-6">
+          <blockquote class="twitter-tweet"  data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">Curious about the command line? Check out &quot;Really Friendly Command Line Intro&quot; <a href="https://t.co/Lmtt8he1K9">https://t.co/Lmtt8he1K9</a> by <a href="https://twitter.com/tracymakes?ref_src=twsrc%5Etfw">@tracymakes</a></p>&mdash; WebdevLearning (@webdevlearning) <a href="https://twitter.com/webdevlearning/status/980098053419028480?ref_src=twsrc%5Etfw">March 31, 2018</a></blockquote>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      </div>
+  </div>
+
+  <hr style="margin: 2em 5em 4em 5em;"/>
+
+  {# then add another newsletter/etc area? #}
+  <div class="row">
+      <div class="col-sm-3 text-center">
+          <a href="https://twitter.com/hellowebbooks?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @hellowebbooks</a>
+      </div>
+      <div class="col-sm-3 text-center">
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" data-size="large">Tweet</a>
+      </div>
+      {% comment %}
+      <div class="col-sm-3 text-center">
+          <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fhellowebbooks.com%2Flearn-command-line%2F&layout=button_count&size=large&mobile_iframe=true&appId=120933304627289&width=84&height=28" width="84" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      </div>
+      {% endcomment %}
+      <div class="col-sm-3 text-center">
+          <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Ffacebook.com%2Fhellowebbooks&width=140&layout=button_count&action=like&size=large&show_faces=true&share=true&height=46&appId=120933304627289" width="140" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+      </div>
+      <div class="col-sm-3 text-center">
+          <a href="https://twitter.com/tracymakes?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @tracymakes</a>
+      </div>
+    </div>
+</div>
+
+{% include 'includes/newsletter.html' %}
+{% include 'includes/convertkit-modal.html' %}
+
+{% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".buy-button").each(function() {
+            var link = $(this);
+            analytics.trackLink(link, 'Clicked Buy Link', {
+                name: $(link).data("title"),
+                price: $(link).data("price"),
+                revenue: $(link).data("price"),
+                label: $(link).text(),
+                category: $(link).data("title")
+            });
+        });
+
+        $(".free-sample-link").each(function() {
+            var link = $(this);
+            analytics.trackLink(link, 'Clicked Free Sample Link', {
+                title: $(link).data("loc"),
+            });
+        });
+    });
+</script>
+{% include 'includes/newsletter-analytics.html' %}
+{% endblock scripts %}

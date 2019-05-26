@@ -89,3 +89,58 @@ def command_line_zine(request):
     return render(request, 'learn-command-line.html', {
         'form': form,
     })
+
+
+# FIXME: This might be better to make generic
+def git_zine(request):
+    """
+    Form to create an account directly from the Git Zine landing page.
+    """
+    form_class = forms.ZineSignupForm
+
+    if request.method == 'POST':
+        form = form_class(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+
+            # check if they already have an account
+            if User.objects.filter(email=email).exists():
+                messages.info(request, 'Looks like we already have an account for this email address. Please log in and you can add the zine to your account from your dashboard.')
+                return redirect('login')
+
+            # create User account for email address
+            user = helpers.create_user_from_email(email)
+
+            # create Customer from user
+            customer = Customer.objects.create(user=user)
+
+            # set up Membership for the zine and tie to Customer
+            product_obj = Product.objects.get(name="Really Friendly Git Intro")
+            helpers.create_membership(customer, product_obj, paperback=False, video=True)
+
+            # send over the reset password link to access account
+            helpers.send_giftee_password_reset(
+                request,
+                user.email,
+                "Admin Add",
+                'registration/zine_signup_password_reset_subject.txt',
+                'registration/zine_signup_password_reset_email.txt',
+            )
+
+            # add to convertkit
+            if not settings.DEBUG:
+                helpers.subscribe_to_newsletter(email, 'git-zine', has_paperback=False)
+
+            # send email to admin
+            mail_admins("Git zine signup %s" % email, "Signed up on form on website")
+
+            # success
+            messages.success(request, 'Success! Check your email for the link to log in.')
+            return redirect('learn-git')
+
+    else:
+        form = form_class()
+
+    return render(request, 'learn-git.html', {
+        'form': form,
+    })
