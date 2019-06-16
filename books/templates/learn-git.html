@@ -6,13 +6,13 @@
 <meta property="og:title" content="Really Friendly Git Intro" />
 <meta property="og:description" content="Learn the basics of Git with this friendly illustrated 24-page zine. Online text and other formats also available." />
 <meta property="og:url" content="https://hellowebbooks.com/learn-git/" />
-<meta property="og:image" content="{% static '/images/cmd/twitter-card.png' %}" /><!-- XXX: Update me -->
+<meta property="og:image" content="{% static '/images/git/twitter-card.png' %}" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Really Friendly Git Intro"/>
 <meta name="twitter:description" content="Learn the basics of Git with this friendly illustrated 24-page zine. Online text and other formats also available"/>
 <meta name="twitter:site" content="@hellowebbooks" />
 <meta name="twitter:creator" content="@tracymakes">
-<meta name="twitter:image" content="https://hellowebbooks.com/static/images/cmd/twitter-card.png"/><!-- XXX: Update me -->
+<meta name="twitter:image" content="https://hellowebbooks.com/static/images/git/twitter-card.png"/>
 {% endblock header %}
 
 {% block analytics %}
@@ -32,7 +32,7 @@ analytics.page("Git zine landing page");
         <div class="col-md-8">
             <h1>Learn just enough <span class="highlight">Git</span>.</h1>
             <h2>Learning how to code? Git is a crucial version control tool in web development that can feel difficult to learn by beginners.</h2>
-            <p>This zine/ebook will cover the basics of Git so you can get started with your coding projects with confidence. <a target="_blank" href="https://amzn.to/2TKQGkc" style="text-decoration:underline">Also on Amazon</a></p><!-- XXX: Update me -->
+            <p>This zine/ebook will cover the basics of Git so you can get started with your coding projects with confidence. <a target="_blank" href="https://amzn.to/2IiQw01" style="text-decoration:underline">Also on Amazon</a></p>
             <form action="" method="post" class="form zine-signup form-inline">
                 {% csrf_token %}
                 {% include 'includes/form.html' with form=form %}
@@ -86,9 +86,9 @@ analytics.page("Git zine landing page");
         <h3>Free online and low cost eBooks</h3>
         <p style="margin-bottom:0.5em;">Sign up here to access the content online as well as downloadable and print-and-staple at home PDFs. Other retailers:</p>
         <ul>
-            <li><a href="https://amzn.to/2IY3Oh0">Buy Kindle version on Amazon for $2.99</a></li>
-            <li><a href="https://amzn.to/2IY3Oh0">Buy the print-on-demand paperback for $5.95</a></li>
-            <li><a href="https://leanpub.com/really-friendly-command-line-intro">Buy ePub version on Leanpub for $5.00</a></li>
+            <li><a href="https://amzn.to/2MSyYwl">Buy Kindle version on Amazon for $2.99</a></li>
+            <li><a href="https://amzn.to/2XhdEnX">Buy the print-on-demand paperback for $5.95</a></li>
+            <li><a href="https://leanpub.com/really-friendly-git-intro">Buy ePub version on Leanpub for $4.99</a></li>
         </ul>
     </div>
   </div>
@@ -105,6 +105,7 @@ analytics.page("Git zine landing page");
 
   <hr style="margin-bottom: 2em"/>-->
 
+  {% comment %}
   <div class="row">
       <div class="col-md-6">
           <blockquote class="twitter-tweet" data-cards="hidden" data-lang="en"><p lang="en" dir="ltr">haven&#39;t tried using the command line before? it&#39;s never too late to learn the basics, and this (FREE!) guide makes it easy:<br><br>Really Friendly Command Line Intro: <a href="https://t.co/jpWhbIB5lp">https://t.co/jpWhbIB5lp</a> <a href="https://t.co/O9EgpNcHmx">pic.twitter.com/O9EgpNcHmx</a></p>&mdash; Kevin Chang (@teenwolfblitzer) <a href="https://twitter.com/teenwolfblitzer/status/989176988396130305?ref_src=twsrc%5Etfw">April 25, 2018</a></blockquote>
@@ -122,8 +123,9 @@ analytics.page("Git zine landing page");
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
   </div>
-
   <hr style="margin: 2em 5em 4em 5em;"/>
+  {% endcomment %}
+
 
   {# then add another newsletter/etc area? #}
   <div class="row">
