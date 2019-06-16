@@ -6224,6 +6224,11 @@ figure.video iframe {
   background-size: cover;
 }
 
+.box.really-friendly-git-intro {
+  background: url(../images/git/photo2.jpg) 0 -20px no-repeat;
+  background-size: cover;
+}
+
 #upsells {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
