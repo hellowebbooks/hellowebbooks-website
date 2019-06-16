@@ -465,4 +465,44 @@ course_list = OrderedDict({
             },
         },
     },
+    'Really Friendly Git Intro': {
+        'Zine': {
+            '0': {
+                'name': 'Introduction',
+                'video': '',
+                'template': 'course/git/intro.md',
+                'link': 'intro',
+            },
+            '1': {
+                'name': 'What is Git?',
+                'video': '',
+                'template': 'course/git/whatsgit.md',
+                'link': 'whatsgit',
+            },
+            '2': {
+                'name': 'Let’s start playing!',
+                'video': '',
+                'template': 'course/git/playing.md',
+                'link': 'playing',
+            },
+            '3': {
+                'name': 'Intermediate Git: Creating branches!',
+                'video': '',
+                'template': 'course/git/intermediate.md',
+                'link': 'intermediate',
+            },
+            '4': {
+                'name': 'That’s cool! So what’s GitHub then?',
+                'video': '',
+                'template': 'course/git/github.md',
+                'link': 'github',
+            },
+            '5': {
+                'name': 'Conclusion',
+                'video': '',
+                'template': 'course/git/conclusion.md',
+                'link': 'conclusion',
+            },
+        },
+    },
 })
