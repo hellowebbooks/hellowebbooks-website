@@ -50,7 +50,8 @@ urlpatterns = [
 
     # zines
     path('learn-command-line/', views.command_line_zine, name='learn-command-line'),
-    path('learn-git/', RedirectView.as_view(url='https://pages.convertkit.com/1995434c27/9822c184ab'), name='learn-git'),
+    path('learn-git/', views.git_zine, name='learn-git'),
+    #path('learn-git/', RedirectView.as_view(url='https://pages.convertkit.com/1995434c27/9822c184ab'), name='learn-git'),
 
     # blog
     path('cms/', include(wagtailadmin_urls)),
@@ -115,6 +116,8 @@ urlpatterns = [
     path('preorder/', RedirectView.as_view(pattern_name='order', permanent=True)),
     path('cmd-line-pdf/', RedirectView.as_view(url='https://goo.gl/LLGswY')),
     path('cmd-line-printable/', RedirectView.as_view(url='https://goo.gl/B38FeX')),
+    path('git-zine-pdf/', RedirectView.as_view(url='https://drive.google.com/open?id=1OxJwuWUX2Nv-awKWmAjuP6fgW54gd_eu')),
+    path('git-zine-printable/', RedirectView.as_view(url='https://drive.google.com/open?id=12LJMGgMEys_FMpFa1ga5HZ1cME1Bsohe')),
 
     # blog categories redirects
     path('category/casestudy/', RedirectView.as_view(url='/news/category/casestudy/')),

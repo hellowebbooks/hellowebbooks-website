@@ -926,7 +926,7 @@ figure.video {
     }
 }
 
-#cmd-line {
+#cmd-line, #git-zine {
     .jumbotron {
         padding-bottom: 3rem;
         text-align: left;
@@ -1156,6 +1156,10 @@ figure.video {
 }
 .box.really-friendly-command-line-intro {
     background: url(../images/cmd/cmd-courses2.jpg) 0 -20px no-repeat;
+    background-size: cover;
+}
+.box.really-friendly-git-intro {
+    background: url(../images/git/photo2.jpg) 0 -20px no-repeat;
     background-size: cover;
 }
 

@@ -9,11 +9,11 @@ analytics.page("Books and Courses");
 
 {% block content %}
 <div class="container courses">
-    <h1><span class="highlight">Books and Courses</span></h1>
+    <h1><span class="highlight">Books, Courses, and Free Guides</span></h1>
     <p>I love to teach beginner web skills! See everything I've released so far:</p>
 
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <h2>Learn Design</h2>
             <div class="row">
                 <div class="col-lg-12">
@@ -25,21 +25,33 @@ analytics.page("Books and Courses");
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <h2>Learn Programming</h2>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <h3 class="m-t m-b-0"><a href="{% url 'learn-django' %}"><i>Hello Web App</i></a></h3>
                     <a href="{% url 'learn-django' %}" title="Hello Web App landing page"><img style="margin-bottom:10px" src="{% static '/images/original/hwa-courses.jpg' %}" alt="Hello Web App" /></a>
                     <p><strong>Want to build your first web app?</strong> Hello Web App walks you through building and launching a simple web app using Python and Django.</p>
                     <p style="margin-bottom:0"><a href="{% url 'learn-django' %}" class="btn btn-primary wrap-button">More about <i>Hello Web App</i></a></p>
                     <small><em>Pricing starts at $34.95</em></small>
                 </div>
+            </div>
+        </div>
+        <div class="col-lg-12 m-t-lg">
+            <h2>Free Guides and Zines</h2>
+            <div class="row">
                 <div class="col-lg-6">
-                    <h3 class="m-t m-b-0"><a href="{% url 'learn-command-line' %}"><i>Friendly Command Line Intro</i></a></h3>
-                    <a href="{% url 'learn-command-line' %}" title="Really Friendly Command Line Zine landing page"><img style="margin-bottom:10px" src="{% static '/images/cmd/cmd-courses.jpg' %}" alt="Hello Web App" /></a>
+                    <h3 class="m-t m-b-0"><a href="{% url 'learn-command-line' %}"><i>Really Friendly Command Line Intro</i></a></h3>
+                    <a href="{% url 'learn-command-line' %}" title="Really Friendly Command Line Zine landing page"><img style="margin-bottom:10px" src="{% static '/images/cmd/cmd-courses.jpg' %}" alt="Really Friendly Command Line Zine" /></a>
                     <p><strong>Free intro to the command line.</strong> Free zine, printable, and online intro to the command line. Written as a companion to <i>Hello Web App</i>.</p>
-                    <p style="margin-bottom:0"><a href="{% url 'learn-command-line' %}" class="btn btn-secondary wrap-button">See the booklet</a></p>
+                    <p style="margin-bottom:0"><a href="{% url 'learn-command-line' %}" class="btn btn-primary wrap-button">See the booklet</a></p>
+                    <small><em>Free forever</em></small>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="m-t m-b-0"><a href="{% url 'learn-git' %}"><i>Really Friendly Git Intro</i></a></h3>
+                    <a href="{% url 'learn-git' %}" title="Really Friendly Git Zine landing page"><img style="margin-bottom:10px" src="{% static '/images/git/photo2.jpg' %}" alt="Really Friendly Git Zine" /></a>
+                    <p><strong>Free intro to Git.</strong> Free zine, printable, and online intro to Git version control system. Written as a companion to <i>Hello Web App</i>.</p>
+                    <p style="margin-bottom:0"><a href="{% url 'learn-git' %}" class="btn btn-primary wrap-button">See the booklet</a></p>
                     <small><em>Free forever</em></small>
                 </div>
             </div>
