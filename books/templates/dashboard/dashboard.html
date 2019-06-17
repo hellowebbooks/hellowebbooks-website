@@ -60,7 +60,7 @@ analytics.page("Dashboard");
                 {% endfor %}
             </section>
 
-            {% if 'Hello Web Design' not in membership_list or 'Hello Web App' not in membership_list or 'Really Friendly Command Line Intro' not in membership_list %}
+            {% if 'Hello Web Design' not in membership_list or 'Hello Web App' not in membership_list or 'Really Friendly Command Line Intro' not in membership_list or 'Really Friendly Git Intro' not in membership_list %}
             <hr />
             <h4>Other <i>Hello Web Books</i> products</h4>
             <p>You get 20% off all products as an existing customer!</p>
@@ -106,6 +106,21 @@ analytics.page("Dashboard");
                             <li><a href="https://amzn.to/2TKQGkc">Get the physical version</a> for <b>$5.95</b> + shipping.</li>
                         </ul>
                         <a href="{% url 'add_product' product_slug='really-friendly-command-line-intro' %}" class="btn btn-primary btn-sm m-t">Add to your dashboard (free)</a>
+                        <a href="{% url 'learn-command-line' %}" class="btn btn-secondary btn-sm m-t">See product page</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if 'Really Friendly Git Intro' not in membership_list %}
+                <div class="box really-friendly-git-intro">
+                    <div class="content">
+                        <span class="badge badge-content membership-badge membership-badge-new">Zine</span>
+                        <h5>Really Friendly Git Intro</h5>
+                        <p style="margin-bottom: 10px;">Learn Git, the best code version control system! Free addition to your account (other than Amazon Kindle or print versions). Files include both PDF and print-and-staple PDF files. An ideal companion to <i>Hello Web App</i>.</p>
+                        <ul>
+                            <li><a href="{% url 'add_product' product_slug='really-friendly-command-line-intro' %}">Add the <em>free</em> eBook to your dashboard.</li>
+                            <li><a href="https://amzn.to/2TKQGkc">Get the physical version</a> for <b>$5.95</b> + shipping.</li>
+                        </ul>
+                        <a href="{% url 'add_product' product_slug='really-friendly-git-intro' %}" class="btn btn-primary btn-sm m-t">Add to your dashboard (free)</a>
                         <a href="{% url 'learn-command-line' %}" class="btn btn-secondary btn-sm m-t">See product page</a>
                     </div>
                 </div>
