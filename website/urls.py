@@ -116,6 +116,8 @@ urlpatterns = [
     path('preorder/', RedirectView.as_view(pattern_name='order', permanent=True)),
     path('cmd-line-pdf/', RedirectView.as_view(url='https://goo.gl/LLGswY')),
     path('cmd-line-printable/', RedirectView.as_view(url='https://goo.gl/B38FeX')),
+    path('git-zine-pdf/', RedirectView.as_view(url='https://drive.google.com/open?id=1OxJwuWUX2Nv-awKWmAjuP6fgW54gd_eu')),
+    path('git-zine-printable/', RedirectView.as_view(url='https://drive.google.com/open?id=12LJMGgMEys_FMpFa1ga5HZ1cME1Bsohe')),
 
     # blog categories redirects
     path('category/casestudy/', RedirectView.as_view(url='/news/category/casestudy/')),
