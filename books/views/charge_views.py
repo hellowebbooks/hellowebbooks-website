@@ -73,7 +73,9 @@ def upsell(request, product_slug=None):
                 # user wasn't found but the email exists in the system, so their
                 # password must be wrong (or something)
                 messages.error(request, 'Email address found in system but password did not match. Try again?')
-                return redirect('/buy/' + product_slug + '/?coupon=' + coupon_supplied)
+                if coupon_supplied:
+                    return redirect('/buy/' + product_slug + '/?coupon=' + coupon_supplied)
+                return redirect('upsell', product_slug=product_slug)
 
             else:
                 # existing user was found and logged in
