@@ -19,7 +19,7 @@
                 <li>Two eBooks in three formats each &#8212; PDF, .mobi, and .ePub.</li>
                 <li>28 videos &#8212; screencasts walking you through all chapters of the books plus four bonus beginner videos.</li>
                 <li><strong>Access to a video dashboard</strong> so you can keep track of your progress.</li>
-                <li>The gorgeously designed paperback books &#8212; Optional add-on for $20 USD + shipping.</li>
+                <!--<li>The gorgeously designed paperback books &#8212; Optional add-on for $20 USD + shipping.</li>-->
             </ul>
             <div class="m-t-md m-b">
                 <a href="{% url 'upsell' product_slug='hwa-video' %}" class="btn btn-primary buy-button" data-title="Hello Web App Video Paperback package" data-price="179">
@@ -50,7 +50,7 @@
                 <p>Learn better with a physical book? I got you! <strong>This package contains the eBooks</strong> (in all three formats) <strong>plus the paperback books</strong>. Shipping extra.</p>
             </div>
             <div class="text-center">
-                <a class="btn btn-secondary buy-button" data-title="Hello Web App Paperback" data-category="Hello Web App" data-price="59.95" href="{% url 'upsell' product_slug='hwa-pb' %}">
+                <a class="btn btn-secondary buy-button disabled" data-title="Hello Web App Paperback" data-category="Hello Web App" data-price="59.95" href="{% url 'upsell' product_slug='hwa-pb' %}">
                     Buy for
                     {% if request.user.is_authenticated and not request.session.brand_new_user and not request.session.giftee_user %}
                     <s>$59.95</s> $47.96 <span class="text-muted">+ shipping</span>
@@ -58,7 +58,8 @@
                     $59.95 <span class="text-muted">+ shipping</span>
                     {% endif %}
                 </a>
-                <p class="text-muted"><small>Price is in USD.</small></p>
+                <!--<p class="text-muted"><small>Price is in USD.</small></p>-->
+                <p class="text-muted"><small>Not for sale at the moment. Feel free to email if you really want a physical book.</small></p>
             </div>
         </div>
     </div>
