@@ -76,6 +76,7 @@ analytics.page("Blog: {{ page.title }}");
                       </a>
                       <a class="mail" href="mailto:?subject={{ page.title }}&amp;body=Here's the link: https://hellowebbooks.com/{{ path|cut:".html" }}/"><i class="fa fa-envelope"></i></a>
                   </div>
+                  {% comment %}
                   <span>Subscribe</span>
 
                   <div class="ck_form_container ck_inline" id="mc_embed_signup" data-ck-version="6">
@@ -111,10 +112,11 @@ analytics.page("Blog: {{ page.title }}");
                     </div>
                   </div>
                 </div>
+                {% endcomment %}
               </section>
           </footer>
 
-          {% include 'includes/disqus.html' %}
+          {% comment %}{% include 'includes/disqus.html' %}{% endcomment %}
         </div>
     </article>
 </section>
