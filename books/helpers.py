@@ -271,6 +271,13 @@ def subscribe_to_newsletter(email, product_slug, has_paperback):
     """
     Uses the ConvertKit API to add a person into the newsletter system with
     the appropriate tags.
+
+    NOTE: This has been removed. No longer subscribing to Convertkit.
+    """
+    return # RETURRRRNED
+
+    """
+    The below is no longer used
     """
     convertkit_secret = os.environ['CONVERTKIT_SECRET']
     convertkit_public = os.environ['CONVERTKIT_PUBLIC']
