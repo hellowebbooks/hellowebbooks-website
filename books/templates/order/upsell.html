@@ -22,7 +22,7 @@ analytics.page("Confirm Email");
             <h1>Create an account or login</h1>
             <p>After buying, you'll get access to a dashboard with your content, downloadable eBook files, and videos (if included in your package.)</p>
             {% if coupon_supplied %}
-            <p style="margin-top:-10px;">Your coupon <em>{{ coupon_supplied }}</em> will be applied on the following checkout page.</p>
+            <p style="margin-top:-10px;"><b>Your coupon <em>{{ coupon_supplied }}</em> will be applied on the following checkout page.</b></p>
             {% endif %}
             <form action="" method="POST">
                 {% csrf_token %}
