@@ -54,7 +54,7 @@
                 <p>Learn better with a physical book? I got you! <strong>This package contains the eBook</strong> (in all three formats) <strong>plus the paperback book</strong>. Shipping extra.</p>
             </div>
             <div class="text-center">
-                <a class="btn btn-secondary buy-button" data-title="Hello Web Design Paperback" data-category="Hello Web Design" data-price="39.95" href="{% url 'upsell' product_slug='hwd-pb' %}">
+                <a class="btn btn-secondary buy-button disabled" data-title="Hello Web Design Paperback" data-category="Hello Web Design" data-price="39.95" href="{% url 'upsell' product_slug='hwd-pb' %}">
                     Buy for
                     {% if request.user.is_authenticated and not request.session.brand_new_user and not request.session.giftee_user %}
                     <s>$39.95</s> $31.96 <span class="text-muted">+ shipping</span>
@@ -62,7 +62,8 @@
                     $39.95 <span class="text-muted">+ shipping</span>
                     {% endif %}
                 </a>
-                <p class="text-muted"><small>Price is in USD.</small></p>
+                <!--<p class="text-muted"><small>Price is in USD.</small></p>-->
+                <p class="text-muted"><small>Not for sale at the moment. Feel free to email if you really want a physical book.</small></p>
             </div>
         </div>
     </div>
