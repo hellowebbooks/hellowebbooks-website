@@ -27,14 +27,15 @@
             </ul>
 
             <div class="m-t-md m-b">
-                <a class="btn btn-primary buy-button" data-title="Hello Web Design Videos" data-category="Hello Web Design" data-price="99" href="{% url 'upsell' product_slug='hwd-video' %}">
+                <a class="btn btn-primary buy-button disabled" data-title="Hello Web Design Videos" data-category="Hello Web Design" data-price="99" href="{% url 'upsell' product_slug='hwd-video' %}">
                     Buy the full course for
                     {% if request.user.is_authenticated and not request.session.brand_new_user and not   request.session.giftee_user %}
                     <s>$99</s> $79.20
                     {% else %}
                     $99{% endif %}
                 </a>
-                <p class="text-muted"><small>Price is in USD.</small></p>
+                <!--<p class="text-muted"><small>Price is in USD.</small></p>-->
+                <p class="text-muted"><small>Not for sale at the moment. Feel free to email if you really want a physical book.</small></p>
             </div>
         </div>
     </div>
@@ -76,7 +77,7 @@
     </div>
     <p><strong>The digital book</strong>, lovingly designed by Tracy herself. Comes in PDF, .mobi, and .ePub formats.</p>
     <div class="text-center">
-        <a class="btn btn-secondary buy-button" data-title="Hello Web Design eBooks" data-category="Hello Web Design" data-price="24.95" href="{% url 'upsell' product_slug='hwd-ebooks' %}">
+        <a class="btn btn-secondary buy-button disabled" data-title="Hello Web Design eBooks" data-category="Hello Web Design" data-price="24.95" href="{% url 'upsell' product_slug='hwd-ebooks' %}">
             Buy for
             {% if request.user.is_authenticated and not request.session.brand_new_user and not request.session.giftee_user %}
             <s>$24.95</s> $19.96
@@ -84,6 +85,7 @@
             $24.95
             {% endif %}
         </a>
-        <p class="text-muted"><small>Price is in USD.</small></p>
+        <!--<p class="text-muted"><small>Price is in USD.</small></p>-->
+        <p class="text-muted"><small>Not for sale at the moment. Feel free to email if you really want a physical book.</small></p>
     </div>
 </div>
