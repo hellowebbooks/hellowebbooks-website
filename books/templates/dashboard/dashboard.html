@@ -60,6 +60,8 @@ analytics.page("Dashboard");
                 {% endfor %}
             </section>
 
+            <!-- UPSELLS, CURRENTLY REMOVED -->
+            {% comment %}
             {% if 'Hello Web Design' not in membership_list or 'Hello Web App' not in membership_list or 'Really Friendly Command Line Intro' not in membership_list or 'Really Friendly Git Intro' not in membership_list %}
             <hr />
             <h4>Other <i>Hello Web Books</i> products</h4>
@@ -130,6 +132,7 @@ analytics.page("Dashboard");
             <p class="text-center m-y-md">You have every book I offer! Thank you. 💕</p>
             {% endif %}
         </div>
+        {% endcomment %}
 
         <!-- Sidebar -->
         <div class="col-md-3 sidebar m-t-lg">
