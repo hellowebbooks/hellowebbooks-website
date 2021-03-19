@@ -4,6 +4,7 @@ db.sqlite3.bak
 venv
 *.pyc
 staticfiles
+static
 .DS_STORE
 *.zip
 *.csv

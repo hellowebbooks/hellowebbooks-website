@@ -18,14 +18,19 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 return false;
             });
         }
+        var request;
 
         function fetchResults(requestData) {
-            $.ajax({
+            request = $.ajax({
                 url: searchUrl,
                 data: requestData,
                 success: function(data, status) {
+                    request = null;
                     $('#image-results').html(data);
                     ajaxifyLinks($('#image-results'));
+                },
+                error: function() {
+                    request = null;
                 }
             });
         }
@@ -42,7 +47,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         function setPage(page) {
-            params = {p: page};
+            var params = {p: page};
             if ($('#id_q').val().length){
                 params['q'] = $('#id_q').val();
             }
@@ -59,11 +64,11 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('form.image-upload', modal.body).on('submit', function() {
             var formdata = new FormData(this);
 
-            if ($('#id_title', modal.body).val() == '') {
-                var li = $('#id_title', modal.body).closest('li');
+            if ($('#id_image-chooser-upload-title', modal.body).val() == '') {
+                var li = $('#id_image-chooser-upload-title', modal.body).closest('li');
                 if (!li.hasClass('error')) {
                     li.addClass('error');
-                    $('#id_title', modal.body).closest('.field-content').append('<p class="error-message"><span>This field is required.</span></p>')
+                    $('#id_image-chooser-upload-title', modal.body).closest('.field-content').append('<p class="error-message"><span>This field is required.</span></p>')
                 }
                 setTimeout(cancelSpinner, 500);
             } else {
@@ -76,7 +81,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                     dataType: 'text',
                     success: modal.loadResponseText,
                     error: function(response, textStatus, errorThrown) {
-                        message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+                        var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
                         $('#upload').append(
                             '<div class="help-block help-critical">' +
                             '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
@@ -90,6 +95,9 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('form.image-search', modal.body).on('submit', search);
 
         $('#id_q').on('input', function() {
+            if (request) {
+                request.abort();
+            }
             clearTimeout($.data(this, 'timer'));
             var wait = setTimeout(search, 200);
             $(this).data('timer', wait);
@@ -106,11 +114,9 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         });
 
         function populateTitle(context) {
-            // Note: There are two inputs with `#id_title` on the page.
-            // The page title and image title. Select the input inside the modal body.
-            var fileWidget = $('#id_file', context);
+            var fileWidget = $('#id_image-chooser-upload-file', context);
             fileWidget.on('change', function () {
-                var titleWidget = $('#id_title', context);
+                var titleWidget = $('#id_image-chooser-upload-title', context);
                 var title = titleWidget.val();
                 if (title === '') {
                     // The file widget value example: `C:\fakepath\image.jpg`
@@ -122,11 +128,6 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         populateTitle(modal.body);
-
-        /* Add tag entry interface (with autocompletion) to the tag field of the image upload form */
-        $('#id_tags', modal.body).tagit({
-            autocomplete: {source: jsonData['tag_autocomplete_url']}
-        });
     },
     'image_chosen': function(modal, jsonData) {
         modal.respond('imageChosen', jsonData['result']);
@@ -134,8 +135,6 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     },
     'select_format': function(modal) {
         $('form', modal.body).on('submit', function() {
-            var formdata = new FormData(this);
-
             $.post(this.action, $(this).serialize(), modal.loadResponseText, 'text');
 
             return false;
