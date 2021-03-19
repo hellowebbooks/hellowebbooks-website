@@ -420,6 +420,8 @@ def invite_to_slack(email, product_name):
     could be deprecated in the future.)
 
     product_name: Expecting something like "Hello Web Books Video Package"
+    
+    DEPRECATED, NO LONGER USED
     """
     token = os.environ['SLACK_LEGACY_TOKEN']
     channels = ['C787P0PK8', 'C77F3724V',]

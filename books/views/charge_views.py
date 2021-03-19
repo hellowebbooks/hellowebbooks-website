@@ -246,7 +246,7 @@ def charge(request, product_slug=None):
             helpers.subscribe_to_newsletter(user.email, product_slug, has_paperback)
 
             # invite the person into the slack channel
-            helpers.invite_to_slack(user.email, product_name)
+            #helpers.invite_to_slack(user.email, product_name)
 
         # if this is a gifted product, send the person a gift email
         if 'giftee_user' in request.session:

@@ -69,6 +69,7 @@ def add_customer(email, hello_web_app, hello_web_design, active):
     )
 
     # invite the person into the slack channel
+    """
     if active == "active":
         print("Sending person to Slack: " + user.email)
         if not settings.DEBUG:
@@ -80,6 +81,7 @@ def add_customer(email, hello_web_app, hello_web_design, active):
             helpers.invite_to_slack(user.email, product_name)
     else:
         print("Skipping Slack: " + user.email)
+    """
 
     return
 
