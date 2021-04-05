@@ -187,10 +187,8 @@ command line, making sure you're in your project folder and the virtual
 environment is activated:</p>
 
 <pre><code class="sh">
-<span class="cmd">$</span> pip install Django==2.2.9
+<span class="cmd">$</span> pip install Django==3.2rc1
 </code></pre>
-
-<p><span class="highlight"><strong>NOTE:</strong> There are breaking changes to how registration works in Django 2.1, and <i>Hello Web App</i>'s current instructions do not contain this change. Please install the exact version above, or read <a href="http://discuss.hellowebapp.com/t/django-2-1-changes/618/7">this thread for how to upgrade</a>. An updated eBook will be released soon.</span></p>
 
 <p>We're telling pip to install a specific version of Django, in case Django
 releases a new version that this tutorial doesn't cover.</p>
@@ -213,16 +211,17 @@ contents part of a new Git repository. For more about git and why we should use
 it (spoiler: version control is very important <em>and</em> it&#39;s needed for deployment
 to Heroku), see the <a href="https://github.com/hellowebbooks/HelloWebApp/tree/master/git-tips">Git tips page
 here</a>.</p>
-        </div>
-        <div class="col-md-3 col-md-pull-9 text-right setup-sidebar">
-            <p><small style="display:block">
-                    <i><b>Optional but good to do:</b> Git will track <b>everything</b> in your directory, but we really only want it to track files we're actually changing. We can tell Git to ignore certain files by creating a </i>.gitignore<i> file in our top level directory (<code>touch .gitignore</code>), then open up the file with a code editor and <a href="https://hellowebapp.com/gitignore/">pasting everything here in</a>.
-</i></small></p>
-<p><small style="display:block"><i>
-            Then you can commit the file (<code>git add .</code> then <code>git commit -a -m "Added git ignore file"</code>) and now Git won't track those files.
-</i></small></p>
 
+<p><b>Optional but good to do:</b> Git will track <b>everything</b> in your directory, but we really only want it to track files we're actually changing. We can tell Git to ignore certain files by creating a <i>.gitignore</i> file in our <i>myhellowebapp</i> directory (<code>touch .gitignore</code>), then open up the file with a code editor and <a href="https://hellowebapp.com/gitignore/">pasting everything here in</a>.
+</i></small></p>
+<p>Then you can commit the file...</p>
 
+<pre><code class="sh">
+<span class="cmd">$</span> git add .
+<span class="cmd">$</span> git commit -a -m "Added git ignore file"
+</code></pre>
+
+<p>...and now Git won't track those files.</p>
         </div>
     </div>
 
@@ -255,6 +254,7 @@ myhellowebapp/
     manage.py
     hellowebapp/
         __init__.py
+        asgi.py
         settings.py
         urls.py
         wsgi.py
@@ -266,6 +266,7 @@ myhellowebapp/
 to interact with your project. You&#39;ll see it in action soon.</li>
 <li>The inner <em>hellowebapp</em> folder holds your project.</li>
 <li><em>__init__.py</em>: Ignorable — tells Python that this is a Python &quot;package&quot;.</li>
+<li><em>asgi.py</em>: Relates to deployment; we don't be using it.</li>
 <li><em>settings.py</em>: Aptly named — contains your settings.</li>
 <li><em>urls.py</em>: URL declarations for the project. Important and we&#39;ll go over this
 soon.</li>
@@ -291,8 +292,10 @@ time.</p>
 myhellowebapp/
     manage.py
     collection/
+        migrations/
         __init__.py
         admin.py
+        apps.py
         models.py
         tests.py
         views.py
@@ -305,8 +308,10 @@ myhellowebapp/
 
 <p>Note the additional &quot;collection&quot; folder in your project.</p>
 <ul>
+<li><em>migrations</em>: A directory created to contain your database migrations (we'll cover this soon).</li>
 <li><em>__init__.py</em>: Ignorable — again, Python just needs this empty file.</li>
 <li><em>admin.py</em>: Contains admin codebits.</li>
+<li><em>apps.py</em>: A file created by Django that we won't be using.</li>
 <li><em>models.py</em>: Where you&#39;ll define your database eventually.</li>
 <li><em>tests.py</em>: We&#39;ll eventually write tests to test your code for errors here.</li>
 <li><em>views.py</em>: Where the logic goes that powers your website.</li>
@@ -349,16 +354,59 @@ INSTALLED_APPS = (
 
 <h3 id="setup-database">Set up your database</h3>
 
-<p>Django has some fancypants utilities built in to keep your database (where
-all your dynamic information is stored) managable. We need to run the initial
-migration before we start the app, so in your top level folder (the one with <em>manage.py</em> in it), type this in:</p>
+<p>Django has some fancypants utilities built in to keep your database manageable. This is where
+all your dynamic information is stored, including any content that your users add when
+they interact with your future app.</p>
+
+<p>First, we need to make some quick edits to our <em>models.py</em> file, which
+was created in our <em>collection</em> directory. Copy this code and paste it in:</p>
+
+<em>models.py</em>
+<pre><code class="python">
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    pass
+</code></pre>
+
+<p>The top line should already be in the file; the rest we added. So, what are we doing? 
+Django has a way to store User information by default (usernames, passwords, etc.) But, 
+if you wanted to add extra information to this default set of info in the future, you
+might run into issues down the line if we just went with the default. By putting in the 
+above right at the start of your project, I'm giving you maximum flexibility for your 
+future project.</p>
+
+<p>Last thing we need to do is add one more bit to our <em>settings.py</em> — add this line
+to the bottom:</p>
+
+<em>settings.py</em>
+<pre><code class="python">
+AUTH_USER_MODEL = 'collection.User'
+</code></pre>
+
+<p>With this, we're telling Django to use the code we added in <em>models.py</em> by default 
+(<code>AUTH_USER_MODEL</code> setting, pointing to "User" in our "collection" app).</p>
+
+<p>Complete the set up of your database by creating what we call a &quot;migration.&quot; We'll
+explain databases and migrations more in depth in Chapter 6; long story short, we're 
+creating a history file for our database, and Django&#39;s <code>makemigrations</code> tool
+does this automatically for us. </p>
+
+<p>Run this command in your terminal (in your top level folder; the one with <em>manage.py</em> in it):</p>
+
+<pre><code class="sh">
+<span class="cmd">$</span> python manage.py makemigrations
+</code></pre>
+
+<p>Django will create that history file, and then we need to apply that history file by running 
+the <code>migrate</code> command. Type this in your terminal:</p>
 
 <pre><code class="sh">
 <span class="cmd">$</span> python manage.py migrate
 </code></pre>
 
-<p>It&#39;s going to create your database automatically for you and port over some
-information. Don&#39;t worry about understanding this just yet — we&#39;ll go over
+<p>Don&#39;t worry about understanding this just yet — we&#39;ll go over
 databases and migrations a bit more in the &quot;Adding Dynamic Data&quot; chapter of
 Hello Web App.</p>
 
