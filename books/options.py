@@ -216,7 +216,7 @@ course_list = OrderedDict({
             },
             '7': {
                 'name': 'Front-End Fun: Adding Gulp, Sass, and Bootstrap',
-                'video': 'https://player.vimeo.com/video/148565556',
+                'video': '',
                 'template': 'course/hwaic/sass-bootstrap.md',
                 'link': 'sass-bootstrap',
             },
