@@ -21,7 +21,7 @@ analytics.page("Books and Courses");
                     <a href="{% url 'learn-design' %}" title="Hello Web Design landing page"><img style="margin-bottom:10px" src="{% static '/images/hwd/hwd-courses.jpg' %}" alt="Hello Web Design" /></a>
                     <p><strong>Design shortcuts and fundamentals</strong> aimed for programmers, developers, marketers, and non-designers. Learn <em>just enough</em> design.</p>
                     <p style="margin-bottom:0"><a href="{% url 'learn-design' %}" class="btn btn-primary wrap-button">More about <i>Hello Web Design</i></a></p>
-                    <small><em>Pricing starts at $24.95</em></small>
+                    {% comment %}<small><em>Pricing starts at $24.95</em></small>{% endcomment %}
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@ analytics.page("Books and Courses");
                     <a href="{% url 'learn-django' %}" title="Hello Web App landing page"><img style="margin-bottom:10px" src="{% static '/images/original/hwa-courses.jpg' %}" alt="Hello Web App" /></a>
                     <p><strong>Want to build your first web app?</strong> Hello Web App walks you through building and launching a simple web app using Python and Django.</p>
                     <p style="margin-bottom:0"><a href="{% url 'learn-django' %}" class="btn btn-primary wrap-button">More about <i>Hello Web App</i></a></p>
-                    <small><em>Pricing starts at $34.95</em></small>
+                    {% comment %}<small><em>Pricing starts at $34.95</em></small>{% endcomment %}
                 </div>
             </div>
         </div>

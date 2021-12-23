@@ -1,5 +1,5 @@
 {% load static %}
-<div class="col-lg-10 col-lg-offset-1 col-md-12 package-container video-area">
+{% comment %}<div class="col-lg-10 col-lg-offset-1 col-md-12 package-container video-area">
     <div class="text-center" style="margin-bottom: 1em;">
         <img src="{% static '/images/icons/video.png' %}" alt="" height="50" />
         <h3><span class="highlight">The Videos + eBooks</span></h3>
@@ -34,9 +34,9 @@
             </div>
         </div>
     </div>
-</div>
+</div>{% endcomment %}
 
-<div class="col-lg-offset-1 col-lg-7 col-md-8">
+{% comment %}<div class="col-lg-offset-1 col-lg-7 col-md-8">
     <div class="package-container paperback-area">
         <div class="text-center" style="margin-bottom: 1em;">
             <img src="{% static '/images/icons/toc.png' %}" alt="" height="50" />
@@ -63,14 +63,15 @@
             </div>
         </div>
     </div>
-</div>
+</div>{% endcomment %}
 
-<div class="col-lg-3 col-md-4 package-container">
+{% comment %}<div class="col-lg-3 col-md-4 package-container">{% endcomment %}
+<div class="col-lg-10 col-lg-offset-1 col-md-12 package-container video-area" style="border:3px solid goldenrod; border-radius: 10px; padding: 3em;">
     <div class="text-center" style="margin-bottom: 1em;">
         <img src="{% static '/images/icons/ipad.png' %}" alt="" height="50" />
-        <h3>Just the eBooks</h3>
+        <h3>Buy the eBooks</h3>
     </div>
-    <p><strong>The digital books</strong>, lovingly designed by Tracy herself. Comes in PDF, .mobi, and .ePub formats for each.</p>
+    <p class="text-center"><strong>The digital books</strong>, lovingly designed by Tracy herself. Comes in PDF, .mobi, and .ePub formats for each.</p>
     <div class="text-center">
         <a class="btn btn-secondary buy-button" data-title="Hello Web App eBooks" data-category="Hello Web App" data-price="34.95" href="{% url 'upsell' product_slug='hwa-ebooks' %}">
             Buy for
