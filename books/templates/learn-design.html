@@ -194,7 +194,7 @@ analytics.page("Hello Web Design book landing page");
       {% include 'includes/product/hwd.html' %}
   </div>
 
-  <p class="text-center m-t-md m-b">(<span class="highlight"><b>Want to buy another book as well?</b></span> <a href="/order" title="Hello Web Books order page">See all combo packages here.</a>)</p>
+  {% comment %}<p class="text-center m-t-md m-b">(<span class="highlight"><b>Want to buy another book as well?</b></span> <a href="/order" title="Hello Web Books order page">See all combo packages here.</a>)</p>{% endcomment %}
 
   {# The FAQ area #}
   <div class="row">
@@ -209,8 +209,8 @@ analytics.page("Hello Web Design book landing page");
       <dt>How does <i>Hello Web Design</i> differ from other design books and courses?</dt>
       <dd><b><i>Hello Web Design</i> is deliberately short and the tone is friendly and informal with a bit of silliness mixed in.</b> Theory is touched on, but the focus is on shortcuts and real-world examples. Absolutely no bs or stodgy explanations. In a nutshell, it's small (in a good way), to the point, with lots of examples, and fun to read.</dd>
 
-      <dt>What if I don't like it?</dt>
-      <dd>That's cool! <b>Just let me know within 60 days</b> of ordering the book and I'll refund you in full.</dd>
+      {% comment %}<dt>What if I don't like it?</dt>
+      <dd>That's cool! <b>Just let me know within 60 days</b> of ordering the book and I'll refund you in full.</dd>{% endcomment %}
     </dl>
   </div>
 
@@ -231,15 +231,9 @@ analytics.page("Hello Web Design book landing page");
 
   {# Remind people to buy again #}
   <div class="row m-y-md">
-    <div class="col-sm-6 col-md-4 col-md-offset-2 text-center">
+    <div class="text-center">
       <h3>Ready to buy?</h3>
-      <p><i>Hello Web Design</i> is available as a video course, paperback book, or eBooks.</p>
-      <a href="#hwd-packages" class="btn btn-large btn-primary">Buy today</a>
-    </div>
-    <div class="col-sm-6 col-md-4 text-center">
-      <h3>Need more time?</h3>
-      <p>Get the sample and a free email course with design tips by signing up below.</p>
-      <a rel="ck_modal" href="#ck_modal" data-loc="Jumbotron" class="btn btn-large btn-secondary">Get free sample</a>
+      <a href="https://nostarch.com/hello-web-design" class="btn btn-large btn-primary">Buy the book on NoStarch.com</a>
     </div>
   </div>
 </div>
