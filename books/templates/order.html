@@ -35,8 +35,9 @@ analytics.page("Order");
                 <img src="{% static '/images/hwd/new-square.jpg' %}" alt="Hello Web Design"/>
             </a>
             <h3>Hello Web Design</h3>
-            <p>Learn design fundamentals, a tiny bit of theory, and a ton of shortcuts to help you learn design.</p>
-            <a href="#" class="btn btn-secondary disabled" role="button" aria-disabled="true">Temporarily Out</a>
+            <p>Learn design fundamentals, a tiny bit of theory, and a ton of shortcuts to help you learn design. <span class="highlight">Now being published through No Starch Press.</span></p>
+            {% comment %}<a href="#" class="btn btn-secondary disabled" role="button" aria-disabled="true">Temporarily Out</a>{% endcomment %}
+            <a class="btn btn-primary btn-cta" href="https://nostarch.com/hello-web-design">Click here to buy</a>
             {# <a href="#hwd" class="btn btn-secondary">Choose package</a> #}
             {# <p><small>Starting at $14.95</small></p> #}
         </div>
@@ -91,6 +92,7 @@ analytics.page("Order");
         {% include 'includes/product/hwa-hwd.html' %}
     </div>
 
+    {% comment %}
     <div class="text-center row">
         <div class="col-md-10 col-md-offset-1">
             <h2>Curious about the videos and screencasts? See a preview:</h2>
@@ -101,6 +103,7 @@ analytics.page("Order");
     </div>
 
     <hr/>
+    {% endcomment %}
 
     <div class="content-block text-center">
         <h2>Bulk and education discounts available</h2>
